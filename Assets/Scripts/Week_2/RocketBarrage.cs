@@ -30,14 +30,19 @@ public class RocketBarrage : MonoBehaviour
         for (int i = 0; i < rocketCount; i++)
         {
             isFinished = true;   
-            Instantiate(rocketPrefab, spawnPoint.position, Quaternion.Euler(0f, i * rocketSpacing() + rocketOffset, 0f));
+            Instantiate(rocketPrefab, spawnPoint.position, rocketAngleCalc(i));
             yield return new WaitForSeconds(spawnInterval);
         }
         
         isFinished = false;
     }
 
-    private int rocketSpacing()
+    private Quaternion rocketAngleCalc(int i) //Calculates the angle for each rocket based on the number of rockets and the offset
+    {
+        return Quaternion.Euler(0f, i * rocketSpacing() + rocketOffset, 0f);
+    }
+
+    private int rocketSpacing() //Calculates the spacing between each rocket
     {
         return 360/rocketCount;
     }
@@ -59,7 +64,7 @@ public class RocketBarrage : MonoBehaviour
         Gizmos.color = Color.red;
         for (int i = 0; i < rocketCount; i++)
         {
-            Vector3 direction = Quaternion.Euler(0f, i * rocketSpacing() + rocketOffset, 0f) * Vector3.forward;
+            Vector3 direction = rocketAngleCalc(i) * Vector3.forward;
             Gizmos.DrawRay(spawnPoint.position, direction * 5f);
         }
     }

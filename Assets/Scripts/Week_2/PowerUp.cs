@@ -9,6 +9,7 @@ public class PowerUp : MonoBehaviour
 {
     private Transform playerTransform;
     [SerializeField] private PowerUpType powerUpType;
+    [SerializeField] private float pickupRange = 1f;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -17,8 +18,8 @@ public class PowerUp : MonoBehaviour
 
     void Update()
     {
-        float distance = Vector3.Distance(this.transform.position, playerTransform.position);
-        if (distance <= 1f)
+        float distance = Vector3.Distance(this.transform.position, playerTransform.position); 
+        if (distance <= pickupRange)
         {
             if (powerUpType == PowerUpType.AddRocket)
             {

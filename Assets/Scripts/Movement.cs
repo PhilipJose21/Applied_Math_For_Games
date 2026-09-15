@@ -27,7 +27,7 @@ public class Movement : MonoBehaviour
     {
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
-        if (!hasDiagonalMovement)
+        if (!hasDiagonalMovement) //prevents diagonal movement by setting the smaller axis to 0
         {
             if (Mathf.Abs(horizontal) > Mathf.Abs(vertical))
             {
@@ -38,6 +38,7 @@ public class Movement : MonoBehaviour
                 horizontal = 0f;
             }
         }
+        
         Vector3 direction = new Vector3(horizontal, 0f, vertical);
         controller.Move(direction * speed * Time.deltaTime);
     }
