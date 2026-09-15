@@ -8,6 +8,7 @@ public class RocketBarrage : MonoBehaviour
     [SerializeField] private Transform spawnPoint;
     [SerializeField] private float spawnInterval = 1f;
     [SerializeField] private int rocketOffset = 45;
+    [SerializeField] private int maxRockets = 8;
     [SerializeField] private int rocketCount = 4;
     private bool isFinished = false;
 
@@ -17,6 +18,10 @@ public class RocketBarrage : MonoBehaviour
         if (!isFinished)
         {
             StartCoroutine(SpawnRockets());
+        }
+        if (rocketCount > maxRockets)
+        {
+            rocketCount = maxRockets;
         }
     }
 
@@ -39,7 +44,7 @@ public class RocketBarrage : MonoBehaviour
 
     public void IncreaseRocketCount()
     {
-        if (rocketCount < 8) // Limit the maximum number of rockets to 8
+        if (rocketCount < maxRockets) // Limit the maximum number of rockets to maxRockets
         {
             rocketCount++;
         }
