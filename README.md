@@ -2,3 +2,4 @@ Activity Demo's: https://drive.google.com/drive/u/1/folders/1Z40gnpHA4rlWBFCZgPe
 Current videos:
 Week 1 Activity
 Week 2 Activity
+Week 3 Activity
