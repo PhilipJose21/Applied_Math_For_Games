@@ -27,7 +27,7 @@ public class Projectile : MonoBehaviour
         if (playerTransform != null)
         {
             float distanceToPlayer = Vector3.Distance(transform.position, playerTransform.position);
-            if (distanceToPlayer < detectionRange)
+            if (distanceToPlayer <= detectionRange)
             {
                 playerTransform.GetComponent<Movement>().Die();
                 Destroy(gameObject);

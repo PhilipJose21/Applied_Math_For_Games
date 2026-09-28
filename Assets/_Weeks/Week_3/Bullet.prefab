@@ -103,7 +103,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1436504b7cbada4f826d3a8123752d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Projectile
-  speed: 10
-  lifetime: 5
   playerTransform: {fileID: 0}
-  detectionRange: 0.5
+  detectionRange: 1

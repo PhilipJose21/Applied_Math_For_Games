@@ -116,7 +116,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1.54
+      scalar: 6.59
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -4866,7 +4866,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3796689923267842217}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -5.2721395, y: 0.84, z: 1.34}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -4946,7 +4946,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TurretDetection
   detectionRadius: 0
   detectionRange: 10
-  detectionAngle: 60
+  detectionAngle: 102.1
   lineRenderer: {fileID: 7176612382809233458}
   startWidth: 0.1
   endWidth: 0.1
@@ -4964,7 +4964,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RotateTurret
   rotationType: 3
-  rotationSpeed: 7.5
+  rotationSpeed: 15
 --- !u!114 &1749110629328808925
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5029,27 +5029,27 @@ LineRenderer:
   m_MaskInteraction: 0
   m_Positions:
   - {x: 0, y: 0, z: 0}
-  - {x: -5, y: 0, z: 8.660254}
-  - {x: -4.539905, y: 0, z: 8.910066}
-  - {x: -4.0673666, y: 0, z: 9.135454}
-  - {x: -3.5836794, y: 0, z: 9.335804}
-  - {x: -3.09017, y: 0, z: 9.510566}
-  - {x: -2.5881906, y: 0, z: 9.659258}
-  - {x: -2.0791168, y: 0, z: 9.781476}
-  - {x: -1.5643448, y: 0, z: 9.8768835}
-  - {x: -1.0452845, y: 0, z: 9.945219}
-  - {x: -0.5233597, y: 0, z: 9.986295}
+  - {x: -7.776948, y: 0, z: 6.28642}
+  - {x: -7.1867266, y: 0, z: 6.9534855}
+  - {x: -6.539489, y: 0, z: 7.565387}
+  - {x: -5.840372, y: 0, z: 8.1172695}
+  - {x: -5.09492, y: 0, z: 8.6047535}
+  - {x: -4.3090487, y: 0, z: 9.023973}
+  - {x: -3.4889915, y: 0, z: 9.371603}
+  - {x: -2.6412556, y: 0, z: 9.644883}
+  - {x: -1.7725649, y: 0, z: 9.841647}
+  - {x: -0.88981235, y: 0, z: 9.960333}
   - {x: 0, y: 0, z: 10}
-  - {x: 0.5233597, y: 0, z: 9.986295}
-  - {x: 1.0452849, y: 0, z: 9.945219}
-  - {x: 1.5643443, y: 0, z: 9.8768835}
-  - {x: 2.0791168, y: 0, z: 9.781476}
-  - {x: 2.5881906, y: 0, z: 9.659258}
-  - {x: 3.09017, y: 0, z: 9.510566}
-  - {x: 3.5836797, y: 0, z: 9.335804}
-  - {x: 4.067366, y: 0, z: 9.135455}
-  - {x: 4.539905, y: 0, z: 8.910066}
-  - {x: 5, y: 0, z: 8.660254}
+  - {x: 0.88981235, y: 0, z: 9.960333}
+  - {x: 1.7725654, y: 0, z: 9.841646}
+  - {x: 2.641255, y: 0, z: 9.644883}
+  - {x: 3.4889915, y: 0, z: 9.371603}
+  - {x: 4.3090487, y: 0, z: 9.023973}
+  - {x: 5.09492, y: 0, z: 8.6047535}
+  - {x: 5.840372, y: 0, z: 8.1172695}
+  - {x: 6.539489, y: 0, z: 7.5653877}
+  - {x: 7.1867266, y: 0, z: 6.9534855}
+  - {x: 7.776948, y: 0, z: 6.28642}
   - {x: 0, y: 0, z: 0}
   m_Parameters:
     serializedVersion: 3
@@ -5129,6 +5129,7 @@ GameObject:
   - component: {fileID: 6968919035307986431}
   - component: {fileID: 3078528001242668965}
   - component: {fileID: 6763471380012683603}
+  - component: {fileID: 7527865462465726308}
   - component: {fileID: 6733048697952792738}
   m_Layer: 0
   m_Name: Flame
@@ -5167,7 +5168,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TurretDetection
   detectionRadius: 0
   detectionRange: 7.5
-  detectionAngle: 24
+  detectionAngle: 65.4
   lineRenderer: {fileID: 6733048697952792738}
   startWidth: 0.1
   endWidth: 0.1
@@ -5184,6 +5185,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99469362f63fc3e4bb51dab9ad5b1ca0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DamagePlayer
+--- !u!114 &7527865462465726308
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4777463466753233171}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8c6de985092b5c4690e4f4a9643342f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ParticleShape
+  particles: {fileID: 2337079455754589174}
+  particleSpeed: 10
+  particleSize: 1
 --- !u!120 &6733048697952792738
 LineRenderer:
   serializedVersion: 3
@@ -5235,27 +5251,27 @@ LineRenderer:
   m_MaskInteraction: 0
   m_Positions:
   - {x: 0, y: 0, z: 0}
-  - {x: -1.5593377, y: 0, z: 7.3361073}
-  - {x: -1.4053599, y: 0, z: 7.367154}
-  - {x: -1.2507656, y: 0, z: 7.39497}
-  - {x: -1.0956227, y: 0, z: 7.419543}
-  - {x: -0.93999916, y: 0, z: 7.4408603}
-  - {x: -0.7839635, y: 0, z: 7.4589143}
-  - {x: -0.62758374, y: 0, z: 7.4736967}
-  - {x: -0.4709289, y: 0, z: 7.4852004}
-  - {x: -0.31406736, y: 0, z: 7.4934216}
-  - {x: -0.1570682, y: 0, z: 7.498355}
+  - {x: -4.0518026, y: 0, z: 6.311331}
+  - {x: -3.685199, y: 0, z: 6.532175}
+  - {x: -3.306595, y: 0, z: 6.7317476}
+  - {x: -2.9172237, y: 0, z: 6.9094}
+  - {x: -2.518353, y: 0, z: 7.0645523}
+  - {x: -2.1112816, y: 0, z: 7.1966996}
+  - {x: -1.6973349, y: 0, z: 7.305413}
+  - {x: -1.2778611, y: 0, z: 7.3903365}
+  - {x: -0.85422623, y: 0, z: 7.451195}
+  - {x: -0.42780977, y: 0, z: 7.4877887}
   - {x: 0, y: 0, z: 7.5}
-  - {x: 0.1570682, y: 0, z: 7.498355}
-  - {x: 0.31406748, y: 0, z: 7.4934216}
-  - {x: 0.4709288, y: 0, z: 7.4852004}
-  - {x: 0.62758374, y: 0, z: 7.4736967}
-  - {x: 0.7839635, y: 0, z: 7.4589143}
-  - {x: 0.9399993, y: 0, z: 7.4408603}
-  - {x: 1.0956228, y: 0, z: 7.419543}
-  - {x: 1.2507654, y: 0, z: 7.3949704}
-  - {x: 1.4053597, y: 0, z: 7.367154}
-  - {x: 1.5593377, y: 0, z: 7.3361073}
+  - {x: 0.42780977, y: 0, z: 7.4877887}
+  - {x: 0.85422647, y: 0, z: 7.451195}
+  - {x: 1.2778609, y: 0, z: 7.3903365}
+  - {x: 1.6973349, y: 0, z: 7.305413}
+  - {x: 2.1112816, y: 0, z: 7.1966996}
+  - {x: 2.518353, y: 0, z: 7.0645523}
+  - {x: 2.917224, y: 0, z: 6.9094}
+  - {x: 3.306595, y: 0, z: 6.7317476}
+  - {x: 3.685199, y: 0, z: 6.532175}
+  - {x: 4.0518026, y: 0, z: 6.311331}
   - {x: 0, y: 0, z: 0}
   m_Parameters:
     serializedVersion: 3
@@ -5816,7 +5832,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 23
+  m_VersionIndex: 74
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []

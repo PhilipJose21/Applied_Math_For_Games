@@ -179,7 +179,7 @@ MonoBehaviour:
   spreadAngle: 30
   fireRate: 1
   bulletSpeed: 25
-  bulletLifetime: 0.15
+  bulletLifetime: 0.2
 --- !u!120 &8856332475571111093
 LineRenderer:
   serializedVersion: 3
