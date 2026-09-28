@@ -53,19 +53,11 @@ public class PlayerDetection : MonoBehaviour
         if (detectionRadius == DetectionRadius.Cone)
         {
             DrawCone();
-        }
-        else if (detectionRadius == DetectionRadius.Sphere)
-        {
-            DrawSphere();
-        }
-
-        //THIS ONE
-        if (detectionRadius == DetectionRadius.Cone)
-        {
             DetectionType(IsInCone(transform, player, detectionRange, detectionAngle));
         }
         else if (detectionRadius == DetectionRadius.Sphere)
         {
+            DrawSphere();
             DetectionType(IsInSphere(transform, player, detectionRange));
         }
     }
@@ -85,17 +77,21 @@ public class PlayerDetection : MonoBehaviour
 
     bool IsInCone(Transform turret, Transform player, float range, float coneAngle)
     {
-        if (player == null) return false;
+        if (player == null) return false;//checks if player is in the scene
+
+        //Calculate local pos of player to the turret
         Vector3 localPosition = turret.InverseTransformPoint(player.position);
         Vector2 direction = new Vector2(localPosition.x, localPosition.z);
         isPlayerDetected = false;
 
+        //check if player is in the range and if the player is in front of the turret
         if (direction.magnitude > range || localPosition.z < 0f)
         {
             isPlayerDetected = false;
             return isPlayerDetected;
         }
 
+        //how far the player is off to the side from the turrets forward direction
         float targetAngle = Mathf.Atan2(direction.x, direction.y) * Mathf.Rad2Deg;
         isPlayerDetected = Mathf.Abs(targetAngle) <= coneAngle / 2f;
         return isPlayerDetected;
@@ -103,7 +99,9 @@ public class PlayerDetection : MonoBehaviour
 
     bool IsInSphere(Transform turret, Transform player, float range)
     {
-        if (player == null) return false;
+        if (player == null) return false;//checks if player is in the scene
+
+        //checks if the player is within the range of the turret
         Vector3 localPosition = turret.InverseTransformPoint(player.position);
         Vector2 direction = new Vector2(localPosition.x, localPosition.z);
         isPlayerDetected = direction.magnitude <= range;
@@ -112,9 +110,11 @@ public class PlayerDetection : MonoBehaviour
 
     void DrawCone()
     {
+        //changes components of the linerenderer to draw a circle
         lineRenderer.loop = false;
         lineRenderer.positionCount = 4;
 
+        //Sets up variables for drawing the linerenderer cone
         float halfAngle = detectionAngle / 2f * Mathf.Deg2Rad;
 
         Vector3 left = new Vector3(-Mathf.Sin(halfAngle), 
@@ -123,6 +123,7 @@ public class PlayerDetection : MonoBehaviour
         Vector3 right = new Vector3(Mathf.Sin(halfAngle), 
         0f, Mathf.Cos(halfAngle)) * detectionRange;
 
+        //Draws the cone using the linerenderer
         lineRenderer.SetPosition(0, Vector3.zero);
         lineRenderer.SetPosition(1, left);
         lineRenderer.SetPosition(2, right);
@@ -131,12 +132,15 @@ public class PlayerDetection : MonoBehaviour
 
     void DrawSphere()
     {
+        //Sets up variables for drawing the linerenderer circle
         int segments = 36;
         float angleStep = 360f / segments;
 
+        //changes components of the linerenderer to draw a circle
         lineRenderer.loop = false;
         lineRenderer.positionCount = segments + 1;
 
+        //Draw a circle in the XZ plane
         for (int i = 0; i <= segments; i++)
         {
             float angle = i * angleStep * Mathf.Deg2Rad;

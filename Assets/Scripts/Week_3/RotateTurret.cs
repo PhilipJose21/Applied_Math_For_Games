@@ -60,13 +60,16 @@ public class RotateTurret : MonoBehaviour
 
     void LookAtTargetWithOffset(Transform target)
     {
-        if (target == null) return;
+        if (target == null) return;//if there is no target, return
+
+        //calculate the direction to the target and the angle to rotate towards it
         var dir = target.position - transform.position;
         var angle = Mathf.Atan2(dir.x, dir.z) * Mathf.Rad2Deg;
 
-        // Add an offset of 45 degrees to the rotation
+        //offset the angle to make the turret look at the player from a different angle
         angle += 45f;
 
+        //rotates turret
         transform.rotation = Quaternion.RotateTowards(
             transform.rotation,
             Quaternion.Euler(0, angle, 0),
@@ -76,10 +79,13 @@ public class RotateTurret : MonoBehaviour
 
     void LookAtTarget(Transform target)
     {
-        if (target == null) return;
+        if (target == null) return;//if there is no target, return
+
+        //calculate the direction to the target and the angle to rotate towards it
         var dir = target.position - transform.position;
         var angle = Mathf.Atan2(dir.x, dir.z) * Mathf.Rad2Deg;
 
+        //rotates turret
         this.transform.rotation = Quaternion.Slerp(this.transform.rotation,
         Quaternion.Euler(0, angle, 0), 
         rotationSpeed * Time.deltaTime);
