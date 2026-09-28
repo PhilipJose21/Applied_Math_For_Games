@@ -3,12 +3,14 @@ using System;
 
 
 
+[ExecuteAlways]
 public class PlayerDetection : MonoBehaviour
 {
     public enum DetectionRadius
     {
         Cone,
-        Sphere
+        Sphere,
+        ObjectSize
     }
     
     private Transform player;
@@ -30,35 +32,83 @@ public class PlayerDetection : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        lineRenderer = GetComponent<LineRenderer>();
-        lineRenderer.startWidth = startWidth;
-        lineRenderer.endWidth = endWidth;
-
-        lineRenderer.useWorldSpace = false;
-        lineRenderer.loop = false;
-        lineRenderer.positionCount = 4;
-
-        
-        lineRenderer.startColor = lineColor;
-        lineRenderer.endColor = lineColor;
+        SetupLineRenderer();
 
         player = GameObject.FindGameObjectWithTag("Player")?.transform;
         rotateTurret = GetComponent<RotateTurret>();
         damagePlayer = GetComponent<DamagePlayer>();
     }
 
+    //TO MAKE THE LINERENDERER VISIBLE IN EDITOR
+    void OnEnable()
+    {
+        SetupLineRenderer();
+    }
+
+    void OnValidate()
+    {
+        SetupLineRenderer();
+        DrawDetectionShape();
+    }
+
     // Update is called once per frame
     void Update()
     {
+        DrawDetectionShape();
+
+        if (!Application.isPlaying)
+        {
+            return;
+        }
+
         if (detectionRadius == DetectionRadius.Cone)
         {
-            DrawCone();
             DetectionType(IsInCone(transform, player, detectionRange, detectionAngle));
         }
         else if (detectionRadius == DetectionRadius.Sphere)
         {
-            DrawSphere();
             DetectionType(IsInSphere(transform, player, detectionRange));
+        }
+        else if (detectionRadius == DetectionRadius.ObjectSize)
+        {
+            DetectionType(IsInObjectSize(transform, player));
+        }
+    }
+
+    void SetupLineRenderer()
+    {
+        if (lineRenderer == null)
+        {
+            lineRenderer = GetComponent<LineRenderer>();
+        }
+
+        if (lineRenderer == null)
+        {
+            return;
+        }
+
+        lineRenderer.startWidth = startWidth;
+        lineRenderer.endWidth = endWidth;
+        lineRenderer.useWorldSpace = false;
+        lineRenderer.loop = false;
+        lineRenderer.startColor = lineColor;
+        lineRenderer.endColor = lineColor;
+    }
+
+    void DrawDetectionShape()
+    {
+        if (lineRenderer == null)
+        {
+            return;
+        }
+
+        if (detectionRadius == DetectionRadius.Cone)
+        {
+            DrawCone();
+        }
+        else if (detectionRadius == DetectionRadius.Sphere)
+        {
+            DrawSphere();
         }
     }
 
@@ -67,12 +117,31 @@ public class PlayerDetection : MonoBehaviour
         return isPlayerDetected;
     }
 
+    public float GetDetectionAngle()
+    {
+        return detectionAngle;
+    }
+
+    public float GetDetectionRange()
+    {
+        return detectionRange;
+    }
+
     private void DetectionType(bool playerDetected)
     {
-        if (playerDetected)
-        {
-            isPlayerDetected = true;
-        }
+        isPlayerDetected = playerDetected;
+    }
+
+    bool IsInObjectSize(Transform turret, Transform player)
+    {
+        if (player == null) return false;//checks if player is in the scene
+
+        float scale = 1.5f;
+        float range = this.transform.localScale.x / scale; //makes the range of the detection area the size of the object
+        float distance = Vector3.Distance(player.position, transform.position); //gets distance
+
+        isPlayerDetected = distance <= range; 
+        return isPlayerDetected;
     }
 
     bool IsInCone(Transform turret, Transform player, float range, float coneAngle)
@@ -110,24 +179,21 @@ public class PlayerDetection : MonoBehaviour
 
     void DrawCone()
     {
-        //changes components of the linerenderer to draw a circle
+        int segments = 20;
         lineRenderer.loop = false;
-        lineRenderer.positionCount = 4;
+        lineRenderer.positionCount = segments + 3;
 
-        //Sets up variables for drawing the linerenderer cone
-        float halfAngle = detectionAngle / 2f * Mathf.Deg2Rad;
-
-        Vector3 left = new Vector3(-Mathf.Sin(halfAngle), 
-        0f, Mathf.Cos(halfAngle)) * detectionRange;
-
-        Vector3 right = new Vector3(Mathf.Sin(halfAngle), 
-        0f, Mathf.Cos(halfAngle)) * detectionRange;
-
-        //Draws the cone using the linerenderer
+        float halfAngle = detectionAngle / 2f;
         lineRenderer.SetPosition(0, Vector3.zero);
-        lineRenderer.SetPosition(1, left);
-        lineRenderer.SetPosition(2, right);
-        lineRenderer.SetPosition(3, Vector3.zero);
+
+        for (int i = 0; i <= segments; i++)
+        {
+            float a = Mathf.Lerp(-halfAngle, halfAngle, i / (float)segments) * Mathf.Deg2Rad;
+            Vector3 p = new Vector3(Mathf.Sin(a), 0f, Mathf.Cos(a)) * detectionRange;
+            lineRenderer.SetPosition(i + 1, p);
+        }
+
+        lineRenderer.SetPosition(segments + 2, Vector3.zero);
     }
 
     void DrawSphere()

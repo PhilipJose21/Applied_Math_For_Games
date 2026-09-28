@@ -1,9 +1,10 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
-    [SerializeField] private float speed = 10f;
-    [SerializeField] private float lifetime = 5f;
+    private float speed;
+    private float lifetime;
     [SerializeField] private Transform playerTransform;
     [SerializeField] private float detectionRange = 1f;
 
@@ -28,7 +29,7 @@ public class Projectile : MonoBehaviour
             float distanceToPlayer = Vector3.Distance(transform.position, playerTransform.position);
             if (distanceToPlayer < detectionRange)
             {
-                Debug.Log("Player hit by projectile!");
+                playerTransform.GetComponent<Movement>().Die();
                 Destroy(gameObject);
             }
         }
@@ -41,6 +42,17 @@ public class Projectile : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    public void SetSpeed(float newSpeed)
+    {
+        speed = newSpeed;
+    }
+
+    public void SetLifetime(float newLifetime)
+    {
+        lifetime = newLifetime;
+        timer = lifetime;
     }
 
 

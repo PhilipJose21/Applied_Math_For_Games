@@ -5,6 +5,8 @@ public class Sniper : MonoBehaviour
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private Transform firePoint;
     [SerializeField] private float fireRate = 1f;
+    [SerializeField] private float bulletSpeed = 10f;
+    [SerializeField] private float bulletLifetime = 5f;
     private float cooldown;
     PlayerDetection playerDetection;
 
@@ -28,7 +30,9 @@ public class Sniper : MonoBehaviour
         if (cooldown <= 0f)
         {
             Quaternion bulletRotation = firePoint.rotation * Quaternion.Euler(90f, 0f, 0f);
-            Instantiate(bulletPrefab, firePoint.position, bulletRotation);
+            GameObject bullet = Instantiate(bulletPrefab, firePoint.position, bulletRotation);
+            bullet.GetComponent<Projectile>().SetSpeed(bulletSpeed);
+            bullet.GetComponent<Projectile>().SetLifetime(bulletLifetime);
             cooldown = fireRate;
         }
     }

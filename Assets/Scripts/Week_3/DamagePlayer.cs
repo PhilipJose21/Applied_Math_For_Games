@@ -18,6 +18,14 @@ public class DamagePlayer : MonoBehaviour
 
     public void Damage()
     {
-        Debug.Log("Player has been damaged!");
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player != null)
+        {
+            Movement playerMovement = player.GetComponent<Movement>();
+            if (playerMovement != null)
+            {
+                playerMovement.Die();
+            }
+        }
     }
 }

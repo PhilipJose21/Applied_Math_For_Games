@@ -9,7 +9,7 @@ public class RotateTurret : MonoBehaviour
         None,
         AutoRotate,
         LookAtTarget,
-        LookAtTargetWithOffset
+        LookAtTargetWithDelay
     }
 
 
@@ -39,9 +39,9 @@ public class RotateTurret : MonoBehaviour
         {
             LookAtTarget(player);
         }
-        else if (rotationType == RotationType.LookAtTargetWithOffset)
+        else if (rotationType == RotationType.LookAtTargetWithDelay)
         {
-            LookAtTargetWithOffset(player);
+            LookAtTargetWithDelay(player);
         }
         else if (rotationType == RotationType.AutoRotate)
         {
@@ -58,22 +58,19 @@ public class RotateTurret : MonoBehaviour
         transform.Rotate(Vector3.up * rotationSpeed * Time.deltaTime);
     }
 
-    void LookAtTargetWithOffset(Transform target)
+    void LookAtTargetWithDelay(Transform target)
     {
         if (target == null) return;//if there is no target, return
 
         //calculate the direction to the target and the angle to rotate towards it
         var dir = target.position - transform.position;
         var angle = Mathf.Atan2(dir.x, dir.z) * Mathf.Rad2Deg;
-
-        //offset the angle to make the turret look at the player from a different angle
-        angle += 45f;
-
+        var speed = rotationSpeed * Time.deltaTime;
+       
         //rotates turret
         transform.rotation = Quaternion.RotateTowards(
             transform.rotation,
-            Quaternion.Euler(0, angle, 0),
-            rotationSpeed * Time.deltaTime
+            Quaternion.Euler(0, angle, 0),speed
         );
     }
 
