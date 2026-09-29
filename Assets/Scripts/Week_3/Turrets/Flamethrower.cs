@@ -3,17 +3,17 @@ using UnityEngine;
 public class Flamethrower : MonoBehaviour
 {
     [SerializeField] private GameObject flameParticles;
-    PlayerDetection playerDetection;
+    TargetDetection targetDetection;
 
     void Start()
     {
-        playerDetection = GetComponent<PlayerDetection>();
+        targetDetection = GetComponent<TargetDetection>();
         flameParticles.SetActive(false);
     }
 
     void Update()
     {
-        if (playerDetection.IsPlayerDetected())
+        if (targetDetection.IsTargetDetected())
         {
             flameParticles.SetActive(true);
         }

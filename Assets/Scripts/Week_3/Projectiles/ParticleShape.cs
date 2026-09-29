@@ -6,12 +6,12 @@ public class ParticleShape : MonoBehaviour
     [SerializeField] private float particleSpeed = 10f;   // world units per second
     [SerializeField] private float particleSize = 1f;     // world units
 
-    PlayerDetection playerDetection;
+    TargetDetection targetDetection;
     ParticleSystem ps;
 
     void Start()
     {
-        playerDetection = GetComponent<PlayerDetection>();
+        targetDetection = GetComponent<TargetDetection>();
         ps = particles.GetComponentInChildren<ParticleSystem>(true);
 
         // Emitter must sit exactly on the turret so its axes match the detection area
@@ -39,9 +39,9 @@ public class ParticleShape : MonoBehaviour
 
     void ApplyDetectionShape()
     {
-        float angle = playerDetection.GetDetectionAngle();
+        float angle = targetDetection.GetDetectionAngle();
         // Detection range is in the turret's local space, so convert to world units
-        float worldRange = playerDetection.GetDetectionRange() * transform.lossyScale.z;
+        float worldRange = targetDetection.GetDetectionRange() * transform.lossyScale.z;
 
         var main = ps.main;
         main.scalingMode = ParticleSystemScalingMode.Shape;

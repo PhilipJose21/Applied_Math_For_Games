@@ -1,4 +1,6 @@
 using UnityEngine;
+using System.Collections.Generic;
+using System;
 using UnityEngine.Events;
 
 
@@ -12,8 +14,20 @@ public class RotateTurret : MonoBehaviour
         LookAtTargetWithDelay
     }
 
+    public enum TargetType
+    {
+        First,
+        Last,
+        Closest,
+        Furthest,
+        LowestHealth,
+        HighestHealth
+    }
 
-    private PlayerDetection playerDetection;
+
+    [SerializeField] private List<Transform> allTargetsInRadius = new List<Transform>();
+    private TargetType targetType = TargetType.First;
+    private TargetDetection targetDetection;
     [SerializeField] private RotationType rotationType = RotationType.AutoRotate;
     [SerializeField] private float rotationSpeed = 5f;
     
@@ -22,12 +36,13 @@ public class RotateTurret : MonoBehaviour
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player")?.transform;
-        playerDetection = GetComponent<PlayerDetection>();
+        targetDetection = GetComponent<TargetDetection>();
     }
 
     void Update()
     {
-        if (playerDetection.IsPlayerDetected())
+        allTargetsInRadius = targetDetection.GetTargetsInRadius();
+        if (targetDetection.IsTargetDetected())
         {
             checkRotateType();
         }
@@ -35,23 +50,54 @@ public class RotateTurret : MonoBehaviour
 
     public void checkRotateType()
     {
-        if (rotationType == RotationType.LookAtTarget)
+        switch(rotationType)
         {
-            LookAtTarget(player);
-        }
-        else if (rotationType == RotationType.LookAtTargetWithDelay)
-        {
-            LookAtTargetWithDelay(player);
-        }
-        else if (rotationType == RotationType.AutoRotate)
-        {
-            AutoRotate();
-        }
-        else if (rotationType == RotationType.None)
-        {
-            return;
+            case RotationType.LookAtTarget:
+                LookAtTarget(GetTargetByType(targetType));
+                break;
+            case RotationType.LookAtTargetWithDelay:
+                LookAtTargetWithDelay(GetTargetByType(targetType));
+                break;
+            case RotationType.AutoRotate:
+                AutoRotate();
+                break;
+            case RotationType.None:
+                return;
         }
     }
+
+    private Transform GetTargetByType(TargetType type)
+    {
+        Transform target = null;
+        for (int i = 0; i < allTargetsInRadius.Count; i++)
+        {
+            Transform t = allTargetsInRadius[i];
+            if (t == null) continue;
+
+            switch (type)
+            {
+                case TargetType.First:
+                    target = t;
+                    break;
+                case TargetType.Last:
+                    target = allTargetsInRadius[allTargetsInRadius.Count - 1];
+                    break;
+                case TargetType.Closest:
+                    if (target == null || Vector3.Distance(transform.position, t.position) < Vector3.Distance(transform.position, target.position))
+                    {
+                        target = t;
+                    }
+                    break;
+                case TargetType.Furthest:
+                    if (target == null || Vector3.Distance(transform.position, t.position) > Vector3.Distance(transform.position, target.position))
+                    {
+                        target = t;
+                    }
+                    break;
+            }
+        }
+        return target;
+    } 
 
     void AutoRotate()
     {

@@ -8,17 +8,17 @@ public class Sniper : MonoBehaviour
     [SerializeField] private float bulletSpeed = 10f;
     [SerializeField] private float bulletLifetime = 5f;
     private float cooldown;
-    PlayerDetection playerDetection;
+    private TargetDetection targetDetection;
 
     void Start()
     {
-        playerDetection = GetComponent<PlayerDetection>();
+        targetDetection = GetComponent<TargetDetection>();
         cooldown = fireRate;
     }
 
     void Update()
     {
-        if (playerDetection.IsPlayerDetected())
+        if (targetDetection.IsTargetDetected())
         {
             Fire();
         }

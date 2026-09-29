@@ -140,9 +140,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3d8a769021bd94eae20620c927a38f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TurretDetection
+  allTargets: []
+  allTargetsInRadius: []
   detectionRadius: 0
   detectionRange: 11
   detectionAngle: 75
+  targetRefreshInterval: 0.5
   lineRenderer: {fileID: 8856332475571111093}
   startWidth: 0.1
   endWidth: 0.1

@@ -4944,9 +4944,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3d8a769021bd94eae20620c927a38f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TurretDetection
+  allTargets: []
+  allTargetsInRadius: []
   detectionRadius: 0
   detectionRange: 10
   detectionAngle: 102.1
+  targetRefreshInterval: 0.5
   lineRenderer: {fileID: 7176612382809233458}
   startWidth: 0.1
   endWidth: 0.1
@@ -5166,9 +5169,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3d8a769021bd94eae20620c927a38f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TurretDetection
+  allTargets: []
+  allTargetsInRadius: []
   detectionRadius: 0
   detectionRange: 7.5
   detectionAngle: 65.4
+  targetRefreshInterval: 0.5
   lineRenderer: {fileID: 6733048697952792738}
   startWidth: 0.1
   endWidth: 0.1

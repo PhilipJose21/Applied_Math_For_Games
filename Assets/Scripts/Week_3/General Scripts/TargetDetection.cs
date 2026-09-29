@@ -1,10 +1,10 @@
 using UnityEngine;
 using System;
-
+using System.Collections.Generic;
 
 
 [ExecuteAlways]
-public class PlayerDetection : MonoBehaviour
+public class TargetDetection : MonoBehaviour
 {
     public enum DetectionRadius
     {
@@ -13,10 +13,12 @@ public class PlayerDetection : MonoBehaviour
         ObjectSize
     }
     
-    private Transform player;
+    
+    [SerializeField] private List<Transform> allTargets = new List<Transform>();
+    [SerializeField] private List<Transform> allTargetsInRadius = new List<Transform>();
+    private Transform target;
     private RotateTurret rotateTurret;
-    private DamagePlayer damagePlayer;
-    private bool isPlayerDetected = false;
+    private bool isTargetDetected = false;
 
     [SerializeField] private DetectionRadius detectionRadius = DetectionRadius.Cone;
     [SerializeField] private float detectionRange = 10f;
@@ -33,10 +35,7 @@ public class PlayerDetection : MonoBehaviour
     void Start()
     {
         SetupLineRenderer();
-
-        player = GameObject.FindGameObjectWithTag("Player")?.transform;
         rotateTurret = GetComponent<RotateTurret>();
-        damagePlayer = GetComponent<DamagePlayer>();
     }
 
     //TO MAKE THE LINERENDERER VISIBLE IN EDITOR
@@ -55,66 +54,88 @@ public class PlayerDetection : MonoBehaviour
     void Update()
     {
         DrawDetectionShape();
-
+        RefreshTargets();
+        getTargetsInRadius();
         if (!Application.isPlaying)
         {
             return;
         }
 
-        if (detectionRadius == DetectionRadius.Cone)
+        switch (detectionRadius)
         {
-            DetectionType(IsInCone(transform, player, detectionRange, detectionAngle));
-        }
-        else if (detectionRadius == DetectionRadius.Sphere)
-        {
-            DetectionType(IsInSphere(transform, player, detectionRange));
-        }
-        else if (detectionRadius == DetectionRadius.ObjectSize)
-        {
-            DetectionType(IsInObjectSize(transform, player));
-        }
-    }
-
-    void SetupLineRenderer()
-    {
-        if (lineRenderer == null)
-        {
-            lineRenderer = GetComponent<LineRenderer>();
-        }
-
-        if (lineRenderer == null)
-        {
-            return;
-        }
-
-        lineRenderer.startWidth = startWidth;
-        lineRenderer.endWidth = endWidth;
-        lineRenderer.useWorldSpace = false;
-        lineRenderer.loop = false;
-        lineRenderer.startColor = lineColor;
-        lineRenderer.endColor = lineColor;
-    }
-
-    void DrawDetectionShape()
-    {
-        if (lineRenderer == null)
-        {
-            return;
-        }
-
-        if (detectionRadius == DetectionRadius.Cone)
-        {
-            DrawCone();
-        }
-        else if (detectionRadius == DetectionRadius.Sphere)
-        {
-            DrawSphere();
+            case DetectionRadius.Cone:
+                DetectionType(IsInCone(transform, target, detectionRange, detectionAngle));
+                break;
+            case DetectionRadius.Sphere:
+                DetectionType(IsInSphere(transform, target, detectionRange));
+                break;
+            case DetectionRadius.ObjectSize:
+                DetectionType(IsInObjectSize(transform, target));
+                break;
         }
     }
 
-    public bool IsPlayerDetected()
+    void RefreshTargets()
     {
-        return isPlayerDetected;
+        // remove destroyed enemies first so the list doesn't fill up with nulls
+        for (int i = allTargets.Count - 1; i >= 0; i--)
+        {
+            if (allTargets[i] == null)
+            {
+                allTargets.RemoveAt(i);
+            }
+        }
+
+        // add any new enemies
+        GameObject[] found = GameObject.FindGameObjectsWithTag("Enemy");
+        for (int i = 0; i < found.Length; i++)
+        {
+            Transform t = found[i].transform;
+            if (!allTargets.Contains(t))
+            {
+                allTargets.Add(t);
+            }
+        }
+    }
+
+    void getTargetsInRadius()
+    {
+        allTargetsInRadius.Clear();
+        for (int i = 0; i < allTargets.Count; i++)
+        {
+            Transform t = allTargets[i];
+            if (IsDetected(t))
+            {
+                allTargetsInRadius.Add(t);
+            }
+        }
+    }
+
+    bool IsDetected(Transform target)
+    {
+        if (target==null) return false;
+        switch (detectionRadius)
+        {
+            case DetectionRadius.Cone:
+                return IsInCone(transform, target, detectionRange, detectionAngle);
+            case DetectionRadius.Sphere:
+                return IsInSphere(transform, target, detectionRange);
+            case DetectionRadius.ObjectSize:
+                return IsInObjectSize(transform, target);
+            default:
+                return false;
+        }
+    }
+
+
+    public List<Transform> GetTargetsInRadius()
+    {
+        return allTargetsInRadius;
+    }
+
+    public bool IsTargetDetected()
+    {
+        return isTargetDetected;
     }
 
     public float GetDetectionAngle()
@@ -127,9 +148,14 @@ public class PlayerDetection : MonoBehaviour
         return detectionRange;
     }
 
-    private void DetectionType(bool playerDetected)
+    private void DetectionType(bool targetDetected)
     {
-        isPlayerDetected = playerDetected;
+        isTargetDetected = targetDetected;
+    }
+
+    public void SetTarget(Transform newTarget)
+    {
+        target = newTarget;
     }
 
     bool IsInObjectSize(Transform turret, Transform player)
@@ -140,8 +166,8 @@ public class PlayerDetection : MonoBehaviour
         float range = this.transform.localScale.x / scale; //makes the range of the detection area the size of the object
         float distance = Vector3.Distance(player.position, transform.position); //gets distance
 
-        isPlayerDetected = distance <= range; 
-        return isPlayerDetected;
+        isTargetDetected = distance <= range; 
+        return isTargetDetected;
     }
 
     bool IsInCone(Transform turret, Transform player, float range, float coneAngle)
@@ -151,19 +177,19 @@ public class PlayerDetection : MonoBehaviour
         //Calculate local pos of player to the turret
         Vector3 localPosition = turret.InverseTransformPoint(player.position);
         Vector2 direction = new Vector2(localPosition.x, localPosition.z);
-        isPlayerDetected = false;
+        isTargetDetected = false;
 
         //check if player is in the range and if the player is in front of the turret
         if (direction.magnitude > range || localPosition.z < 0f)
         {
-            isPlayerDetected = false;
-            return isPlayerDetected;
+            isTargetDetected = false;
+            return isTargetDetected;
         }
 
         //how far the player is off to the side from the turrets forward direction
         float targetAngle = Mathf.Atan2(direction.x, direction.y) * Mathf.Rad2Deg;
-        isPlayerDetected = Mathf.Abs(targetAngle) <= coneAngle / 2f;
-        return isPlayerDetected;
+        isTargetDetected = Mathf.Abs(targetAngle) <= coneAngle / 2f;
+        return isTargetDetected;
     }
 
     bool IsInSphere(Transform turret, Transform player, float range)
@@ -173,8 +199,8 @@ public class PlayerDetection : MonoBehaviour
         //checks if the player is within the range of the turret
         Vector3 localPosition = turret.InverseTransformPoint(player.position);
         Vector2 direction = new Vector2(localPosition.x, localPosition.z);
-        isPlayerDetected = direction.magnitude <= range;
-        return isPlayerDetected;
+        isTargetDetected = direction.magnitude <= range;
+        return isTargetDetected;
     }
 
     void DrawCone()
@@ -214,4 +240,38 @@ public class PlayerDetection : MonoBehaviour
             lineRenderer.SetPosition(i, point);
         }
     }
+
+    void SetupLineRenderer()
+    {
+        if (lineRenderer == null)
+        {
+            lineRenderer = GetComponent<LineRenderer>();
+            return;
+        }
+
+        lineRenderer.startWidth = startWidth;
+        lineRenderer.endWidth = endWidth;
+        lineRenderer.useWorldSpace = false;
+        lineRenderer.loop = false;
+        lineRenderer.startColor = lineColor;
+        lineRenderer.endColor = lineColor;
+    }
+
+    void DrawDetectionShape()
+    {
+        if (lineRenderer == null)
+        {
+            return;
+        }
+
+        if (detectionRadius == DetectionRadius.Cone)
+        {
+            DrawCone();
+        }
+        else if (detectionRadius == DetectionRadius.Sphere)
+        {
+            DrawSphere();
+        }
+    }
+
 }

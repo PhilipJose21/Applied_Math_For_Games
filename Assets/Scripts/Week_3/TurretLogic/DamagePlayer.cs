@@ -2,15 +2,15 @@ using UnityEngine;
 
 public class DamagePlayer : MonoBehaviour
 {
-    private PlayerDetection playerDetection;
+    private TargetDetection targetDetection;
     void Start()
     {
-        playerDetection = GetComponent<PlayerDetection>();
+        targetDetection = GetComponent<TargetDetection>();
     }
 
     void Update()
     {
-        if (playerDetection.IsPlayerDetected())
+        if (targetDetection.IsTargetDetected())
         {
             Damage();
         }
@@ -24,7 +24,8 @@ public class DamagePlayer : MonoBehaviour
             Movement playerMovement = player.GetComponent<Movement>();
             if (playerMovement != null)
             {
-                playerMovement.Die();
+                GameManager._instance.GameOver();
+                player.SetActive(false);
             }
         }
     }

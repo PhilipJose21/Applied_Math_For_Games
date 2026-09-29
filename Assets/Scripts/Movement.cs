@@ -42,10 +42,4 @@ public class Movement : MonoBehaviour
         Vector3 direction = new Vector3(horizontal, 0f, vertical);
         controller.Move(direction * speed * Time.deltaTime);
     }
-
-    public void Die()
-    {
-        GameManager._instance.GameOver();
-        gameObject.SetActive(false);
-    }
 }

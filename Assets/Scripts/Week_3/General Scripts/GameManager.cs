@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (finishArea.GetComponent<PlayerDetection>().IsPlayerDetected())
+        if (finishArea.GetComponent<TargetDetection>().IsTargetDetected())
         {
             FinishGame();
         }

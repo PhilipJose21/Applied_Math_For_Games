@@ -10,17 +10,17 @@ public class Shotgun : MonoBehaviour
     [SerializeField] private float bulletSpeed = 20f;
     [SerializeField] private float bulletLifetime = .15f;
     private float cooldown;
-    PlayerDetection playerDetection;
+    TargetDetection targetDetection;
 
     void Start()
     {
-        playerDetection = GetComponent<PlayerDetection>();
+        targetDetection = GetComponent<TargetDetection>();
         cooldown = fireRate;
     }
 
     void Update()
     {
-        if (playerDetection.IsPlayerDetected())
+        if (targetDetection.IsTargetDetected())
         {
             Fire();
         }
