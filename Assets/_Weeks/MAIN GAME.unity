@@ -765,7 +765,7 @@ PrefabInstance:
       objectReference: {fileID: 2055679430}
     - target: {fileID: 1734567952880489024, guid: 2f56bfa75e69cae43868a946f532769e, type: 3}
       propertyPath: m_VersionIndex
-      value: 104
+      value: 107
       objectReference: {fileID: 0}
     - target: {fileID: 3796689923267842217, guid: 2f56bfa75e69cae43868a946f532769e, type: 3}
       propertyPath: m_Name
@@ -843,7 +843,7 @@ PrefabInstance:
       objectReference: {fileID: 780664202}
     - target: {fileID: 1734567952880489024, guid: 2f56bfa75e69cae43868a946f532769e, type: 3}
       propertyPath: m_VersionIndex
-      value: 89
+      value: 92
       objectReference: {fileID: 0}
     - target: {fileID: 2638045318596787959, guid: 2f56bfa75e69cae43868a946f532769e, type: 3}
       propertyPath: rotationSpeed
@@ -2015,7 +2015,7 @@ PrefabInstance:
       objectReference: {fileID: 180616203}
     - target: {fileID: 1734567952880489024, guid: 2f56bfa75e69cae43868a946f532769e, type: 3}
       propertyPath: m_VersionIndex
-      value: 89
+      value: 92
       objectReference: {fileID: 0}
     - target: {fileID: 2638045318596787959, guid: 2f56bfa75e69cae43868a946f532769e, type: 3}
       propertyPath: rotationSpeed
@@ -2950,7 +2950,7 @@ PrefabInstance:
       objectReference: {fileID: 1751894550}
     - target: {fileID: 1734567952880489024, guid: 2f56bfa75e69cae43868a946f532769e, type: 3}
       propertyPath: m_VersionIndex
-      value: 104
+      value: 107
       objectReference: {fileID: 0}
     - target: {fileID: 3796689923267842217, guid: 2f56bfa75e69cae43868a946f532769e, type: 3}
       propertyPath: m_Name
@@ -3394,7 +3394,7 @@ PrefabInstance:
       objectReference: {fileID: 2143076025}
     - target: {fileID: 1734567952880489024, guid: 2f56bfa75e69cae43868a946f532769e, type: 3}
       propertyPath: m_VersionIndex
-      value: 89
+      value: 92
       objectReference: {fileID: 0}
     - target: {fileID: 3796689923267842217, guid: 2f56bfa75e69cae43868a946f532769e, type: 3}
       propertyPath: m_Name
@@ -4891,12 +4891,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3d8a769021bd94eae20620c927a38f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerDetection
-  allTargets: []
+  allTargets:
+  - {fileID: 1371855363}
+  - {fileID: 479184889}
+  - {fileID: 1408619913}
   allTargetsInRadius: []
   detectionRadius: 2
   detectionRange: 10
   detectionAngle: 45
-  targetRefreshInterval: 0.5
   lineRenderer: {fileID: 0}
   startWidth: 0.1
   endWidth: 0.1

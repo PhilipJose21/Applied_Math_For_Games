@@ -56,23 +56,10 @@ public class TargetDetection : MonoBehaviour
         DrawDetectionShape();
         RefreshTargets();
         getTargetsInRadius();
-        if (!Application.isPlaying)
-        {
-            return;
-        }
 
-        switch (detectionRadius)
-        {
-            case DetectionRadius.Cone:
-                DetectionType(IsInCone(transform, target, detectionRange, detectionAngle));
-                break;
-            case DetectionRadius.Sphere:
-                DetectionType(IsInSphere(transform, target, detectionRange));
-                break;
-            case DetectionRadius.ObjectSize:
-                DetectionType(IsInObjectSize(transform, target));
-                break;
-        }
+        if (!Application.isPlaying) return;
+
+        isTargetDetected = allTargetsInRadius.Count > 0;
     }
 
     void RefreshTargets()
@@ -100,11 +87,20 @@ public class TargetDetection : MonoBehaviour
 
     void getTargetsInRadius()
     {
-        allTargetsInRadius.Clear();
+        //remove targets no longer in radius
+        for (int i = allTargetsInRadius.Count - 1; i >= 0; i--)
+        {
+            if (!IsDetected(allTargetsInRadius[i]))
+            {
+                allTargetsInRadius.RemoveAt(i);
+            }
+        }
+
+        // adds new targets that enter radius at the end of list
         for (int i = 0; i < allTargets.Count; i++)
         {
-            Transform t = allTargets[i];
-            if (IsDetected(t))
+            var t = allTargets[i];
+            if (IsDetected(t) && !allTargetsInRadius.Contains(t))
             {
                 allTargetsInRadius.Add(t);
             }
@@ -158,46 +154,37 @@ public class TargetDetection : MonoBehaviour
         target = newTarget;
     }
 
-    bool IsInObjectSize(Transform turret, Transform player)
+    bool IsInObjectSize(Transform turret, Transform target)
     {
-        if (player == null) return false;//checks if player is in the scene
+        if (target == null) return false;//checks if player is in the scene
 
         float scale = 1.5f;
         float range = this.transform.localScale.x / scale; //makes the range of the detection area the size of the object
-        float distance = Vector3.Distance(player.position, transform.position); //gets distance
+        float distance = Vector3.Distance(target.position, transform.position); //gets distance
 
         isTargetDetected = distance <= range; 
         return isTargetDetected;
     }
 
-    bool IsInCone(Transform turret, Transform player, float range, float coneAngle)
+    bool IsInCone(Transform turret, Transform target, float range, float coneAngle)
     {
-        if (player == null) return false;//checks if player is in the scene
+        if (target == null) return false;
 
-        //Calculate local pos of player to the turret
-        Vector3 localPosition = turret.InverseTransformPoint(player.position);
-        Vector2 direction = new Vector2(localPosition.x, localPosition.z);
-        isTargetDetected = false;
+        Vector3 local = turret.InverseTransformPoint(target.position);
+        Vector2 dir = new Vector2(local.x, local.z);
 
-        //check if player is in the range and if the player is in front of the turret
-        if (direction.magnitude > range || localPosition.z < 0f)
-        {
-            isTargetDetected = false;
-            return isTargetDetected;
-        }
+        if (dir.magnitude > range || local.z < 0f) return false;
 
-        //how far the player is off to the side from the turrets forward direction
-        float targetAngle = Mathf.Atan2(direction.x, direction.y) * Mathf.Rad2Deg;
-        isTargetDetected = Mathf.Abs(targetAngle) <= coneAngle / 2f;
-        return isTargetDetected;
+        float targetAngle = Mathf.Atan2(dir.x, dir.y) * Mathf.Rad2Deg;
+        return Mathf.Abs(targetAngle) <= coneAngle / 2f;
     }
 
-    bool IsInSphere(Transform turret, Transform player, float range)
+    bool IsInSphere(Transform turret, Transform target, float range)
     {
-        if (player == null) return false;//checks if player is in the scene
+        if (target == null) return false;//checks if player is in the scene
 
         //checks if the player is within the range of the turret
-        Vector3 localPosition = turret.InverseTransformPoint(player.position);
+        Vector3 localPosition = turret.InverseTransformPoint(target.position);
         Vector2 direction = new Vector2(localPosition.x, localPosition.z);
         isTargetDetected = direction.magnitude <= range;
         return isTargetDetected;

@@ -26,22 +26,32 @@ public class RotateTurret : MonoBehaviour
 
 
     [SerializeField] private List<Transform> allTargetsInRadius = new List<Transform>();
-    private TargetType targetType = TargetType.First;
     private TargetDetection targetDetection;
     [SerializeField] private RotationType rotationType = RotationType.AutoRotate;
+    [SerializeField] private TargetType targetType = TargetType.First;
     [SerializeField] private float rotationSpeed = 5f;
-    
-    private Transform player;
+    Transform firstTarget;
 
     void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player")?.transform;
         targetDetection = GetComponent<TargetDetection>();
     }
 
     void Update()
     {
         allTargetsInRadius = targetDetection.GetTargetsInRadius();
+        if (allTargetsInRadius.Count > 0)
+        {
+            if (firstTarget == null)
+            {
+                firstTarget = allTargetsInRadius[0];
+            }
+            else if (firstTarget != allTargetsInRadius[0])
+            {
+                firstTarget = allTargetsInRadius[0];
+            }
+        }
+
         if (targetDetection.IsTargetDetected())
         {
             checkRotateType();
@@ -77,25 +87,24 @@ public class RotateTurret : MonoBehaviour
             switch (type)
             {
                 case TargetType.First:
-                    target = t;
-                    break;
+                    return firstTarget;
                 case TargetType.Last:
-                    target = allTargetsInRadius[allTargetsInRadius.Count - 1];
-                    break;
+                    return t;
                 case TargetType.Closest:
                     if (target == null || Vector3.Distance(transform.position, t.position) < Vector3.Distance(transform.position, target.position))
                     {
                         target = t;
                     }
-                    break;
+                    return target;
                 case TargetType.Furthest:
                     if (target == null || Vector3.Distance(transform.position, t.position) > Vector3.Distance(transform.position, target.position))
                     {
                         target = t;
                     }
-                    break;
+                    return target;
             }
         }
+        
         return target;
     } 
 
@@ -122,6 +131,8 @@ public class RotateTurret : MonoBehaviour
 
     void LookAtTarget(Transform target)
     {
+        
+        Debug.Log(target);
         if (target == null) return;//if there is no target, return
 
         //calculate the direction to the target and the angle to rotate towards it
