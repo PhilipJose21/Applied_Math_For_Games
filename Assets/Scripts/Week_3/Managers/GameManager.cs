@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -7,6 +9,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject gameOverUI;
     [SerializeField] private GameObject winUI;
     [SerializeField] private GameObject finishArea;
+
+    [SerializeField] private List<Transform> pathPoints = new List<Transform>();
 
     void Awake()
     {
@@ -41,5 +45,10 @@ public class GameManager : MonoBehaviour
     public void Restart()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public List<Transform> GetPathPoints()
+    {
+        return pathPoints;
     }
 }

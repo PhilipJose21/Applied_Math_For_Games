@@ -145,7 +145,6 @@ MonoBehaviour:
   detectionRadius: 0
   detectionRange: 11
   detectionAngle: 75
-  targetRefreshInterval: 0.5
   lineRenderer: {fileID: 8856332475571111093}
   startWidth: 0.1
   endWidth: 0.1
@@ -162,7 +161,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44553724bc47a2f45a33b5102cf83c9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RotateTurret
+  allTargetsInRadius: []
   rotationType: 3
+  targetType: 0
   rotationSpeed: 7.5
 --- !u!114 &1418649306096391058
 MonoBehaviour:

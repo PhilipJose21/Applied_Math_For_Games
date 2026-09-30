@@ -31,11 +31,11 @@ public class TargetDetection : MonoBehaviour
     [SerializeField] private float endWidth = 0.1f;
     [SerializeField] private Color lineColor = Color.red;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         SetupLineRenderer();
         rotateTurret = GetComponent<RotateTurret>();
+        EnemyManager.OnEnemyListUpdated += UpdateEnemyList;
     }
 
     //TO MAKE THE LINERENDERER VISIBLE IN EDITOR
@@ -50,41 +50,21 @@ public class TargetDetection : MonoBehaviour
         DrawDetectionShape();
     }
 
-    // Update is called once per frame
     void Update()
     {
         DrawDetectionShape();
-        RefreshTargets();
         getTargetsInRadius();
-
+        
         if (!Application.isPlaying) return;
 
         isTargetDetected = allTargetsInRadius.Count > 0;
     }
 
-    void RefreshTargets()
+    private void UpdateEnemyList(object sender, EventArgs e)
     {
-        // remove destroyed enemies first so the list doesn't fill up with nulls
-        for (int i = allTargets.Count - 1; i >= 0; i--)
-        {
-            if (allTargets[i] == null)
-            {
-                allTargets.RemoveAt(i);
-            }
-        }
-
-        // add any new enemies
-        GameObject[] found = GameObject.FindGameObjectsWithTag("Enemy");
-        for (int i = 0; i < found.Length; i++)
-        {
-            Transform t = found[i].transform;
-            if (!allTargets.Contains(t))
-            {
-                allTargets.Add(t);
-            }
-        }
+        allTargets = EnemyManager._instance.GetAllTargets();
     }
-
+    
     void getTargetsInRadius()
     {
         //remove targets no longer in radius
@@ -127,6 +107,11 @@ public class TargetDetection : MonoBehaviour
     public List<Transform> GetTargetsInRadius()
     {
         return allTargetsInRadius;
+    }
+
+    public Transform GetTarget()
+    {
+        return target;
     }
 
     public bool IsTargetDetected()
@@ -246,11 +231,7 @@ public class TargetDetection : MonoBehaviour
 
     void DrawDetectionShape()
     {
-        if (lineRenderer == null)
-        {
-            return;
-        }
-
+        if (lineRenderer == null) return;
         if (detectionRadius == DetectionRadius.Cone)
         {
             DrawCone();

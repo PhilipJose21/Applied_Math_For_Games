@@ -46,5 +46,6 @@ public class Shotgun : MonoBehaviour
         GameObject bullet = Instantiate(bulletPrefab, firePoint.position, bulletRotation);
         bullet.GetComponent<Projectile>().SetSpeed(bulletSpeed);
         bullet.GetComponent<Projectile>().SetLifetime(bulletLifetime);
+        bullet.GetComponent<Projectile>().SetTarget(targetDetection.GetTarget());
     }
 }

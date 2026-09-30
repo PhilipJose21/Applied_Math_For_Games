@@ -1,11 +1,13 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class EnemyMovement : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    [SerializeField] private List<Transform> pathPoints = new List<Transform>();
     void Start()
     {
-        
+        GameManager gameManager = GameManager._instance;
+        pathPoints = gameManager.GetPathPoints();
     }
 
     // Update is called once per frame

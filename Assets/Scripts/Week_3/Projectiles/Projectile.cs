@@ -5,13 +5,12 @@ public class Projectile : MonoBehaviour
 {
     private float speed;
     private float lifetime;
-    [SerializeField] private Transform playerTransform;
+    [SerializeField] private Transform target;
     [SerializeField] private float detectionRange = 1f;
 
     float timer;
     private void Start()
     {
-        playerTransform = GameObject.FindGameObjectWithTag("Player")?.transform;
         timer = lifetime;
     }
 
@@ -24,13 +23,13 @@ public class Projectile : MonoBehaviour
 
     void detectPlayer()
     {
-        if (playerTransform != null)
+        if (target != null)
         {
-            float distanceToPlayer = Vector3.Distance(transform.position, playerTransform.position);
+            float distanceToPlayer = Vector3.Distance(transform.position, target.position);
             if (distanceToPlayer <= detectionRange)
             {
                 GameManager._instance.GameOver();
-                playerTransform.gameObject.SetActive(false);
+                target.gameObject.SetActive(false);
                 Destroy(gameObject);
             }
         }
@@ -54,6 +53,11 @@ public class Projectile : MonoBehaviour
     {
         lifetime = newLifetime;
         timer = lifetime;
+    }
+
+    public void SetTarget(Transform newTarget)
+    {
+        target = newTarget;
     }
 
 
