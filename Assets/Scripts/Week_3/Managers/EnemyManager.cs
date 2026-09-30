@@ -31,6 +31,7 @@ public class EnemyManager : MonoBehaviour
         {
             Destroy(gameObject);
         }   
+
         StartWave();
     }
 
@@ -48,7 +49,12 @@ public class EnemyManager : MonoBehaviour
     void Update()
     {
         SpawnEnemy();
-        if (!Application.isPlaying) return;
+        CheckTargetList();
+        
+        if (!waveStarted && allTargets.Count == 0 && currentWaveIndex < waveList.Count)
+        {
+            StartWave();
+        }
     }
 
     void StartWave()
@@ -80,6 +86,8 @@ public class EnemyManager : MonoBehaviour
         }
 
         Instantiate(enemyPrefab, spawnPoint.position, Quaternion.identity);
+
+
         RefreshTargets();
         spawnEnemyIndex++;
         cooldown = spawnRate;
@@ -88,6 +96,22 @@ public class EnemyManager : MonoBehaviour
         {
             waveStarted = false;
             currentWaveIndex++;
+            if (currentWaveIndex >= waveList.Count)
+            {
+                Debug.Log("All waves completed");
+            }
+        }
+    }
+
+    void CheckTargetList()
+    {
+        for (int i = allTargets.Count - 1; i >= 0; i--)
+        {
+            if (allTargets[i] == null)
+            {
+                allTargets.RemoveAt(i);
+                OnEnemyListUpdated?.Invoke(this, EventArgs.Empty);
+            }
         }
     }
 
@@ -113,6 +137,15 @@ public class EnemyManager : MonoBehaviour
                 allTargets.Add(t);
                 OnEnemyListUpdated?.Invoke(this, EventArgs.Empty);
             }
+        }
+    }
+
+    public void RemoveTarget(Transform target)
+    {
+        if (allTargets.Contains(target))
+        {
+            allTargets.Remove(target);
+            OnEnemyListUpdated?.Invoke(this, EventArgs.Empty);
         }
     }
 

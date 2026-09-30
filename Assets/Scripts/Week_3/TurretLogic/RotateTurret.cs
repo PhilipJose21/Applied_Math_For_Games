@@ -74,6 +74,7 @@ public class RotateTurret : MonoBehaviour
             case RotationType.None:
                 return;
         }
+        targetDetection.SetTarget(GetTargetByType(targetType));
     }
 
     private Transform GetTargetByType(TargetType type)
@@ -131,8 +132,6 @@ public class RotateTurret : MonoBehaviour
 
     void LookAtTarget(Transform target)
     {
-        
-        Debug.Log(target);
         if (target == null) return;//if there is no target, return
 
         //calculate the direction to the target and the angle to rotate towards it

@@ -14,12 +14,13 @@ public class TargetDetection : MonoBehaviour
     }
     
     
-    [SerializeField] private List<Transform> allTargets = new List<Transform>();
-    [SerializeField] private List<Transform> allTargetsInRadius = new List<Transform>();
+    private List<Transform> allTargets = new List<Transform>();
+    private List<Transform> allTargetsInRadius = new List<Transform>();
     private Transform target;
     private RotateTurret rotateTurret;
     private bool isTargetDetected = false;
 
+    [Header("Detection Settings")]
     [SerializeField] private DetectionRadius detectionRadius = DetectionRadius.Cone;
     [SerializeField] private float detectionRange = 10f;
     [SerializeField] private float detectionAngle = 45f;
@@ -30,6 +31,10 @@ public class TargetDetection : MonoBehaviour
     [SerializeField] private float startWidth = 0.1f;
     [SerializeField] private float endWidth = 0.1f;
     [SerializeField] private Color lineColor = Color.red;
+
+    [Header("Visibility")]
+    [SerializeField] private bool showDetectionShape = true;
+    public static bool ShowAllShapes = true;
 
     void Start()
     {
@@ -232,6 +237,12 @@ public class TargetDetection : MonoBehaviour
     void DrawDetectionShape()
     {
         if (lineRenderer == null) return;
+
+        // Edit mode: only the checkbox matters. Play mode: checkbox AND global toggle.
+        bool visible = showDetectionShape && (!Application.isPlaying || ShowAllShapes);
+        lineRenderer.enabled = visible;
+        if (!visible) return;
+
         if (detectionRadius == DetectionRadius.Cone)
         {
             DrawCone();
@@ -240,6 +251,12 @@ public class TargetDetection : MonoBehaviour
         {
             DrawSphere();
         }
+    }
+
+    public void SetShapeVisible(bool value)
+    {
+        showDetectionShape = value;
+        DrawDetectionShape();
     }
 
 }

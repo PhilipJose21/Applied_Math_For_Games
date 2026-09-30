@@ -16,20 +16,28 @@ public class Projectile : MonoBehaviour
 
     private void Update()
     {
-        transform.position += transform.up * speed * Time.deltaTime;
-        detectPlayer();
+        var position = transform.position;
+        if (target == null)
+        {
+            transform.position += transform.up * speed * Time.deltaTime;
+            return;
+        }
+        transform.position = position + (target.position - transform.position).normalized * speed * Time.deltaTime;
+        detectTarget();
         destroyProjectile();
     }
 
-    void detectPlayer()
+    void detectTarget()
     {
         if (target != null)
         {
+            // check if the target is within the detection range
             float distanceToPlayer = Vector3.Distance(transform.position, target.position);
             if (distanceToPlayer <= detectionRange)
             {
-                GameManager._instance.GameOver();
-                target.gameObject.SetActive(false);
+                EnemyManager enemyManager = GameManager._instance.GetEnemyManager();
+                enemyManager.RemoveTarget(target);
+                Destroy(target.gameObject);
                 Destroy(gameObject);
             }
         }

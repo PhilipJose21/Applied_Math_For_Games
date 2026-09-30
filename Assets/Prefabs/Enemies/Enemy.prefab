@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 7168251661326445486}
   - component: {fileID: 2135766349998123196}
   - component: {fileID: 4676290512076487896}
+  - component: {fileID: 3044052024535807529}
+  - component: {fileID: 7403013723958620492}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -90,3 +92,29 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &3044052024535807529
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3085905772318185884}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14fabc9ab48dbf54d9e5d9479a6f1f0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Enemy
+  speed: 5
+--- !u!114 &7403013723958620492
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3085905772318185884}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3598e690fe5233e4fae39d1f1ec12738, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyMovement
+  pathPoints: []
