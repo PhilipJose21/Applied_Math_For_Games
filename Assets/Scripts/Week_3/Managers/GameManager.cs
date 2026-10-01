@@ -6,7 +6,8 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public static GameManager _instance;
-    
+
+    public static EventHandler OnCoinChanged;    
 
     public bool enableDebug = true;
     private HealthSystem healthSystem;
@@ -15,6 +16,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject gameOverUI;
     [SerializeField] private GameObject winUI;
     [SerializeField] private GameObject finishArea;
+    private int coins;
 
     [SerializeField] private List<Transform> pathPoints = new List<Transform>();
 
@@ -47,15 +49,16 @@ public class GameManager : MonoBehaviour
             TargetDetection.ShowAllShapes = !TargetDetection.ShowAllShapes;
         }
 
-
-
         if (finishAreaDetection.IsTargetDetected())
         {
             var target = finishAreaDetection.GetTarget();
             if (target != null)
             {
                 healthSystem.Damage(1);
-                Destroy(target.gameObject);
+                if (target.TryGetComponent<Enemy>(out Enemy enemy))
+                {
+                    enemy.Death();
+                }
             }
         }
     }
@@ -78,6 +81,23 @@ public class GameManager : MonoBehaviour
     public EnemyManager GetEnemyManager()
     {
         return EnemyManager._instance;
+    }
+
+    public int GetCoinCount()
+    {
+        return coins;
+    }
+
+    public void AddCoin(int amount)
+    {
+        coins += amount;
+        OnCoinChanged?.Invoke(this, EventArgs.Empty);
+    }
+
+    public void RemoveCoin(int amount)
+    {
+        coins -= amount;
+        OnCoinChanged?.Invoke(this, EventArgs.Empty);
     }
 
     void OnDrawGizmos()

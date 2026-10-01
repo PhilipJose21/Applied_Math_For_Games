@@ -105,6 +105,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
   speed: 5
+  coinPrefab: {fileID: 8260400537707699352, guid: 08c546eae45bbeb469a608e147bdcde3, type: 3}
+  pathPoints: []
 --- !u!114 &7403013723958620492
 MonoBehaviour:
   m_ObjectHideFlags: 0

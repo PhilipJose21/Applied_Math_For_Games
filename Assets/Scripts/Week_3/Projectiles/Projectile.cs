@@ -37,7 +37,10 @@ public class Projectile : MonoBehaviour
             {
                 EnemyManager enemyManager = GameManager._instance.GetEnemyManager();
                 enemyManager.RemoveTarget(target);
-                Destroy(target.gameObject);
+                if (target.TryGetComponent<Enemy>(out Enemy enemy))
+                {
+                    enemy.Death();
+                }
                 Destroy(gameObject);
             }
         }

@@ -12,12 +12,23 @@ public class UIManager : MonoBehaviour
     [Range(0.1f, 10f)][SerializeField] private float easeSpeed = 8f;
     [SerializeField] private HealthSystem healthSystem;
 
+    [Header("Coin UI")]
+    [SerializeField] private TextMeshProUGUI coinText;
+    private GameManager gameManager;
+
     void Start()
     {
+        
+        gameManager = GameManager._instance;
+
         HealthSystem.OnHealthChanged += HealthSystem_OnHealthChanged;
         HealthSystem.OnDead += HealthSystem_OnDead;
+        GameManager.OnCoinChanged += GameManager_OnCoinChanged;
+
         healthBarFill.maxValue = healthSystem.GetMaxHealth();
         healthBarFill.value = healthSystem.GetHealth();
+
+        UpdateCoinUI();
     }
 
     void Update()
@@ -36,11 +47,22 @@ public class UIManager : MonoBehaviour
     {
         HealthSystem.OnHealthChanged -= HealthSystem_OnHealthChanged;
         HealthSystem.OnDead -= HealthSystem_OnDead;
+        GameManager.OnCoinChanged -= GameManager_OnCoinChanged;
+    }
+
+    private void UpdateCoinUI()
+    {
+        coinText.text = gameManager.GetCoinCount().ToString();
     }
 
     private void HealthSystem_OnHealthChanged(object sender, EventArgs e)
     {
         healthBarFill.value = HealthSystem._instance.GetHealth();
+    }
+
+    private void GameManager_OnCoinChanged(object sender, EventArgs e)
+    {
+        UpdateCoinUI();
     }
 
     private void HealthSystem_OnDead(object sender, EventArgs e)
