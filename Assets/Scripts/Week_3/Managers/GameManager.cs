@@ -83,19 +83,12 @@ public class GameManager : MonoBehaviour
     {
         if (pathPoints.Count > 0)
         {
-            for (int i = 0; i < pathPoints.Count; i++)
+            for (int i = 0; i < pathPoints.Count - 1; i++)
             {
-                if (pathPoints[i] != null)
+                if (pathPoints[i] != null && pathPoints[i + 1] != null)
                 {
                     Gizmos.color = Color.red;
-                    if (i == pathPoints.Count)
-                    {
-                        Gizmos.DrawSphere(pathPoints[i].position, 0.5f);
-                    }
-                    else
-                    {
-                        Gizmos.DrawLine(pathPoints[i].position, pathPoints[(i + 1) % pathPoints.Count].position);
-                    }
+                    Gizmos.DrawLine(pathPoints[i].position, pathPoints[i + 1].position);
                 }
             }
         }
