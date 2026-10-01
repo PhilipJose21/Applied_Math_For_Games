@@ -36,6 +36,11 @@ public class GameManager : MonoBehaviour
         EnemyManager.OnWaveEnded += EnemyManager_OnWaveEnded;
     }
 
+    void OnDestroy()
+    {
+        EnemyManager.OnWaveEnded -= EnemyManager_OnWaveEnded;
+    }
+
     private void EnemyManager_OnWaveEnded(object sender, EventArgs e)
     {
         winUI.SetActive(true);
