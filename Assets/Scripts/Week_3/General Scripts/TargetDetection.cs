@@ -116,7 +116,14 @@ public class TargetDetection : MonoBehaviour
 
     public Transform GetTarget()
     {
-        return target;
+        if (allTargetsInRadius.Count > 0)
+        {
+            return allTargetsInRadius[0];
+        }
+        else
+        {
+            return null;
+        }
     }
 
     public bool IsTargetDetected()

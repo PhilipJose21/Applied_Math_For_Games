@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour
 
     public bool enableDebug = true;
     private HealthSystem healthSystem;
+    private TargetDetection finishAreaDetection;
+
     [SerializeField] private GameObject gameOverUI;
     [SerializeField] private GameObject winUI;
     [SerializeField] private GameObject finishArea;
@@ -28,6 +30,13 @@ public class GameManager : MonoBehaviour
         }
         
         healthSystem = GetComponent<HealthSystem>();
+        finishAreaDetection = finishArea.GetComponent<TargetDetection>();
+        EnemyManager.OnWaveEnded += EnemyManager_OnWaveEnded;
+    }
+
+    private void EnemyManager_OnWaveEnded(object sender, EventArgs e)
+    {
+        winUI.SetActive(true);
     }
 
     void Update()
@@ -38,30 +47,22 @@ public class GameManager : MonoBehaviour
             TargetDetection.ShowAllShapes = !TargetDetection.ShowAllShapes;
         }
 
-        if (finishArea.GetComponent<TargetDetection>().IsTargetDetected())
-        {
-            DamagePlayer();
-            Destroy(finishArea.GetComponent<TargetDetection>().GetTarget().gameObject);
-        }
-    }
 
-    public void DamagePlayer()
-    {
-        healthSystem.Damage(1);
-        if (healthSystem.GetHealth() <= 0)
+
+        if (finishAreaDetection.IsTargetDetected())
         {
-            GameOver();
+            var target = finishAreaDetection.GetTarget();
+            if (target != null)
+            {
+                healthSystem.Damage(1);
+                Destroy(target.gameObject);
+            }
         }
     }
 
     public void GameOver()
     {
         gameOverUI.SetActive(true);
-    }
-
-    public void FinishGame()
-    {
-        winUI.SetActive(true);
     }
 
     public void Restart()

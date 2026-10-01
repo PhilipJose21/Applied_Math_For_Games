@@ -8,7 +8,7 @@ public class HealthSystem : MonoBehaviour
     public static event EventHandler OnHealthChanged; 
     public static event EventHandler OnDead;
 
-    [SerializeField] private int maxHealth = 100;
+    [SerializeField] private int maxHealth;
     [SerializeField] private int currentHealth;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     
@@ -47,6 +47,11 @@ public class HealthSystem : MonoBehaviour
     public int GetHealth()
     {
         return currentHealth;
+    }
+
+    public int GetMaxHealth()
+    {
+        return maxHealth;
     }
 
     public float GetHealthNormalized()

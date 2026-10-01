@@ -5,10 +5,9 @@ using System;
 public class EnemyManager : MonoBehaviour
 {
     public static EventHandler OnEnemyListUpdated;
+    public static EventHandler OnWaveEnded;
     public static EnemyManager _instance;
 
-    
-    [SerializeField] private Transform spawnPoint;
     [SerializeField] private float spawnRate = 1f;
 
     [Header("Enemy List")]
@@ -16,7 +15,7 @@ public class EnemyManager : MonoBehaviour
     [SerializeField] private List<Transform> allTargets = new List<Transform>();
 
     private List<Transform> spawnEnemyList = new List<Transform>();
-
+    private Transform spawnPoint;
     private int currentWaveIndex = 0;
     private int spawnEnemyIndex = 0;
     private float cooldown;
@@ -33,6 +32,7 @@ public class EnemyManager : MonoBehaviour
         }   
 
         StartWave();
+        spawnPoint = GameManager._instance.GetPathPoints()[0];
     }
 
     void OnEnable()
@@ -54,6 +54,11 @@ public class EnemyManager : MonoBehaviour
         if (!waveStarted && allTargets.Count == 0 && currentWaveIndex < waveList.Count)
         {
             StartWave();
+        }
+        if (currentWaveIndex >= waveList.Count && allTargets.Count == 0)
+        {
+            Debug.Log("All waves completed");
+            OnWaveEnded?.Invoke(this, EventArgs.Empty);
         }
     }
 
@@ -96,10 +101,6 @@ public class EnemyManager : MonoBehaviour
         {
             waveStarted = false;
             currentWaveIndex++;
-            if (currentWaveIndex >= waveList.Count)
-            {
-                Debug.Log("All waves completed");
-            }
         }
     }
 
@@ -145,6 +146,7 @@ public class EnemyManager : MonoBehaviour
         if (allTargets.Contains(target))
         {
             allTargets.Remove(target);
+            
             OnEnemyListUpdated?.Invoke(this, EventArgs.Empty);
         }
     }
@@ -153,4 +155,16 @@ public class EnemyManager : MonoBehaviour
     {
         return allTargets;
     }
+
+    public List<EnemyWaveSO> GetWaveList()
+    {
+        return waveList;
+    }
+
+    public int GetCurrentWaveIndex()
+    {
+        return currentWaveIndex;
+    }
+
+
 }
