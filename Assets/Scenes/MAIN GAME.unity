@@ -4205,7 +4205,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb421e2eb659f8743bd553a524765be4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PathLogic
-  pathType: 1
+  pathType: 2
   entryDistance: 0.12
   exitDistance: 0.418
   controlOffset: {x: 0, y: 0, z: 0}
@@ -4223,6 +4223,10 @@ PrefabInstance:
     - target: {fileID: 2296269857229736053, guid: 5794d0178b609c64b8dd9c73887bba27, type: 3}
       propertyPath: m_Name
       value: Sniper
+      objectReference: {fileID: 0}
+    - target: {fileID: 2296269857229736053, guid: 5794d0178b609c64b8dd9c73887bba27, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4023603406844512916, guid: 5794d0178b609c64b8dd9c73887bba27, type: 3}
       propertyPath: m_Positions.Array.data[0].x
