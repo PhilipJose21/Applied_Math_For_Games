@@ -40,6 +40,10 @@ public class TargetDetection : MonoBehaviour
     {
         SetupLineRenderer();
         rotateTurret = GetComponent<RotateTurret>();
+
+        if (EnemyManager._instance != null)
+            allTargets = EnemyManager._instance.GetAllTargets();
+
         EnemyManager.OnEnemyListUpdated += UpdateEnemyList;
     }
 
@@ -47,6 +51,11 @@ public class TargetDetection : MonoBehaviour
     void OnEnable()
     {
         SetupLineRenderer();
+    }
+
+    void OnDestroy()
+    {
+        EnemyManager.OnEnemyListUpdated -= UpdateEnemyList;
     }
 
     void OnValidate()
@@ -61,7 +70,7 @@ public class TargetDetection : MonoBehaviour
         getTargetsInRadius();
         
         if (!Application.isPlaying) return;
-
+        
         isTargetDetected = allTargetsInRadius.Count > 0;
     }
 
@@ -153,15 +162,15 @@ public class TargetDetection : MonoBehaviour
 
     bool IsInObjectSize(Transform turret, Transform target)
     {
-        if (target == null) return false;//checks if player is in the scene
+        if (target == null) return false;
 
-        float scale = 1.5f;
-        float range = this.transform.localScale.x / scale; //makes the range of the detection area the size of the object
-        float distance = Vector3.Distance(target.position, transform.position); //gets distance
+        //makes the area of the object flat for easier detection
+        Vector3 flat = target.position;
+        flat.y = turret.position.y;
 
-        isTargetDetected = distance <= range; 
-        return isTargetDetected;
-    }
+        Vector3 local = turret.InverseTransformPoint(flat);
+        return local.sqrMagnitude <= 0.25f;
+}
 
     bool IsInCone(Transform turret, Transform target, float range, float coneAngle)
     {
@@ -264,6 +273,11 @@ public class TargetDetection : MonoBehaviour
     {
         showDetectionShape = value;
         DrawDetectionShape();
+    }
+
+    public List<Transform> GetAllTargetsInRadius()
+    {
+        return allTargetsInRadius;
     }
 
 }
