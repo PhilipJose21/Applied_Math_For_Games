@@ -4,3 +4,4 @@ Week 1 Activity
 Week 2 Activity
 Week 3 Activity
 Week 4 Activity
+Week 5 Activity
