@@ -9,6 +9,7 @@ public class Projectile : MonoBehaviour
     [SerializeField] private float detectionRange = 1f;
     [SerializeField] private float lifeTime = 5f;
 
+    private float damage;
     private float speed;
     private float timer;
     private bool hasExploded;
@@ -45,14 +46,15 @@ public class Projectile : MonoBehaviour
     {
         if (isExplosive)
         {
-            Instantiate(explosion, transform.position, Quaternion.identity);
+            GameObject Explosion = Instantiate(explosion, transform.position, Quaternion.identity);
+            Explosion.GetComponent<AreaDamage>().SetDamage(damage);
         }
         else
         {
             GameManager._instance.GetEnemyManager().RemoveTarget(target);
             if (target.TryGetComponent<Enemy>(out Enemy enemy))
             {
-                enemy.Death();
+                enemy.TakeDamage(damage);
             }
         }
         Destroy(gameObject);
@@ -69,5 +71,10 @@ public class Projectile : MonoBehaviour
     public void SetTarget(Transform newTarget)
     {
         target = newTarget;
+    }
+
+    public void SetDamage(float damage)
+    {
+        this.damage = damage;
     }
 }

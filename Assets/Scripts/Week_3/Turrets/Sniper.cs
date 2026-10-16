@@ -7,6 +7,7 @@ public class Sniper : MonoBehaviour
     [SerializeField] private float fireRate = 1f;
     [SerializeField] private float bulletSpeed = 10f;
     [SerializeField] private float bulletLifetime = 5f;
+    [SerializeField] private float damage = 1f;
     private float cooldown;
     private TargetDetection targetDetection;
 
@@ -34,6 +35,7 @@ public class Sniper : MonoBehaviour
             bullet.GetComponent<Projectile>().SetSpeed(bulletSpeed);
             bullet.GetComponent<Projectile>().SetLifetime(bulletLifetime);
             bullet.GetComponent<Projectile>().SetTarget(targetDetection.GetTarget());
+            bullet.GetComponent<Projectile>().SetDamage(damage);
             cooldown = fireRate;
         }
     }

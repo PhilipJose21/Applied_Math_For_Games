@@ -4,10 +4,10 @@ using System.Collections;
 
 public class AreaDamage : MonoBehaviour
 {
+    private float damage = 1f;
     private List<Transform> allTargetsInRadius = new List<Transform>();
-    private HashSet<Enemy> pendingDeaths = new HashSet<Enemy>();
     private TargetDetection targetDetection;
-    [SerializeField] private float deathDelay = 0.5f;
+    private bool hasDamaged;
 
     void Start()
     {
@@ -17,31 +17,40 @@ public class AreaDamage : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (hasDamaged)
+        {
+            return;
+        }
+
+        if (targetDetection == null)
+        {
+            Debug.Log("1");
+            return;
+        }
+
         allTargetsInRadius = targetDetection.GetTargetsInRadius();
+        Damage();
+        hasDamaged = true;
+    }
+
+    public void Damage()
+    {
         foreach (Transform target in allTargetsInRadius)
         {
             if (target != null)
             {
                 if (target.TryGetComponent<Enemy>(out Enemy enemy))
                 {
-                    if (pendingDeaths.Add(enemy))
-                    {
-                        StartCoroutine(DelayedDeath(enemy));
-                    }
+                    enemy.TakeDamage(damage);
+                    Debug.Log("Damaged" + damage);
                 }
             }
         }
     }
+    
 
-    private IEnumerator DelayedDeath(Enemy enemy)
+    public void SetDamage(float damage)
     {
-        yield return new WaitForSeconds(deathDelay);
-
-        if (enemy != null)
-        {
-            enemy.Death();
-        }
-
-        pendingDeaths.Remove(enemy);
+        this.damage = damage;
     }
 }
