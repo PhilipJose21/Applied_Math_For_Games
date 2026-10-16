@@ -7,7 +7,8 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager _instance;
 
-    public static EventHandler OnCoinChanged;    
+    public static EventHandler OnCoinChanged;
+    public static EventHandler OnSelectedTowerChanged;
 
     public bool enableDebug = true;
     private HealthSystem healthSystem;
@@ -16,6 +17,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject gameOverUI;
     [SerializeField] private GameObject winUI;
     [SerializeField] private GameObject finishArea;
+    [SerializeField] private GameObject selectedTower;
     private int coins;
 
     [SerializeField] private List<Transform> pathPoints = new List<Transform>();
@@ -103,6 +105,12 @@ public class GameManager : MonoBehaviour
     {
         coins -= amount;
         OnCoinChanged?.Invoke(this, EventArgs.Empty);
+    }
+
+    public void SetSelectedTower(GameObject tower)
+    {
+        selectedTower = tower;
+        OnSelectedTowerChanged?.Invoke(this, EventArgs.Empty);
     }
 
     void OnDrawGizmos()

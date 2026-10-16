@@ -51,7 +51,6 @@ public class Projectile : MonoBehaviour
         }
         else
         {
-            GameManager._instance.GetEnemyManager().RemoveTarget(target);
             if (target.TryGetComponent<Enemy>(out Enemy enemy))
             {
                 enemy.TakeDamage(damage);

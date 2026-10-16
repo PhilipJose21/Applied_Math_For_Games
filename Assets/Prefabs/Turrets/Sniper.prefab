@@ -149,6 +149,7 @@ MonoBehaviour:
   fireRate: 1
   bulletSpeed: 20
   bulletLifetime: 5
+  damage: 1
 --- !u!120 &4023603406844512916
 LineRenderer:
   serializedVersion: 3

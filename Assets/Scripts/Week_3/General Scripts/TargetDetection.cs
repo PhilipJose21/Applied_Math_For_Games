@@ -160,6 +160,18 @@ public class TargetDetection : MonoBehaviour
         target = newTarget;
     }
 
+    public void setDetectionRange(float newRange)
+    {
+        detectionRange = newRange;
+        DrawDetectionShape();
+    }
+
+    public void setDetectionAngle(float newAngle)
+    {
+        detectionAngle = newAngle;
+        DrawDetectionShape();
+    }
+
     bool IsInObjectSize(Transform turret, Transform target)
     {
         if (target == null) return false;
@@ -270,6 +282,12 @@ public class TargetDetection : MonoBehaviour
     }
 
     public void SetShapeVisible(bool value)
+    {
+        showDetectionShape = value;
+        DrawDetectionShape();
+    }
+
+    public void toggleRangeVisibility(bool value)
     {
         showDetectionShape = value;
         DrawDetectionShape();

@@ -6,12 +6,18 @@ public class AreaDamage : MonoBehaviour
 {
     private float damage = 1f;
     private List<Transform> allTargetsInRadius = new List<Transform>();
+    
+    private float timer;
     private TargetDetection targetDetection;
     private bool hasDamaged;
+
+    [SerializeField] private float delayedDamageTime = 0.1f;
+    [SerializeField] private bool continueDamage = false;
 
     void Start()
     {
         targetDetection = GetComponent<TargetDetection>();
+        timer = delayedDamageTime;
     }
 
     // Update is called once per frame
@@ -24,13 +30,23 @@ public class AreaDamage : MonoBehaviour
 
         if (targetDetection == null)
         {
-            Debug.Log("1");
             return;
         }
 
-        allTargetsInRadius = targetDetection.GetTargetsInRadius();
-        Damage();
-        hasDamaged = true;
+        timer -= Time.deltaTime;
+        if (timer <= 0f)
+        {
+            allTargetsInRadius = targetDetection.GetTargetsInRadius();
+            Damage();
+            if (continueDamage)
+            {
+                timer = delayedDamageTime;
+            }
+            else
+            {
+                hasDamaged = true;
+            }
+        }
     }
 
     public void Damage()
@@ -42,7 +58,7 @@ public class AreaDamage : MonoBehaviour
                 if (target.TryGetComponent<Enemy>(out Enemy enemy))
                 {
                     enemy.TakeDamage(damage);
-                    Debug.Log("Damaged" + damage);
+                    Debug.Log("damage: " + damage); 
                 }
             }
         }

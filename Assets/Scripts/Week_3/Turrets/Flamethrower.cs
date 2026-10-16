@@ -3,6 +3,7 @@ using UnityEngine;
 public class Flamethrower : MonoBehaviour
 {
     [SerializeField] private GameObject flameParticles;
+    [SerializeField] private float damage = 1f;
     TargetDetection targetDetection;
 
     void Start()
@@ -16,6 +17,7 @@ public class Flamethrower : MonoBehaviour
         if (targetDetection.IsTargetDetected())
         {
             flameParticles.SetActive(true);
+            flameParticles.GetComponent<AreaDamage>().SetDamage(damage);
         }
         else
         {
