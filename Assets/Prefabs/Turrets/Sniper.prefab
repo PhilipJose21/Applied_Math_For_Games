@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 676777019757330040}
   - component: {fileID: 5055401595243836165}
   - component: {fileID: 8328696932892664335}
-  - component: {fileID: 3168604470868590875}
+  - component: {fileID: 1009837433446983235}
   - component: {fileID: 4023603406844512916}
   m_Layer: 0
   m_Name: Sniper
@@ -31,7 +31,7 @@ Transform:
   m_GameObject: {fileID: 2296269857229736053}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -15.2721405, y: 0.84, z: -6.5509596}
+  m_LocalPosition: {x: -38.94874, y: 0, z: 18.176132}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -115,7 +115,7 @@ MonoBehaviour:
   startWidth: 0.1
   endWidth: 0.1
   lineColor: {r: 1, g: 1, b: 1, a: 1}
-  showDetectionShape: 1
+  showDetectionShape: 0
 --- !u!114 &8328696932892664335
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -132,7 +132,7 @@ MonoBehaviour:
   rotationType: 2
   targetType: 0
   rotationSpeed: 7.5
---- !u!114 &3168604470868590875
+--- !u!114 &1009837433446983235
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -141,15 +141,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 2296269857229736053}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b40e92210a6fbcb48ad25b820a4ccfed, type: 3}
+  m_Script: {fileID: 11500000, guid: b6e215f81d6e03c4c82d2bfc7955fbe8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Sniper
   bulletPrefab: {fileID: 7140781431105419998, guid: 4392408018ce68347bcf726358e11d4e, type: 3}
   firePoint: {fileID: 6815573375005586986}
   fireRate: 1
-  bulletSpeed: 20
+  bulletSpeed: 10
   bulletLifetime: 5
   damage: 1
+  hasHiddenDetection: 0
+  hasPierce: 0
+  upgrades: []
+  targetDetection: {fileID: 0}
 --- !u!120 &4023603406844512916
 LineRenderer:
   serializedVersion: 3
@@ -158,7 +162,7 @@ LineRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2296269857229736053}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1

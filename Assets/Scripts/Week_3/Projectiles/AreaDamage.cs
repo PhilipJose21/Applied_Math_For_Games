@@ -69,4 +69,9 @@ public class AreaDamage : MonoBehaviour
     {
         this.damage = damage;
     }
+
+    public void SetDelayedDamageTime(float time)
+    {
+        delayedDamageTime = time;
+    }
 }

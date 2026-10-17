@@ -48,4 +48,12 @@ public class Shotgun : MonoBehaviour
         bullet.GetComponent<Projectile>().SetLifetime(bulletLifetime);
         bullet.GetComponent<Projectile>().SetTarget(targetDetection.GetTarget());
     }
+
+    public void Upgrade(int level)
+    {
+        switch (level)
+        {
+            
+        }
+    }
 }

@@ -1,27 +1,34 @@
 using UnityEngine;
 
-public class Flamethrower : MonoBehaviour
+public class Flamethrower : BaseTower
 {
     [SerializeField] private GameObject flameParticles;
-    [SerializeField] private float damage = 1f;
-    TargetDetection targetDetection;
 
-    void Start()
+    public override void Start()
     {
         targetDetection = GetComponent<TargetDetection>();
         flameParticles.SetActive(false);
     }
 
-    void Update()
+    public override void Update()
     {
         if (targetDetection.IsTargetDetected())
         {
             flameParticles.SetActive(true);
             flameParticles.GetComponent<AreaDamage>().SetDamage(damage);
+            flameParticles.GetComponent<AreaDamage>().SetDelayedDamageTime(fireRate / 100f);
         }
         else
         {
             flameParticles.SetActive(false);
+        }
+    }
+
+    public void Upgrade(int level)
+    {
+        switch (level)
+        {
+            
         }
     }
 }

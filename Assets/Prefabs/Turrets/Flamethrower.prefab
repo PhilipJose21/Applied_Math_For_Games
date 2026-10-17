@@ -4980,8 +4980,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64d08994f8cefb5479c040b29d307f80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Flamethrower
-  flameParticles: {fileID: 5784509490795023636}
+  bulletPrefab: {fileID: 0}
+  firePoint: {fileID: 0}
+  fireRate: 1
+  bulletSpeed: 10
+  bulletLifetime: 5
   damage: 1
+  hasHiddenDetection: 0
+  hasPierce: 0
+  upgrades: []
+  targetDetection: {fileID: 0}
+  flameParticles: {fileID: 5784509490795023636}
 --- !u!120 &7176612382809233458
 LineRenderer:
   serializedVersion: 3
