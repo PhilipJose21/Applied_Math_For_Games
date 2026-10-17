@@ -29,7 +29,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0.70710677, y: -0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.23986, y: 0.45208812, z: 0.23986}
+  m_LocalScale: {x: 0.04882044, y: 0.17341293, z: 0.04882044}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -103,5 +103,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1436504b7cbada4f826d3a8123752d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Projectile
-  playerTransform: {fileID: 0}
+  isExplosive: 0
+  explosion: {fileID: 0}
+  target: {fileID: 0}
   detectionRange: 1
+  lifeTime: 5

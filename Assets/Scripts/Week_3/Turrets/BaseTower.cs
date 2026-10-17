@@ -6,6 +6,7 @@ public abstract class BaseTower : MonoBehaviour
     [SerializeField] private Transform firePoint;
 
     [Header("Tower Stats: ")]
+    [SerializeField] protected float level = 0;
     [SerializeField] protected float fireRate = 1f;
     [SerializeField] protected float bulletSpeed = 10f;
     [SerializeField] protected float bulletLifetime = 5f;
@@ -68,6 +69,7 @@ public abstract class BaseTower : MonoBehaviour
         switch (level)
         {
             
+                
         }
     }
 }

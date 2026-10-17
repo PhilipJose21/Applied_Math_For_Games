@@ -4982,6 +4982,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Flamethrower
   bulletPrefab: {fileID: 0}
   firePoint: {fileID: 0}
+  level: 0
   fireRate: 1
   bulletSpeed: 10
   bulletLifetime: 5
