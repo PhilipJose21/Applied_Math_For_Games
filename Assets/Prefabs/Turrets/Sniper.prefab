@@ -153,7 +153,6 @@ MonoBehaviour:
   hasHiddenDetection: 0
   hasPierce: 0
   upgrades: []
-  targetDetection: {fileID: 0}
 --- !u!120 &4023603406844512916
 LineRenderer:
   serializedVersion: 3

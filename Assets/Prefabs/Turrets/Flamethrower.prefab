@@ -4989,7 +4989,6 @@ MonoBehaviour:
   hasHiddenDetection: 0
   hasPierce: 0
   upgrades: []
-  targetDetection: {fileID: 0}
   flameParticles: {fileID: 5784509490795023636}
 --- !u!120 &7176612382809233458
 LineRenderer:

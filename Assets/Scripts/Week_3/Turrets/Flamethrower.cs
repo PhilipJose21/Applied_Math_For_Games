@@ -3,6 +3,7 @@ using UnityEngine;
 public class Flamethrower : BaseTower
 {
     [SerializeField] private GameObject flameParticles;
+    
 
     public override void Start()
     {
@@ -12,11 +13,12 @@ public class Flamethrower : BaseTower
 
     public override void Update()
     {
+        float fireRateMultiplier = 5f;
         if (targetDetection.IsTargetDetected())
         {
             flameParticles.SetActive(true);
             flameParticles.GetComponent<AreaDamage>().SetDamage(damage);
-            flameParticles.GetComponent<AreaDamage>().SetDelayedDamageTime(fireRate / 100f);
+            flameParticles.GetComponent<AreaDamage>().SetDelayedDamageTime(fireRate / fireRateMultiplier);
         }
         else
         {

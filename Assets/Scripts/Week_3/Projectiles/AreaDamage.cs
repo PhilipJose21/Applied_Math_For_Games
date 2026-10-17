@@ -11,7 +11,7 @@ public class AreaDamage : MonoBehaviour
     private TargetDetection targetDetection;
     private bool hasDamaged;
 
-    [SerializeField] private float delayedDamageTime = 0.1f;
+    [SerializeField] private float delayedDamageTime;
     [SerializeField] private bool continueDamage = false;
 
     void Start()
