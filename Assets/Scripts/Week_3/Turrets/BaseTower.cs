@@ -16,11 +16,17 @@ public abstract class BaseTower : MonoBehaviour
     [Header("Tower Upgrades: ")]
     [SerializeField] protected towerUpgrades[] upgrades;
 
+    [System.Serializable] public struct toggleFloat
+    {
+        public float value;
+        public bool isToggled;
+    }
+
     [System.Serializable] public class towerUpgrades
     {
-        public float fireRateUPG;
-        public float rangeUPG;
-        public float damageUPG;
+        public toggleFloat fireRateUPG;
+        public toggleFloat rangeUPG;
+        public toggleFloat damageUPG;
         public bool hiddenDetectionUPG;
         public bool pierceUPG;
     }

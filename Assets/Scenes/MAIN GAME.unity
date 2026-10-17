@@ -739,7 +739,7 @@ PrefabInstance:
       objectReference: {fileID: 618974040}
     - target: {fileID: 260923658168225884, guid: be20ed2f590bd254597fd56e63988536, type: 3}
       propertyPath: m_VersionIndex
-      value: 162
+      value: 165
       objectReference: {fileID: 0}
     - target: {fileID: 403238995190851993, guid: be20ed2f590bd254597fd56e63988536, type: 3}
       propertyPath: m_Mesh
@@ -759,7 +759,7 @@ PrefabInstance:
       objectReference: {fileID: 330794786}
     - target: {fileID: 2485766707167270533, guid: be20ed2f590bd254597fd56e63988536, type: 3}
       propertyPath: m_VersionIndex
-      value: 213
+      value: 216
       objectReference: {fileID: 0}
     - target: {fileID: 3359377600971389874, guid: be20ed2f590bd254597fd56e63988536, type: 3}
       propertyPath: m_Mesh
@@ -779,7 +779,7 @@ PrefabInstance:
       objectReference: {fileID: 1050941729}
     - target: {fileID: 6338319448307318932, guid: be20ed2f590bd254597fd56e63988536, type: 3}
       propertyPath: m_VersionIndex
-      value: 142
+      value: 145
       objectReference: {fileID: 0}
     - target: {fileID: 7073951504977995855, guid: be20ed2f590bd254597fd56e63988536, type: 3}
       propertyPath: m_Mesh
@@ -847,7 +847,7 @@ PrefabInstance:
       objectReference: {fileID: 185222078}
     - target: {fileID: 9038117405401924711, guid: be20ed2f590bd254597fd56e63988536, type: 3}
       propertyPath: m_VersionIndex
-      value: 92
+      value: 95
       objectReference: {fileID: 0}
     - target: {fileID: 9211574259390734701, guid: be20ed2f590bd254597fd56e63988536, type: 3}
       propertyPath: m_Mesh
@@ -5892,7 +5892,11 @@ PrefabInstance:
       objectReference: {fileID: 945040206}
     - target: {fileID: 1734567952880489024, guid: 2f56bfa75e69cae43868a946f532769e, type: 3}
       propertyPath: m_VersionIndex
-      value: 170
+      value: 173
+      objectReference: {fileID: 0}
+    - target: {fileID: 1749110629328808925, guid: 2f56bfa75e69cae43868a946f532769e, type: 3}
+      propertyPath: upgrades.Array.size
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2638045318596787959, guid: 2f56bfa75e69cae43868a946f532769e, type: 3}
       propertyPath: rotationType
