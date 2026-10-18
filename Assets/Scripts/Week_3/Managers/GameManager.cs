@@ -113,6 +113,11 @@ public class GameManager : MonoBehaviour
         OnSelectedTowerChanged?.Invoke(this, EventArgs.Empty);
     }
 
+    public GameObject GetSelectedTower()
+    {
+        return selectedTower;
+    }
+
     void OnDrawGizmos()
     {
         if (pathPoints.Count > 0)

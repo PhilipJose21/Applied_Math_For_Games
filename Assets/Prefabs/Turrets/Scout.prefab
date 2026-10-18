@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 1441734849265832331}
   - component: {fileID: 3427492241294499337}
   - component: {fileID: 3229972188302909519}
+  - component: {fileID: 1794547257962492620}
   - component: {fileID: 4478746424218735039}
-  - component: {fileID: 1368948856097602635}
   - component: {fileID: 263973405490882443}
   m_Layer: 0
   m_Name: Scout
@@ -133,6 +133,19 @@ MonoBehaviour:
   rotationType: 2
   targetType: 0
   rotationSpeed: 7.5
+--- !u!114 &1794547257962492620
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2323579684154349411}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36edd572d89206e45b3e87f4f5bd9121, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ClickObject
+  clickRadiusPixels: 50
 --- !u!114 &4478746424218735039
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -167,18 +180,6 @@ MonoBehaviour:
       isToggled: 0
     hiddenDetectionUPG: 0
     pierceUPG: 0
---- !u!114 &1368948856097602635
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2323579684154349411}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7d12d7b3dbf623a4f9d3f8a92353e9f5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SelectionManager
 --- !u!120 &263973405490882443
 LineRenderer:
   serializedVersion: 3

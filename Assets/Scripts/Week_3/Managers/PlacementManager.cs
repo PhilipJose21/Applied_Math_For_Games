@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using UnityEngine.EventSystems;
 using UnityEngine;
 
 public class PlacementManager : MonoBehaviour
@@ -39,6 +40,14 @@ public class PlacementManager : MonoBehaviour
     {
         if (preview == null) return;
 
+        // Cursor is over a UI element (tower buttons, etc.): hide the ghost, don't place
+        bool overUI = EventSystem.current != null && EventSystem.current.IsPointerOverGameObject();
+        if (overUI)
+        {
+            preview.SetActive(false);
+            return;
+        }
+
         hasGroundPoint = TryGetGroundPoint(out Vector3 hit);
         preview.SetActive(hasGroundPoint);
         if (!hasGroundPoint) return;
@@ -51,6 +60,12 @@ public class PlacementManager : MonoBehaviour
 
         if (canPlace && Input.GetMouseButtonDown(0))
             checkCost();
+        else if (Input.GetMouseButtonDown(1))
+        {
+            Destroy(preview);
+            preview = null;
+            selectedTower = null;
+        }
     }
 
     // --- Math helpers (no physics) ---

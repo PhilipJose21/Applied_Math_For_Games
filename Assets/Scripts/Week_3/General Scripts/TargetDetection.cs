@@ -244,18 +244,6 @@ public class TargetDetection : MonoBehaviour
         }
     }
 
-    public void SetShapeVisible(bool value)
-    {
-        showDetectionShape = value;
-        DrawDetectionShape();
-    }
-
-    public void toggleRangeVisibility(bool value)
-    {
-        showDetectionShape = value;
-        DrawDetectionShape();
-    }
-
     public List<Transform> GetAllTargetsInRadius()
     {
         return allTargetsInRadius;
@@ -297,5 +285,12 @@ public class TargetDetection : MonoBehaviour
         detectionAngle = newAngle;
         DrawDetectionShape();
     }
+
+    public void SetShapeVisible(bool value)
+    {
+        showDetectionShape = value;
+        DrawDetectionShape();
+    }
+
 
 }
