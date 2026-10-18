@@ -2485,8 +2485,8 @@ GameObject:
   - component: {fileID: 2749227376715484662}
   - component: {fileID: 4995419104738702774}
   - component: {fileID: 7323714628712593049}
-  - component: {fileID: 3416826221481773766}
   - component: {fileID: 8654781304666307111}
+  - component: {fileID: 5509789009938352830}
   - component: {fileID: 1948554000408744012}
   m_Layer: 0
   m_Name: Rocket
@@ -2608,24 +2608,6 @@ MonoBehaviour:
   rotationType: 2
   targetType: 0
   rotationSpeed: 7.5
---- !u!114 &3416826221481773766
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8846803697431702613}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b40e92210a6fbcb48ad25b820a4ccfed, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Sniper
-  bulletPrefab: {fileID: 8583912311114976482, guid: 6b6729409b1f6704d86bf5051dad05a4, type: 3}
-  firePoint: {fileID: 9002587660591269027}
-  fireRate: 1
-  bulletSpeed: 20
-  bulletLifetime: 5
-  damage: 1
 --- !u!114 &8654781304666307111
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2639,6 +2621,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ClickObject
   clickRadiusPixels: 50
+--- !u!114 &5509789009938352830
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8846803697431702613}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be327b96a29dd254387d44df002b2e2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Rocket
+  bulletPrefab: {fileID: 8846803697431702613}
+  firePoint: {fileID: 9002587660591269027}
+  level: 0
+  cost: 100
+  fireRate: 1
+  bulletSpeed: 10
+  bulletLifetime: 5
+  damage: 1
+  hasHiddenDetection: 0
+  hasPierce: 0
+  upgrades: []
 --- !u!120 &1948554000408744012
 LineRenderer:
   serializedVersion: 3

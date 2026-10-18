@@ -2,11 +2,12 @@ using UnityEngine;
 
 public abstract class BaseTower : MonoBehaviour
 {
-    [SerializeField] private GameObject bulletPrefab;
-    [SerializeField] private Transform firePoint;
+    [SerializeField] protected GameObject bulletPrefab;
+    [SerializeField] protected Transform firePoint;
 
     [Header("Tower Stats: ")]
     [SerializeField] protected float level = 0;
+    [SerializeField] protected int cost = 100;
     [SerializeField] protected float fireRate = 1f;
     [SerializeField] protected float bulletSpeed = 10f;
     [SerializeField] protected float bulletLifetime = 5f;
@@ -49,7 +50,7 @@ public abstract class BaseTower : MonoBehaviour
         }
     }
 
-    void Fire()
+    public virtual void Fire()
     {
         cooldown -= Time.deltaTime;
         if (cooldown <= 0f)
@@ -71,5 +72,10 @@ public abstract class BaseTower : MonoBehaviour
             
                 
         }
+    }
+
+    public virtual int GetCost()
+    {
+        return cost;
     }
 }

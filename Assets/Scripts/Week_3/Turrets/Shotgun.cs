@@ -1,32 +1,12 @@
 using UnityEngine;
 
-public class Shotgun : MonoBehaviour
+public class Shotgun : BaseTower
 {
-    [SerializeField] private GameObject bulletPrefab;
-    [SerializeField] private Transform firePoint;
     [SerializeField] private int numberOfBullets = 5;
     [SerializeField] private float spreadAngle = 15f;
-    [SerializeField] private float fireRate = 1f;
-    [SerializeField] private float bulletSpeed = 20f;
-    [SerializeField] private float bulletLifetime = .15f;
     private float cooldown;
-    TargetDetection targetDetection;
 
-    void Start()
-    {
-        targetDetection = GetComponent<TargetDetection>();
-        cooldown = fireRate;
-    }
-
-    void Update()
-    {
-        if (targetDetection.IsTargetDetected())
-        {
-            Fire();
-        }
-    }
-
-    void Fire()
+    public override void Fire()
     {
         cooldown -= Time.deltaTime;
         if (cooldown <= 0f)
@@ -46,10 +26,11 @@ public class Shotgun : MonoBehaviour
         GameObject bullet = Instantiate(bulletPrefab, firePoint.position, bulletRotation);
         bullet.GetComponent<Projectile>().SetSpeed(bulletSpeed);
         bullet.GetComponent<Projectile>().SetLifetime(bulletLifetime);
-        bullet.GetComponent<Projectile>().SetTarget(targetDetection.GetTarget());
+        bullet.GetComponent<Projectile>().SetDamage(damage);
+        bullet.GetComponent<Projectile>().SetHoming(false);
     }
 
-    public void Upgrade(int level)
+    public override void Upgrade(int level)
     {
         switch (level)
         {

@@ -147,8 +147,9 @@ MonoBehaviour:
   bulletPrefab: {fileID: 7140781431105419998, guid: 4392408018ce68347bcf726358e11d4e, type: 3}
   firePoint: {fileID: 6815573375005586986}
   level: 0
+  cost: 100
   fireRate: 1
-  bulletSpeed: 10
+  bulletSpeed: 150
   bulletLifetime: 5
   damage: 1
   hasHiddenDetection: 0

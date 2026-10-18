@@ -135,43 +135,6 @@ public class TargetDetection : MonoBehaviour
         }
     }
 
-    public bool IsTargetDetected()
-    {
-        return isTargetDetected;
-    }
-
-    public float GetDetectionAngle()
-    {
-        return detectionAngle;
-    }
-
-    public float GetDetectionRange()
-    {
-        return detectionRange;
-    }
-
-    private void DetectionType(bool targetDetected)
-    {
-        isTargetDetected = targetDetected;
-    }
-
-    public void SetTarget(Transform newTarget)
-    {
-        target = newTarget;
-    }
-
-    public void setDetectionRange(float newRange)
-    {
-        detectionRange = newRange;
-        DrawDetectionShape();
-    }
-
-    public void setDetectionAngle(float newAngle)
-    {
-        detectionAngle = newAngle;
-        DrawDetectionShape();
-    }
-
     bool IsInObjectSize(Transform turret, Transform target)
     {
         if (target == null) return false;
@@ -182,7 +145,7 @@ public class TargetDetection : MonoBehaviour
 
         Vector3 local = turret.InverseTransformPoint(flat);
         return local.sqrMagnitude <= 0.25f;
-}
+    }
 
     bool IsInCone(Transform turret, Transform target, float range, float coneAngle)
     {
@@ -296,6 +259,43 @@ public class TargetDetection : MonoBehaviour
     public List<Transform> GetAllTargetsInRadius()
     {
         return allTargetsInRadius;
+    }
+
+    public bool IsTargetDetected()
+    {
+        return isTargetDetected;
+    }
+
+    public float GetDetectionAngle()
+    {
+        return detectionAngle;
+    }
+
+    public float GetDetectionRange()
+    {
+        return detectionRange;
+    }
+
+    private void DetectionType(bool targetDetected)
+    {
+        isTargetDetected = targetDetected;
+    }
+
+    public void SetTarget(Transform newTarget)
+    {
+        target = newTarget;
+    }
+
+    public void setDetectionRange(float newRange)
+    {
+        detectionRange = newRange;
+        DrawDetectionShape();
+    }
+
+    public void setDetectionAngle(float newAngle)
+    {
+        detectionAngle = newAngle;
+        DrawDetectionShape();
     }
 
 }

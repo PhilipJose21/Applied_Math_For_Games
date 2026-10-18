@@ -4983,6 +4983,7 @@ MonoBehaviour:
   bulletPrefab: {fileID: 0}
   firePoint: {fileID: 0}
   level: 0
+  cost: 100
   fireRate: 1
   bulletSpeed: 10
   bulletLifetime: 5
@@ -5164,7 +5165,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3223522463832931992
 Transform:
   m_ObjectHideFlags: 0

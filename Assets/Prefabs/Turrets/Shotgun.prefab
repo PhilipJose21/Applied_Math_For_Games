@@ -140,8 +140,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3d8a769021bd94eae20620c927a38f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TurretDetection
-  detectionRadius: 0
-  detectionRange: 11
+  detectionRadius: 1
+  detectionRange: 4.88
   detectionAngle: 75
   lineRenderer: {fileID: 8856332475571111093}
   startWidth: 0.1
@@ -161,7 +161,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RotateTurret
   allTargetsInRadius: []
-  rotationType: 3
+  rotationType: 2
   targetType: 0
   rotationSpeed: 7.5
 --- !u!114 &1418649306096391058
@@ -178,11 +178,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Shotgun
   bulletPrefab: {fileID: 7140781431105419998, guid: e7d8fb52fd8e7cf4bb8752eec9705462, type: 3}
   firePoint: {fileID: 4776308103678420922}
-  numberOfBullets: 5
-  spreadAngle: 30
+  level: 0
+  cost: 100
   fireRate: 1
-  bulletSpeed: 25
+  bulletSpeed: 100
   bulletLifetime: 0.2
+  damage: 1
+  hasHiddenDetection: 0
+  hasPierce: 0
+  upgrades: []
+  numberOfBullets: 5
+  spreadAngle: 15
 --- !u!120 &8856332475571111093
 LineRenderer:
   serializedVersion: 3
@@ -233,29 +239,43 @@ LineRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Positions:
-  - {x: 0, y: 0, z: 0}
-  - {x: -6.696376, y: 0, z: 8.726887}
-  - {x: -6.111273, y: 0, z: 9.146166}
-  - {x: -5.5, y: 0, z: 9.526279}
-  - {x: -4.8651757, y: 0, z: 9.865601}
-  - {x: -4.209518, y: 0, z: 10.162675}
-  - {x: -3.5358338, y: 0, z: 10.416231}
-  - {x: -2.8470092, y: 0, z: 10.625184}
-  - {x: -2.1459935, y: 0, z: 10.788638}
-  - {x: -1.435788, y: 0, z: 10.905893}
-  - {x: -0.7194346, y: 0, z: 10.976448}
-  - {x: 0, y: 0, z: 11}
-  - {x: 0.7194346, y: 0, z: 10.976448}
-  - {x: 1.4357885, y: 0, z: 10.905893}
-  - {x: 2.145993, y: 0, z: 10.788638}
-  - {x: 2.8470092, y: 0, z: 10.625184}
-  - {x: 3.5358338, y: 0, z: 10.416231}
-  - {x: 4.209518, y: 0, z: 10.162675}
-  - {x: 4.865176, y: 0, z: 9.865601}
-  - {x: 5.4999995, y: 0, z: 9.526279}
-  - {x: 6.111273, y: 0, z: 9.146166}
-  - {x: 6.696376, y: 0, z: 8.726887}
-  - {x: 0, y: 0, z: 0}
+  - {x: 4.88, y: 0, z: 0}
+  - {x: 4.805862, y: 0, z: 0.8474031}
+  - {x: 4.5857, y: 0, z: 1.6690582}
+  - {x: 4.226204, y: 0, z: 2.44}
+  - {x: 3.738297, y: 0, z: 3.1368034}
+  - {x: 3.1368036, y: 0, z: 3.738297}
+  - {x: 2.4399998, y: 0, z: 4.2262044}
+  - {x: 1.6690584, y: 0, z: 4.5857}
+  - {x: 0.84740335, y: 0, z: 4.805862}
+  - {x: -0.00000021331158, y: 0, z: 4.88}
+  - {x: -0.8474032, y: 0, z: 4.805862}
+  - {x: -1.6690582, y: 0, z: 4.5857}
+  - {x: -2.4400003, y: 0, z: 4.226204}
+  - {x: -3.1368036, y: 0, z: 3.738297}
+  - {x: -3.738297, y: 0, z: 3.1368036}
+  - {x: -4.226204, y: 0, z: 2.4400003}
+  - {x: -4.5857, y: 0, z: 1.6690587}
+  - {x: -4.805862, y: 0, z: 0.8474037}
+  - {x: -4.88, y: 0, z: -0.00000042662316}
+  - {x: -4.805862, y: 0, z: -0.84740335}
+  - {x: -4.5857, y: 0, z: -1.6690584}
+  - {x: -4.226204, y: 0, z: -2.4399998}
+  - {x: -3.7382972, y: 0, z: -3.1368034}
+  - {x: -3.1368032, y: 0, z: -3.7382975}
+  - {x: -2.4399996, y: 0, z: -4.2262044}
+  - {x: -1.669058, y: 0, z: -4.5857005}
+  - {x: -0.84740293, y: 0, z: -4.805862}
+  - {x: 0.000000058193418, y: 0, z: -4.88}
+  - {x: 0.847403, y: 0, z: -4.805862}
+  - {x: 1.6690581, y: 0, z: -4.5857}
+  - {x: 2.4399996, y: 0, z: -4.2262044}
+  - {x: 3.1368032, y: 0, z: -3.7382972}
+  - {x: 3.7382963, y: 0, z: -3.1368043}
+  - {x: 4.226204, y: 0, z: -2.440001}
+  - {x: 4.5856996, y: 0, z: -1.6690594}
+  - {x: 4.805862, y: 0, z: -0.8474044}
+  - {x: 4.88, y: 0, z: 0.0000008532463}
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 1

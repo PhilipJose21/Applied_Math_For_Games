@@ -31,7 +31,6 @@ public class EnemyManager : MonoBehaviour
             Destroy(gameObject);
         }   
 
-        StartWave();
         spawnPoint = GameManager._instance.GetPathPoints()[0];
     }
 
@@ -51,10 +50,6 @@ public class EnemyManager : MonoBehaviour
         SpawnEnemy();
         CheckTargetList();
         
-        if (!waveStarted && allTargets.Count == 0 && currentWaveIndex < waveList.Count)
-        {
-            StartWave();
-        }
         if (currentWaveIndex >= waveList.Count && allTargets.Count == 0)
         {
             Debug.Log("All waves completed");
@@ -62,11 +57,17 @@ public class EnemyManager : MonoBehaviour
         }
     }
 
-    void StartWave()
+    public void StartWave()
     {
         if (currentWaveIndex >= waveList.Count)
         {
             waveStarted = false;
+            return;
+        }
+
+        if (allTargets.Count > 0)
+        {
+            Debug.Log("Cannot start wave, enemies still present");
             return;
         }
 

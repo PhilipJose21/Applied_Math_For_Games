@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject winUI;
     [SerializeField] private GameObject finishArea;
     [SerializeField] private GameObject selectedTower;
-    private int coins;
+    [SerializeField] private int coins;
 
     [SerializeField] private List<Transform> pathPoints = new List<Transform>();
 
