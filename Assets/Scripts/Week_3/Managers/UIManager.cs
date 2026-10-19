@@ -18,6 +18,12 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject pauseUI;
     [SerializeField] private GameObject upgradeUI;
 
+    [Header("Upgrade UI Elements")]
+    [SerializeField] private TextMeshProUGUI upgradeNameText;
+    [SerializeField] private TextMeshProUGUI upgradeCostText;
+    [SerializeField] private TextMeshProUGUI sellCostText;
+    [SerializeField] private TextMeshProUGUI upgradeDescriptionText;
+
     [Header("Buttons")]
     [SerializeField] private Button pauseButton;
     [SerializeField] private Button cancelPlacementButton;
@@ -35,6 +41,7 @@ public class UIManager : MonoBehaviour
         HealthSystem.OnDead += HealthSystem_OnDead;
         GameManager.OnCoinChanged += GameManager_OnCoinChanged;
         GameManager.OnSelectedTowerChanged += GameManager_OnSelectedTowerChanged;
+        GameManager.OnTowerUpgraded += GameManager_OnTowerUpgraded;
         EnemyManager.OnWaveEnded += EnemyManager_OnWaveEnded;
 
         healthBarFill.maxValue = healthSystem.GetMaxHealth();
@@ -47,7 +54,6 @@ public class UIManager : MonoBehaviour
 
         UpdateCoinUI();
     }
-
 
 
     void Update()
@@ -68,7 +74,27 @@ public class UIManager : MonoBehaviour
         HealthSystem.OnDead -= HealthSystem_OnDead;
         GameManager.OnCoinChanged -= GameManager_OnCoinChanged;
         GameManager.OnSelectedTowerChanged -= GameManager_OnSelectedTowerChanged;
+        GameManager.OnTowerUpgraded -= GameManager_OnTowerUpgraded;
         EnemyManager.OnWaveEnded -= EnemyManager_OnWaveEnded;
+    }
+
+    private void UpdateUpgradeUI(BaseTower tower)
+    {
+        var u = tower?.GetUpgrade();
+        if (u == null)
+        {
+            return;
+        }
+
+        upgradeUI.SetActive(true);
+        upgradeNameText.text = u?.upgradeName;
+        // upgradeCostText.text = u != null ? u.upgradeCost.ToString() : "";
+        // sellCostText.text = gameManager.GetSelectedTower()?.GetComponent<BaseTower>().GetSellValue().ToString();
+        // upgradeDescriptionText.text = u != null ? $"Fire Rate: {(u.fireRateUPG.isToggled ? "+" : "")}{u.fireRateUPG.value}\n" +
+        //     $"Range: {(u.rangeUPG.isToggled ? "+" : "")}{u.rangeUPG.value}\n" +
+        //     $"Damage: {(u.damageUPG.isToggled ? "+" : "")}{u.damageUPG.value}\n" +
+        //     $"Hidden Detection: {(u.hiddenDetectionUPG ? "Yes" : "No")}\n" +
+        //     $"Pierce: {(u.pierceUPG ? "Yes" : "No")}" : "";
     }
 
     private void UpdateCoinUI()
@@ -93,7 +119,13 @@ public class UIManager : MonoBehaviour
 
     private void GameManager_OnSelectedTowerChanged(object sender, EventArgs e)
     {
-        upgradeUI.SetActive(gameManager.GetSelectedTower() != null);
+        UpdateUpgradeUI(gameManager.GetSelectedTower()?.GetComponent<BaseTower>());
+    }
+
+    
+    private void GameManager_OnTowerUpgraded(object sender, EventArgs e)
+    {
+        UpdateUpgradeUI(gameManager.GetSelectedTower()?.GetComponent<BaseTower>());
     }
 
     private void EnemyManager_OnWaveEnded(object sender, EventArgs e)

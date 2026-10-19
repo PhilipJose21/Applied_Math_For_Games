@@ -2635,7 +2635,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Rocket
   bulletPrefab: {fileID: 8846803697431702613}
   firePoint: {fileID: 9002587660591269027}
-  level: 0
+  towerLevel: 0
   cost: 100
   sellValue: 0
   fireRate: 1

@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
 
     public static EventHandler OnCoinChanged;
     public static EventHandler OnSelectedTowerChanged;
+    public static EventHandler OnTowerUpgraded;
 
     public bool enableDebug = true;
     private HealthSystem healthSystem;
@@ -101,10 +102,14 @@ public class GameManager : MonoBehaviour
             var tower = selectedTower.GetComponent<BaseTower>();
             if (tower != null)
             {
+                if (tower.GetUpgrade() == null)
+                    return;
+
                 if (coins >= tower.GetUpgradeCost())
                 {
                     RemoveCoin(tower.GetUpgradeCost());
                     tower.Upgrade(tower.GetLevel() + 1);
+                    OnTowerUpgraded?.Invoke(this, EventArgs.Empty);
                 }
             }
         }

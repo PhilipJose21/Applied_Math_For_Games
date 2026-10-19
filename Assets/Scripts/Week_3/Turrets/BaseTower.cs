@@ -8,7 +8,7 @@ public abstract class BaseTower : MonoBehaviour
     [SerializeField] protected Transform firePoint;
 
     [Header("Tower Stats: ")]
-    [SerializeField] protected int level = 0;
+    [SerializeField] protected int towerLevel = 0;
     [SerializeField] protected int cost = 100;
     [SerializeField] protected int sellValue;
     [SerializeField] protected float fireRate = 1f;
@@ -25,19 +25,15 @@ public abstract class BaseTower : MonoBehaviour
     [Header("Tower Upgrades: ")]
     [SerializeField] protected towerUpgrades[] upgrades;
 
-    [System.Serializable] public struct toggleFloat
-    {
-        public float value;
-        public bool isToggled;
-    }
+
 
     [System.Serializable] public class towerUpgrades
     {
         public string upgradeName;
         public int upgradeCost;
-        public toggleFloat fireRateUPG;
-        public toggleFloat rangeUPG;
-        public toggleFloat damageUPG;
+        public float fireRateUPG;
+        public float rangeUPG;
+        public float damageUPG;
         public bool hiddenDetectionUPG;
         public bool pierceUPG;
     }
@@ -117,7 +113,7 @@ public abstract class BaseTower : MonoBehaviour
     public void UpdateSellValue()
     {
         sellValue = Mathf.RoundToInt(cost * 0.5f);
-        for (int i = 0; i < level; i++)
+        for (int i = 0; i < towerLevel; i++)
         {
             sellValue += Mathf.RoundToInt(upgrades[i].upgradeCost * 0.5f);
         }
@@ -142,25 +138,26 @@ public abstract class BaseTower : MonoBehaviour
 
     public virtual void Upgrade(int level)
     {
-        switch (level)
+        if (level <= towerLevel || level > upgrades.Length)
         {
-            case 0:
-                break;
-            case 1:
-                break;
-            case 2:
-                break;
-            case 3:
-                break;
-            case 4:
-                break;
+            Debug.Log("Max Level Reached");
+            return;
         }
+
+        towerUpgrades upgrade = upgrades[level - 1];
+        damage += upgrade.damageUPG;
+        fireRate += upgrade.fireRateUPG;
+        targetDetection.setDetectionRange(targetDetection.GetDetectionRange() + upgrade.rangeUPG);
+        hasHiddenDetection |= upgrade.hiddenDetectionUPG;
+        hasPierce |= upgrade.pierceUPG;
+        towerLevel = level;
+        UpdateSellValue();
     }
 
     public virtual int GetUpgradeCost()
     {
-        if (level < upgrades.Length)
-            return upgrades[level].upgradeCost;
+        if (towerLevel < upgrades.Length)
+            return upgrades[towerLevel].upgradeCost;
         else
             return 0;
     }
@@ -169,5 +166,13 @@ public abstract class BaseTower : MonoBehaviour
 
     public virtual int GetCost() => cost;
 
-    public virtual int GetLevel() => level;
+    public virtual int GetLevel() => towerLevel;
+
+    public virtual towerUpgrades GetUpgrade()
+    {
+        if (towerLevel < upgrades.Length)
+            return upgrades[towerLevel];
+        else
+            return null;
+    }
 }

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3427492241294499337}
   - component: {fileID: 3229972188302909519}
   - component: {fileID: 1794547257962492620}
-  - component: {fileID: 4478746424218735039}
+  - component: {fileID: 320901855232930277}
   - component: {fileID: 263973405490882443}
   m_Layer: 0
   m_Name: Scout
@@ -146,7 +146,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ClickObject
   clickRadiusPixels: 50
---- !u!114 &4478746424218735039
+--- !u!114 &320901855232930277
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -155,12 +155,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 2323579684154349411}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b6e215f81d6e03c4c82d2bfc7955fbe8, type: 3}
+  m_Script: {fileID: 11500000, guid: 6e12af3b091cb274ab1780f9ac6a3b34, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Sniper
+  m_EditorClassIdentifier: Assembly-CSharp::Scout
   bulletPrefab: {fileID: 7140781431105419998, guid: 4392408018ce68347bcf726358e11d4e, type: 3}
   firePoint: {fileID: 5232435086478544602}
-  level: 0
+  towerLevel: 0
   cost: 100
   sellValue: 0
   fireRate: 0.5
@@ -171,17 +171,18 @@ MonoBehaviour:
   hasPierce: 0
   clickRadius: 0.9
   upgrades:
-  - upgradeName: 
+  - upgradeName: base upgrade
     upgradeCost: 0
-    fireRateUPG:
-      value: 0
-      isToggled: 0
-    rangeUPG:
-      value: 0
-      isToggled: 0
-    damageUPG:
-      value: 0
-      isToggled: 0
+    fireRateUPG: 0
+    rangeUPG: 0
+    damageUPG: 0
+    hiddenDetectionUPG: 0
+    pierceUPG: 0
+  - upgradeName: Faster Reload
+    upgradeCost: 0
+    fireRateUPG: 0
+    rangeUPG: 0
+    damageUPG: 0
     hiddenDetectionUPG: 0
     pierceUPG: 0
 --- !u!120 &263973405490882443
