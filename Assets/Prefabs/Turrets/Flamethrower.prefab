@@ -4984,12 +4984,14 @@ MonoBehaviour:
   firePoint: {fileID: 0}
   level: 0
   cost: 100
+  sellValue: 0
   fireRate: 1
   bulletSpeed: 10
   bulletLifetime: 5
   damage: 1
   hasHiddenDetection: 0
   hasPierce: 0
+  clickRadius: 0.9
   upgrades: []
   flameParticles: {fileID: 5784509490795023636}
 --- !u!120 &7176612382809233458

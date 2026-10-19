@@ -180,12 +180,14 @@ MonoBehaviour:
   firePoint: {fileID: 4776308103678420922}
   level: 0
   cost: 100
+  sellValue: 0
   fireRate: 1
   bulletSpeed: 100
   bulletLifetime: 0.2
   damage: 1
   hasHiddenDetection: 0
   hasPierce: 0
+  clickRadius: 0.9
   upgrades: []
   numberOfBullets: 5
   spreadAngle: 15
@@ -371,8 +373,8 @@ Transform:
   m_GameObject: {fileID: 3104154527091191983}
   serializedVersion: 2
   m_LocalRotation: {x: 0.70710677, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -0.1484, y: 0, z: 0.6219997}
-  m_LocalScale: {x: 0.4518172, y: 0.6957663, z: 0.4518172}
+  m_LocalPosition: {x: -0.1484, y: 0, z: 0.3885}
+  m_LocalScale: {x: 0.4518172, y: 0.60024613, z: 0.4518172}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4019958397696375130}
@@ -485,8 +487,8 @@ Transform:
   m_GameObject: {fileID: 5626492942128061829}
   serializedVersion: 2
   m_LocalRotation: {x: 0.70710677, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0.1383, y: 0, z: 0.622}
-  m_LocalScale: {x: 0.4518172, y: 0.6957663, z: 0.4518172}
+  m_LocalPosition: {x: 0.1383, y: 0, z: 0.3885}
+  m_LocalScale: {x: 0.4518172, y: 0.60024613, z: 0.4518172}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4019958397696375130}

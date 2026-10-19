@@ -15,7 +15,6 @@ public class GameManager : MonoBehaviour
     private TargetDetection finishAreaDetection;
 
     [SerializeField] private GameObject gameOverUI;
-    [SerializeField] private GameObject winUI;
     [SerializeField] private GameObject finishArea;
     [SerializeField] private GameObject selectedTower;
     [SerializeField] private int coins;
@@ -35,17 +34,6 @@ public class GameManager : MonoBehaviour
         
         healthSystem = GetComponent<HealthSystem>();
         finishAreaDetection = finishArea.GetComponent<TargetDetection>();
-        EnemyManager.OnWaveEnded += EnemyManager_OnWaveEnded;
-    }
-
-    void OnDestroy()
-    {
-        EnemyManager.OnWaveEnded -= EnemyManager_OnWaveEnded;
-    }
-
-    private void EnemyManager_OnWaveEnded(object sender, EventArgs e)
-    {
-        winUI.SetActive(true);
     }
 
     void Update()
@@ -80,20 +68,13 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
-    public List<Transform> GetPathPoints()
-    {
-        return pathPoints;
-    }
+    public List<Transform> GetPathPoints() => pathPoints;
 
-    public EnemyManager GetEnemyManager()
-    {
-        return EnemyManager._instance;
-    }
+    public EnemyManager GetEnemyManager() => EnemyManager._instance;
 
-    public int GetCoinCount()
-    {
-        return coins;
-    }
+    public int GetCoinCount() => coins;
+
+    public GameObject GetSelectedTower() => selectedTower;
 
     public void AddCoin(int amount)
     {
@@ -113,23 +94,48 @@ public class GameManager : MonoBehaviour
         OnSelectedTowerChanged?.Invoke(this, EventArgs.Empty);
     }
 
-    public GameObject GetSelectedTower()
+    public void UpgradeSelectedTower()
     {
-        return selectedTower;
+        if (selectedTower != null)
+        {
+            var tower = selectedTower.GetComponent<BaseTower>();
+            if (tower != null)
+            {
+                if (coins >= tower.GetUpgradeCost())
+                {
+                    RemoveCoin(tower.GetUpgradeCost());
+                    tower.Upgrade(tower.GetLevel() + 1);
+                }
+            }
+        }
+    }
+
+    public void SellTower()
+    {
+        if (selectedTower != null)
+        {
+            var tower = selectedTower.GetComponent<BaseTower>();
+            if (tower != null)
+            {
+                AddCoin(tower.GetSellValue());
+                Destroy(selectedTower);
+                SetSelectedTower(null);
+            }
+        }
     }
 
     void OnDrawGizmos()
     {
-        if (pathPoints.Count > 0)
-        {
-            for (int i = 0; i < pathPoints.Count - 1; i++)
-            {
-                if (pathPoints[i] != null && pathPoints[i + 1] != null)
-                {
-                    Gizmos.color = Color.red;
-                    Gizmos.DrawLine(pathPoints[i].position, pathPoints[i + 1].position);
-                }
-            }
-        }
+        // if (pathPoints.Count > 0)
+        // {
+        //     for (int i = 0; i < pathPoints.Count - 1; i++)
+        //     {
+        //         if (pathPoints[i] != null && pathPoints[i + 1] != null)
+        //         {
+        //             Gizmos.color = Color.red;
+        //             Gizmos.DrawLine(pathPoints[i].position, pathPoints[i + 1].position);
+        //         }
+        //     }
+        // }
     }
 }

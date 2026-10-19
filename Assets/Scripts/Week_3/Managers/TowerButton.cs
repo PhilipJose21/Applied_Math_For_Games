@@ -10,7 +10,7 @@ public class TowerButton : MonoBehaviour
     void Start()
     {
         buttonNameText.text = towerPrefab.name;
-        costText.text = towerPrefab.GetComponent<BaseTower>().GetCost().ToString();
+        costText.text = "$" + towerPrefab.GetComponent<BaseTower>().GetCost().ToString();
     }
 
     public void OnClick()

@@ -162,14 +162,18 @@ MonoBehaviour:
   firePoint: {fileID: 5232435086478544602}
   level: 0
   cost: 100
+  sellValue: 0
   fireRate: 0.5
   bulletSpeed: 100
   bulletLifetime: 5
   damage: 1
   hasHiddenDetection: 0
   hasPierce: 0
+  clickRadius: 0.9
   upgrades:
-  - fireRateUPG:
+  - upgradeName: 
+    upgradeCost: 0
+    fireRateUPG:
       value: 0
       isToggled: 0
     rangeUPG:

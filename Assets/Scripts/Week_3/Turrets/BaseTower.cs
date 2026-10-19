@@ -8,8 +8,9 @@ public abstract class BaseTower : MonoBehaviour
     [SerializeField] protected Transform firePoint;
 
     [Header("Tower Stats: ")]
-    [SerializeField] protected float level = 0;
+    [SerializeField] protected int level = 0;
     [SerializeField] protected int cost = 100;
+    [SerializeField] protected int sellValue;
     [SerializeField] protected float fireRate = 1f;
     [SerializeField] protected float bulletSpeed = 10f;
     [SerializeField] protected float bulletLifetime = 5f;
@@ -32,6 +33,8 @@ public abstract class BaseTower : MonoBehaviour
 
     [System.Serializable] public class towerUpgrades
     {
+        public string upgradeName;
+        public int upgradeCost;
         public toggleFloat fireRateUPG;
         public toggleFloat rangeUPG;
         public toggleFloat damageUPG;
@@ -39,7 +42,7 @@ public abstract class BaseTower : MonoBehaviour
         public bool pierceUPG;
     }
 
-    private float cooldown;
+    protected float cooldown;
     protected TargetDetection targetDetection;
     private Camera mainCamera;
     private GameManager gameManager;
@@ -52,6 +55,7 @@ public abstract class BaseTower : MonoBehaviour
         gameManager = GameManager._instance;
 
         GameManager.OnSelectedTowerChanged += OnSelectedTowerChanged;
+        UpdateSellValue();
         UpdateRangeVisibility();
     }
 
@@ -65,6 +69,11 @@ public abstract class BaseTower : MonoBehaviour
         if (targetDetection.IsTargetDetected())
             Fire();
 
+        HandleSelectionInput();
+    }
+
+    protected void HandleSelectionInput()
+    {
         if (Input.GetMouseButtonDown(0))   // once per click, not every frame it's held
             TrySelect();
     }
@@ -76,7 +85,7 @@ public abstract class BaseTower : MonoBehaviour
         targetDetection.SetShapeVisible(gameManager.GetSelectedTower() == gameObject);
     }
 
-    void TrySelect()
+    public virtual void TrySelect()
     {
         if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
             return;
@@ -105,6 +114,15 @@ public abstract class BaseTower : MonoBehaviour
         return false;
     }
 
+    public void UpdateSellValue()
+    {
+        sellValue = Mathf.RoundToInt(cost * 0.5f);
+        for (int i = 0; i < level; i++)
+        {
+            sellValue += Mathf.RoundToInt(upgrades[i].upgradeCost * 0.5f);
+        }
+    }
+
     public virtual void Fire()
     {
         cooldown -= Time.deltaTime;
@@ -126,8 +144,30 @@ public abstract class BaseTower : MonoBehaviour
     {
         switch (level)
         {
+            case 0:
+                break;
+            case 1:
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+            case 4:
+                break;
         }
     }
 
+    public virtual int GetUpgradeCost()
+    {
+        if (level < upgrades.Length)
+            return upgrades[level].upgradeCost;
+        else
+            return 0;
+    }
+
+    public virtual int GetSellValue() => sellValue;
+
     public virtual int GetCost() => cost;
+
+    public virtual int GetLevel() => level;
 }

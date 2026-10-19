@@ -4,7 +4,6 @@ public class Shotgun : BaseTower
 {
     [SerializeField] private int numberOfBullets = 5;
     [SerializeField] private float spreadAngle = 15f;
-    private float cooldown;
 
     public override void Fire()
     {

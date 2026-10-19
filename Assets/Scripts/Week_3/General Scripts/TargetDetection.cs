@@ -244,25 +244,14 @@ public class TargetDetection : MonoBehaviour
         }
     }
 
-    public List<Transform> GetAllTargetsInRadius()
-    {
-        return allTargetsInRadius;
-    }
+    public List<Transform> GetAllTargetsInRadius() => allTargetsInRadius;
 
-    public bool IsTargetDetected()
-    {
-        return isTargetDetected;
-    }
+    public bool IsTargetDetected() => isTargetDetected;
 
-    public float GetDetectionAngle()
-    {
-        return detectionAngle;
-    }
+    public float GetDetectionAngle() => detectionAngle;
 
-    public float GetDetectionRange()
-    {
-        return detectionRange;
-    }
+    public float GetDetectionRange() => detectionRange;
+
 
     private void DetectionType(bool targetDetected)
     {

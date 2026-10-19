@@ -5,6 +5,8 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float maxHealth = 10f;
     public float currentHealth;
     [SerializeField] private float speed = 5f;
+
+    [SerializeField] private int defense;
     [SerializeField] private Transform coinPrefab;
     [SerializeField] private Transform[] pathPoints;
 
@@ -20,11 +22,6 @@ public class Enemy : MonoBehaviour
         currentHealth = maxHealth;
     }
 
-    public float GetSpeed()
-    {
-        return speed;
-    }
-
     public void Death()
     {
         Instantiate(coinPrefab, transform.position, Quaternion.identity);
@@ -33,22 +30,16 @@ public class Enemy : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
-        currentHealth -= damage;
+        if (defense > 0){currentHealth -= damage * defense;}
+        else{currentHealth -= damage;}
         enemyHealth.updateHealthValues(currentHealth, maxHealth);
-        if (currentHealth <= 0f)
-        {
-            Death();
-        }
+        if (currentHealth <= 0f){Death();}
     }
 
-    public float GetCurrentHealth()
-    {
-        return currentHealth;
-    }
+    public float GetCurrentHealth() => currentHealth;
 
-    public float GetMaxHealth()
-    {
-        return maxHealth;
-    }
+    public float GetMaxHealth() => maxHealth;
+
+    public float GetSpeed() => speed;
    
 }

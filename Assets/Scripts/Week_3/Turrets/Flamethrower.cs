@@ -7,12 +7,14 @@ public class Flamethrower : BaseTower
 
     public override void Start()
     {
-        targetDetection = GetComponent<TargetDetection>();
+        base.Start();
         flameParticles.SetActive(false);
     }
 
     public override void Update()
     {
+        HandleSelectionInput();
+
         float fireRateMultiplier = 5f;
         if (targetDetection.IsTargetDetected())
         {
@@ -24,6 +26,7 @@ public class Flamethrower : BaseTower
         {
             flameParticles.SetActive(false);
         }
+        
     }
 
     public void Upgrade(int level)
