@@ -2,11 +2,11 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    [SerializeField] private float maxHealth = 10f;
-    public float currentHealth;
+    [SerializeField] private int maxHealth = 10;
+    public int currentHealth;
     [SerializeField] private float speed = 5f;
-
     [SerializeField] private int defense;
+    [SerializeField] private bool isHidden;
     [SerializeField] private Transform coinPrefab;
     [SerializeField] private Transform[] pathPoints;
 
@@ -28,18 +28,21 @@ public class Enemy : MonoBehaviour
         Destroy(gameObject);
     }
 
-    public void TakeDamage(float damage)
+    public void TakeDamage(int damage, bool ignoreDefense = false)
     {
-        if (defense > 0){currentHealth -= damage * defense;}
+        if (defense > 0 && !ignoreDefense){currentHealth -= damage * defense;}
+        if (defense <= 0 || ignoreDefense){currentHealth -= damage;}
         else{currentHealth -= damage;}
         enemyHealth.updateHealthValues(currentHealth, maxHealth);
         if (currentHealth <= 0f){Death();}
     }
 
-    public float GetCurrentHealth() => currentHealth;
+    public int GetCurrentHealth() => currentHealth;
 
-    public float GetMaxHealth() => maxHealth;
+    public int GetMaxHealth() => maxHealth;
 
     public float GetSpeed() => speed;
+
+    public bool GetIsHidden() => isHidden;
    
 }

@@ -22,7 +22,13 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI upgradeNameText;
     [SerializeField] private TextMeshProUGUI upgradeCostText;
     [SerializeField] private TextMeshProUGUI sellCostText;
-    [SerializeField] private TextMeshProUGUI upgradeDescriptionText;
+    [SerializeField] private TextMeshProUGUI damageText;
+    [SerializeField] private TextMeshProUGUI fireRateText;
+    [SerializeField] private TextMeshProUGUI rangeText;
+    [SerializeField] private TextMeshProUGUI hiddenDetectionText;
+    [SerializeField] private TextMeshProUGUI pierceText;
+    [SerializeField] private TextMeshProUGUI upgradeNameText2;
+    [SerializeField] private TextMeshProUGUI upgradeCostText3;
 
     [Header("Buttons")]
     [SerializeField] private Button pauseButton;
@@ -83,19 +89,38 @@ public class UIManager : MonoBehaviour
         var u = tower?.GetUpgrade();
         if (u == null)
         {
+            upgradeUI.SetActive(false);
+            SetUpgradeText(damageText, false, string.Empty);
+            SetUpgradeText(fireRateText, false, string.Empty);
+            SetUpgradeText(rangeText, false, string.Empty);
+            SetUpgradeText(hiddenDetectionText, false, string.Empty);
+            SetUpgradeText(pierceText, false, string.Empty);
             return;
         }
 
         upgradeUI.SetActive(true);
-        upgradeNameText.text = u?.upgradeName;
-        // upgradeCostText.text = u != null ? u.upgradeCost.ToString() : "";
-        // sellCostText.text = gameManager.GetSelectedTower()?.GetComponent<BaseTower>().GetSellValue().ToString();
-        // upgradeDescriptionText.text = u != null ? $"Fire Rate: {(u.fireRateUPG.isToggled ? "+" : "")}{u.fireRateUPG.value}\n" +
-        //     $"Range: {(u.rangeUPG.isToggled ? "+" : "")}{u.rangeUPG.value}\n" +
-        //     $"Damage: {(u.damageUPG.isToggled ? "+" : "")}{u.damageUPG.value}\n" +
-        //     $"Hidden Detection: {(u.hiddenDetectionUPG ? "Yes" : "No")}\n" +
-        //     $"Pierce: {(u.pierceUPG ? "Yes" : "No")}" : "";
+        upgradeNameText.text = u.upgradeName;
+        upgradeCostText.text = u.upgradeCost.ToString();
+        sellCostText.text = tower.GetSellValue().ToString();
+
+        SetUpgradeText(damageText, u.damageUPG != 0, $"Damage: {u.damageUPG:+0;-0;0}");
+        SetUpgradeText(fireRateText, u.fireRateUPG != 0, $"Fire Rate: {u.fireRateUPG:+0.##;-0.##;0}");
+        SetUpgradeText(rangeText, u.rangeUPG != 0, $"Range: {u.rangeUPG:+0.##;-0.##;0}");
+        SetUpgradeText(hiddenDetectionText, u.hiddenDetectionUPG, "Hidden Detection");
+        SetUpgradeText(pierceText, u.pierceUPG, "Pierce");
     }
+
+    private static void SetUpgradeText(TextMeshProUGUI text, bool isActive, string value)
+    {
+        if (text == null)
+        {
+            return;
+        }
+
+        text.gameObject.SetActive(isActive);
+        text.text = value;
+    }
+
 
     private void UpdateCoinUI()
     {

@@ -8,6 +8,7 @@ TagManager:
   - PathPoint
   - CoinUI
   - Tower
+  - FinishArea
   layers:
   - Default
   - TransparentFX

@@ -4,7 +4,7 @@ using System.Collections;
 
 public class AreaDamage : MonoBehaviour
 {
-    private float damage = 1f;
+    private int damage = 1;
     private List<Transform> allTargetsInRadius = new List<Transform>();
     
     private float timer;
@@ -65,7 +65,7 @@ public class AreaDamage : MonoBehaviour
     }
     
 
-    public void SetDamage(float damage)
+    public void SetDamage(int damage)
     {
         this.damage = damage;
     }

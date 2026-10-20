@@ -14,7 +14,7 @@ public abstract class BaseTower : MonoBehaviour
     [SerializeField] protected float fireRate = 1f;
     [SerializeField] protected float bulletSpeed = 10f;
     [SerializeField] protected float bulletLifetime = 5f;
-    [SerializeField] protected float damage = 1f;
+    [SerializeField] protected int damage = 1;
     [SerializeField] protected bool hasHiddenDetection = false;
     [SerializeField] protected bool hasPierce = false;
 
@@ -33,7 +33,7 @@ public abstract class BaseTower : MonoBehaviour
         public int upgradeCost;
         public float fireRateUPG;
         public float rangeUPG;
-        public float damageUPG;
+        public int damageUPG;
         public bool hiddenDetectionUPG;
         public bool pierceUPG;
     }
@@ -132,6 +132,7 @@ public abstract class BaseTower : MonoBehaviour
             b.SetLifetime(bulletLifetime);
             b.SetTarget(targetDetection.GetTarget());
             b.SetDamage(damage);
+            b.SetPierce(hasPierce);
             cooldown = fireRate;
         }
     }
@@ -167,6 +168,8 @@ public abstract class BaseTower : MonoBehaviour
     public virtual int GetCost() => cost;
 
     public virtual int GetLevel() => towerLevel;
+
+    public virtual bool GetIsHidden() => hasHiddenDetection;
 
     public virtual towerUpgrades GetUpgrade()
     {

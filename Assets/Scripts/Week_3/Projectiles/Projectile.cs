@@ -8,12 +8,12 @@ public class Projectile : MonoBehaviour
     [SerializeField] private float detectionRange = 1f;
     [SerializeField] private float lifeTime = 5f;
 
-    private float damage;
+    private int damage;
     private float speed;
     private float timer;
     private bool hasExploded;
     private bool homing = true;   // false = fly straight and hit whatever it passes near
-
+    private bool hasPierce = false; // ignore enemy defense;
     private void Awake()
     {
         timer = lifeTime;
@@ -91,7 +91,7 @@ public class Projectile : MonoBehaviour
         }
         else if (victim != null && victim.TryGetComponent<Enemy>(out Enemy enemy))
         {
-            enemy.TakeDamage(damage);
+            enemy.TakeDamage(damage, hasPierce);
         }
         Destroy(gameObject);
     }
@@ -128,6 +128,8 @@ public class Projectile : MonoBehaviour
     public void SetSpeed(float newSpeed) => speed = newSpeed;
     public void SetLifetime(float newLifetime) => timer = newLifetime;
     public void SetTarget(Transform newTarget) => target = newTarget;
-    public void SetDamage(float damage) => this.damage = damage;
+    public void SetDamage(int damage) => this.damage = damage;
     public void SetHoming(bool value) => homing = value;
+
+    public void SetPierce(bool value) => hasPierce = value;
 }

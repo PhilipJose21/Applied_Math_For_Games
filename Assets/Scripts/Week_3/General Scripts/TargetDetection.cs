@@ -36,6 +36,8 @@ public class TargetDetection : MonoBehaviour
     [SerializeField] private bool showDetectionShape = true;
     public static bool ShowAllShapes = true;
 
+    private bool hasHiddenDetection = false;
+
     void Start()
     {
         SetupLineRenderer();
@@ -66,11 +68,13 @@ public class TargetDetection : MonoBehaviour
 
     void Update()
     {
+        
         DrawDetectionShape();
-        getTargetsInRadius();
         
         if (!Application.isPlaying) return;
         
+        getTargetsInRadius();
+        hasHiddenDetection = TryGetComponent<BaseTower>(out var tower) && tower.GetIsHidden();
         isTargetDetected = allTargetsInRadius.Count > 0;
     }
 
@@ -97,6 +101,14 @@ public class TargetDetection : MonoBehaviour
             if (IsDetected(t) && !allTargetsInRadius.Contains(t))
             {
                 allTargetsInRadius.Add(t);
+            }
+            if (gameObject.tag == "FinishArea") //skips hidden detection check for finish area so that hidden enemies can be detected and damage the player
+            {
+                continue;
+            }
+            if (t.GetComponent<Enemy>().GetIsHidden() && !hasHiddenDetection) //skip enemy if it is hidden and the tower does not have hidden detection
+            {
+                allTargetsInRadius.Remove(t);
             }
         }
     }

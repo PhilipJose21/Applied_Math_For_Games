@@ -49,10 +49,9 @@ public class GameManager : MonoBehaviour
         {
             var target = finishAreaDetection.GetTarget();
             if (target != null)
-            {
-                healthSystem.Damage(1);
-                if (target.TryGetComponent<Enemy>(out Enemy enemy))
+            {if (target.TryGetComponent<Enemy>(out Enemy enemy))
                 {
+                    healthSystem.Damage(enemy.GetCurrentHealth());
                     enemy.Death();
                 }
             }
