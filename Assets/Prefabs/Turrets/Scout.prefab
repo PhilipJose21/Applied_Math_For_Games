@@ -171,18 +171,32 @@ MonoBehaviour:
   hasPierce: 0
   clickRadius: 0.9
   upgrades:
-  - upgradeName: base upgrade
-    upgradeCost: 0
-    fireRateUPG: 0
+  - upgradeName: Faster Reload
+    upgradeCost: 50
+    fireRateUPG: 0.5
     rangeUPG: 0
     damageUPG: 0
     hiddenDetectionUPG: 0
     pierceUPG: 0
-  - upgradeName: Faster Reload
-    upgradeCost: 0
-    fireRateUPG: 0
+  - upgradeName: Precise Aiming
+    upgradeCost: 375
+    fireRateUPG: 1
     rangeUPG: 0
-    damageUPG: 0
+    damageUPG: 2
+    hiddenDetectionUPG: 0
+    pierceUPG: 0
+  - upgradeName: Keen Eyes
+    upgradeCost: 1350
+    fireRateUPG: 0
+    rangeUPG: 1
+    damageUPG: 2
+    hiddenDetectionUPG: 1
+    pierceUPG: 0
+  - upgradeName: Better Guns
+    upgradeCost: 2200
+    fireRateUPG: 0
+    rangeUPG: 1
+    damageUPG: 5
     hiddenDetectionUPG: 0
     pierceUPG: 0
 --- !u!120 &263973405490882443

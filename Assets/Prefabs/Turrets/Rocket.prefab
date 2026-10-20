@@ -211,7 +211,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 171
+  m_VersionIndex: 186
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -530,7 +530,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 120
+  m_VersionIndex: 135
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -1757,7 +1757,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 100
+  m_VersionIndex: 115
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -2362,7 +2362,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 50
+  m_VersionIndex: 65
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -2591,7 +2591,7 @@ MonoBehaviour:
   startWidth: 0.1
   endWidth: 0.1
   lineColor: {r: 1, g: 1, b: 1, a: 1}
-  showDetectionShape: 1
+  showDetectionShape: 0
 --- !u!114 &7323714628712593049
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2633,7 +2633,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be327b96a29dd254387d44df002b2e2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Rocket
-  bulletPrefab: {fileID: 8846803697431702613}
+  bulletPrefab: {fileID: 8583912311114976482, guid: 6b6729409b1f6704d86bf5051dad05a4, type: 3}
   firePoint: {fileID: 9002587660591269027}
   towerLevel: 0
   cost: 100
@@ -2654,7 +2654,7 @@ LineRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8846803697431702613}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1

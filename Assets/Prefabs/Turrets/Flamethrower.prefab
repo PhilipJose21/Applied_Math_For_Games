@@ -4951,7 +4951,7 @@ MonoBehaviour:
   startWidth: 0.1
   endWidth: 0.1
   lineColor: {r: 1, g: 1, b: 1, a: 1}
-  showDetectionShape: 1
+  showDetectionShape: 0
 --- !u!114 &2638045318596787959
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5002,7 +5002,7 @@ LineRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3796689923267842217}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -5865,7 +5865,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 137
+  m_VersionIndex: 155
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
