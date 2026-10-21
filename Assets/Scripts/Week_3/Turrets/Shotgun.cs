@@ -7,6 +7,19 @@ public class Shotgun : BaseTower
 
     public override void Fire()
     {
+        switch (towerLevel)
+        {
+            case 1:
+                numberOfBullets = 6;
+                break;
+            case 3:
+                numberOfBullets = 10;
+                break;
+            case 4:
+                numberOfBullets = 15;
+                break;
+        }
+
         cooldown -= Time.deltaTime;
         if (cooldown <= 0f)
         {
@@ -27,13 +40,5 @@ public class Shotgun : BaseTower
         bullet.GetComponent<Projectile>().SetLifetime(bulletLifetime);
         bullet.GetComponent<Projectile>().SetDamage(damage);
         bullet.GetComponent<Projectile>().SetHoming(false);
-    }
-
-    public override void Upgrade(int level)
-    {
-        switch (level)
-        {
-            
-        }
     }
 }

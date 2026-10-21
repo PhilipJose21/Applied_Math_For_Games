@@ -29,6 +29,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI pierceText;
     [SerializeField] private TextMeshProUGUI upgradeNameText2;
     [SerializeField] private TextMeshProUGUI upgradeCostText3;
+    [SerializeField] private Button upgradeButton;
+    [SerializeField] private Button sellButton;
 
     [Header("Buttons")]
     [SerializeField] private Button pauseButton;
@@ -89,7 +91,8 @@ public class UIManager : MonoBehaviour
         var u = tower?.GetUpgrade();
         if (u == null)
         {
-            upgradeUI.SetActive(false);
+            upgradeButton.interactable = false;
+            upgradeNameText.text = "Max Level";
             SetUpgradeText(damageText, false, string.Empty);
             SetUpgradeText(fireRateText, false, string.Empty);
             SetUpgradeText(rangeText, false, string.Empty);
@@ -108,6 +111,72 @@ public class UIManager : MonoBehaviour
         SetUpgradeText(rangeText, u.rangeUPG != 0, $"Range: {u.rangeUPG:+0.##;-0.##;0}");
         SetUpgradeText(hiddenDetectionText, u.hiddenDetectionUPG, "Hidden Detection");
         SetUpgradeText(pierceText, u.pierceUPG, "Pierce");
+
+        SpecialUpgradeText(tower);
+    }
+
+    private void SpecialUpgradeText(BaseTower tower)
+    {
+        if (tower.GetComponent<Flamethrower>() != null)
+        {
+            if (tower.GetComponent<Flamethrower>().GetLevel() == 2)
+            {
+                SetUpgradeText(upgradeNameText2, true, "Increase Flame Range");
+            }
+            else if (tower.GetComponent<Flamethrower>().GetLevel() == 4)
+            {
+                SetUpgradeText(upgradeNameText2, true, "Temporarily removes defense");
+            }
+            else
+            {
+                SetUpgradeText(upgradeNameText2, false, string.Empty);
+            }
+        }
+
+        if (tower.GetComponent<Burster>() != null)
+        {
+            if (tower.GetComponent<Burster>().GetLevel() == 2)
+            {
+                SetUpgradeText(upgradeNameText2, true, "Burst Amount: 4");
+            }
+            else if (tower.GetComponent<Burster>().GetLevel() == 3)
+            {
+                SetUpgradeText(upgradeNameText2, true, "Burst Amount: 8");
+            }
+            else if (tower.GetComponent<Burster>().GetLevel() == 4)
+            {
+                SetUpgradeText(upgradeNameText2, true, "Burst Amount: 12");
+            }
+            else
+            {
+                SetUpgradeText(upgradeNameText2, false, string.Empty);
+            }
+        }
+
+        if (tower.GetComponent<Shotgun>() != null)
+        {
+            if (tower.GetComponent<Shotgun>().GetLevel() == 1)
+            {
+                SetUpgradeText(upgradeNameText2, true, "Bullet Amount: 6");
+            }
+            else if (tower.GetComponent<Shotgun>().GetLevel() == 3)
+            {
+                SetUpgradeText(upgradeNameText2, true, "Bullet Amount: 10");
+            }
+            else if (tower.GetComponent<Shotgun>().GetLevel() == 4)
+            {
+                SetUpgradeText(upgradeNameText2, true, "Bullet Amount: 15");
+            }
+            else
+            {
+                SetUpgradeText(upgradeNameText2, false, string.Empty);
+            }
+        }
+
+        if (tower.GetComponent<Rocket>() != null)
+        {
+            
+        }
     }
 
     private static void SetUpgradeText(TextMeshProUGUI text, bool isActive, string value)
