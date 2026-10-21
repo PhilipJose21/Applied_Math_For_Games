@@ -8,47 +8,54 @@ public class AreaDamage : MonoBehaviour
 
     private float timer;
     private TargetDetection targetDetection;
-    private bool hasDamaged;
 
     [SerializeField] private float delayedDamageTime = 0.16f;
-    [SerializeField] private bool continueDamage = true;
+
+    [Tooltip("Temporary: prints what the flame is doing so we can see where it breaks.")]
+    [SerializeField] private bool debugLogs = true;
 
     void Awake()
     {
         targetDetection = GetComponent<TargetDetection>();
+        if (targetDetection == null)
+            Debug.LogError("AreaDamage: no TargetDetection on " + name, this);
     }
 
-    // Runs every time the flame is turned on (SetActive(true)), not just the first time
     void OnEnable()
     {
         timer = delayedDamageTime;
-        hasDamaged = false;
     }
 
     void Update()
     {
-        if (hasDamaged || targetDetection == null)
-            return;
+        if (targetDetection == null) return;
 
         timer -= Time.deltaTime;
-        if (timer > 0f)
-            return;
+        if (timer > 0f) return;
+        timer += Mathf.Max(delayedDamageTime, 0.01f);   // always keeps ticking while the flame is on
 
         allTargetsInRadius = targetDetection.GetTargetsInRadius();
-        Damage();
+        if (debugLogs)
+            Debug.Log($"AreaDamage tick: {(allTargetsInRadius == null ? -1 : allTargetsInRadius.Count)} targets, damage {damage}", this);
 
-        if (continueDamage)
-            timer += delayedDamageTime;
-        else
-            hasDamaged = true;
+        Damage();
     }
 
     public void Damage()
     {
+        if (allTargetsInRadius == null) return;
+
         foreach (Transform target in allTargetsInRadius)
         {
-            if (target != null && target.TryGetComponent<Enemy>(out Enemy enemy))
-                enemy.TakeDamage(damage);
+            if (target == null) continue;
+
+            Enemy enemy = target.GetComponentInParent<Enemy>();   // works even if the target is a child collider
+            if (enemy == null)
+            {
+                if (debugLogs) Debug.LogWarning("AreaDamage: no Enemy component on " + target.name, target);
+                continue;
+            }
+            enemy.TakeDamage(damage);
         }
     }
 

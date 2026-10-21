@@ -4965,9 +4965,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RotateTurret
   allTargetsInRadius: []
-  rotationType: 3
+  rotationType: 2
   targetType: 0
-  rotationSpeed: 15
+  rotationSpeed: 7.5
 --- !u!114 &1749110629328808925
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4989,10 +4989,38 @@ MonoBehaviour:
   bulletSpeed: 10
   bulletLifetime: 5
   damage: 1
-  hasHiddenDetection: 0
+  hasHiddenDetection: 1
   hasPierce: 0
   clickRadius: 0.9
-  upgrades: []
+  upgrades:
+  - upgradeName: Better Fueld
+    upgradeCost: 200
+    fireRateUPG: 0
+    rangeUPG: 0
+    damageUPG: 3
+    hiddenDetectionUPG: 0
+    pierceUPG: 0
+  - upgradeName: Wider Nozzle
+    upgradeCost: 800
+    fireRateUPG: 0
+    rangeUPG: 1
+    damageUPG: 0
+    hiddenDetectionUPG: 0
+    pierceUPG: 0
+  - upgradeName: Better Material
+    upgradeCost: 2000
+    fireRateUPG: 2
+    rangeUPG: 1
+    damageUPG: 3
+    hiddenDetectionUPG: 0
+    pierceUPG: 0
+  - upgradeName: Armor Melting Flames
+    upgradeCost: 7000
+    fireRateUPG: 0
+    rangeUPG: 0
+    damageUPG: 0
+    hiddenDetectionUPG: 0
+    pierceUPG: 0
   flameParticles: {fileID: 5784509490795023636}
   angleUpgradePerLevel: 5
   debuffLevel: 4
@@ -5215,7 +5243,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AreaDamage
   delayedDamageTime: 0.1
-  continueDamage: 0
+  debugLogs: 1
 --- !u!114 &4619927501054082728
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5868,7 +5896,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 155
+  m_VersionIndex: 170
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
