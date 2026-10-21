@@ -9,6 +9,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float defense;
     [SerializeField] private bool isHidden;
     [SerializeField] private Transform coinPrefab;
+    [SerializeField] private Transform defeatPrefab;
     [SerializeField] private Transform[] pathPoints;
 
     private float rewardMultiplier = 1f;   // grows by +50% each time wave scaling raises the enemy's stats
@@ -43,6 +44,8 @@ public class Enemy : MonoBehaviour
 
         Transform coin = Instantiate(coinPrefab, transform.position, Quaternion.identity);
         coin.GetComponent<RotateCoin>().SetCoinValue(GetEnemyValue());
+        Transform defeat = Instantiate(defeatPrefab, transform.position, Quaternion.identity);
+        defeat.localScale = new Vector3(1.5f, 1.5f, 1.5f);
         Destroy(gameObject);
     }
 

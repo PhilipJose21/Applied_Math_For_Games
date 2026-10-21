@@ -298,10 +298,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
   maxHealth: 10
   currentHealth: 0
+  enemyValue: 1
   speed: 5
   defense: 0
   isHidden: 0
   coinPrefab: {fileID: 8260400537707699352, guid: 08c546eae45bbeb469a608e147bdcde3, type: 3}
+  defeatPrefab: {fileID: 7262091576402068251, guid: 6a60c2b5f8ae6df4ab770beeed5cfa91, type: 3}
   pathPoints: []
 --- !u!114 &7403013723958620492
 MonoBehaviour:

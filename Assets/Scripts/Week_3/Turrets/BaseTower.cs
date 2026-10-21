@@ -70,7 +70,7 @@ public abstract class BaseTower : MonoBehaviour
 
     protected void HandleSelectionInput()
     {
-        if (Input.GetMouseButtonDown(0))   // once per click, not every frame it's held
+        if (Input.GetMouseButtonDown(0))
             TrySelect();
     }
 
