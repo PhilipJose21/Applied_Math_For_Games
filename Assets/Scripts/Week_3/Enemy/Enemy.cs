@@ -44,5 +44,12 @@ public class Enemy : MonoBehaviour
     public float GetSpeed() => speed;
 
     public bool GetIsHidden() => isHidden;
+
+    public int GetDefense() => defense;
+
+    public void SetDefense(int newDefense)
+    {
+        defense = newDefense;
+    }
    
 }

@@ -37,6 +37,7 @@ public class TargetDetection : MonoBehaviour
     public static bool ShowAllShapes = true;
 
     private bool hasHiddenDetection = false;
+    private BaseTower ownerTower;   // the tower this detection belongs to (may be on a parent, e.g. the Flame child)
 
     void Start()
     {
@@ -73,8 +74,11 @@ public class TargetDetection : MonoBehaviour
         
         if (!Application.isPlaying) return;
         
+        // Look for the tower on this object OR a parent, so child detectors (Flame) inherit hidden detection.
+        if (ownerTower == null) ownerTower = GetComponentInParent<BaseTower>();
+        hasHiddenDetection = ownerTower != null && ownerTower.GetIsHidden();
+
         getTargetsInRadius();
-        hasHiddenDetection = TryGetComponent<BaseTower>(out var tower) && tower.GetIsHidden();
         isTargetDetected = allTargetsInRadius.Count > 0;
     }
 
@@ -98,6 +102,7 @@ public class TargetDetection : MonoBehaviour
         for (int i = 0; i < allTargets.Count; i++)
         {
             var t = allTargets[i];
+            if (t == null) continue;   // enemy was destroyed
             if (IsDetected(t) && !allTargetsInRadius.Contains(t))
             {
                 allTargetsInRadius.Add(t);
@@ -106,7 +111,8 @@ public class TargetDetection : MonoBehaviour
             {
                 continue;
             }
-            if (t.GetComponent<Enemy>().GetIsHidden() && !hasHiddenDetection) //skip enemy if it is hidden and the tower does not have hidden detection
+            Enemy enemy = t.GetComponent<Enemy>();
+            if (enemy != null && enemy.GetIsHidden() && !hasHiddenDetection) //skip enemy if it is hidden and the tower does not have hidden detection
             {
                 allTargetsInRadius.Remove(t);
             }
@@ -241,7 +247,6 @@ public class TargetDetection : MonoBehaviour
     {
         if (lineRenderer == null) return;
 
-        // Edit mode: only the checkbox matters. Play mode: checkbox AND global toggle.
         bool visible = showDetectionShape && (!Application.isPlaying || ShowAllShapes);
         lineRenderer.enabled = visible;
         if (!visible) return;

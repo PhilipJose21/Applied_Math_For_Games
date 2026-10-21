@@ -4994,6 +4994,9 @@ MonoBehaviour:
   clickRadius: 0.9
   upgrades: []
   flameParticles: {fileID: 5784509490795023636}
+  angleUpgradePerLevel: 5
+  debuffLevel: 4
+  debuffDuration: 5
 --- !u!120 &7176612382809233458
 LineRenderer:
   serializedVersion: 3

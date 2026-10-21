@@ -147,11 +147,13 @@ public abstract class BaseTower : MonoBehaviour
 
         towerUpgrades upgrade = upgrades[level - 1];
         damage += upgrade.damageUPG;
-        fireRate += upgrade.fireRateUPG;
+        fireRate -= upgrade.fireRateUPG / 10f;
         targetDetection.setDetectionRange(targetDetection.GetDetectionRange() + upgrade.rangeUPG);
         hasHiddenDetection |= upgrade.hiddenDetectionUPG;
         hasPierce |= upgrade.pierceUPG;
         towerLevel = level;
+        
+        cooldown = fireRate;
         UpdateSellValue();
     }
 

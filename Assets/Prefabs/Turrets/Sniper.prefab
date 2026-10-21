@@ -156,7 +156,35 @@ MonoBehaviour:
   hasHiddenDetection: 0
   hasPierce: 0
   clickRadius: 0.9
-  upgrades: []
+  upgrades:
+  - upgradeName: Heat Vision
+    upgradeCost: 200
+    fireRateUPG: 0
+    rangeUPG: 10
+    damageUPG: 3
+    hiddenDetectionUPG: 1
+    pierceUPG: 0
+  - upgradeName: Heavy Rounds
+    upgradeCost: 750
+    fireRateUPG: 0
+    rangeUPG: 0
+    damageUPG: 10
+    hiddenDetectionUPG: 0
+    pierceUPG: 0
+  - upgradeName: Faster Reloading
+    upgradeCost: 2000
+    fireRateUPG: 2
+    rangeUPG: 0
+    damageUPG: 0
+    hiddenDetectionUPG: 0
+    pierceUPG: 0
+  - upgradeName: Armor Piercing Rounds
+    upgradeCost: 5000
+    fireRateUPG: 1
+    rangeUPG: 0
+    damageUPG: 10
+    hiddenDetectionUPG: 0
+    pierceUPG: 0
 --- !u!120 &4023603406844512916
 LineRenderer:
   serializedVersion: 3
