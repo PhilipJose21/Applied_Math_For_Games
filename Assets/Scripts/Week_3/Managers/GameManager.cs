@@ -74,6 +74,8 @@ public class GameManager : MonoBehaviour
 
     public int GetCoinCount() => coins;
 
+    public int GetCurrentWave() => EnemyManager._instance != null ? Mathf.Max(1, EnemyManager._instance.GetCurrentWaveNumber()) : 1;
+
     public GameObject GetSelectedTower() => selectedTower;
 
     public void AddCoin(int amount)
@@ -126,6 +128,11 @@ public class GameManager : MonoBehaviour
                 SetSelectedTower(null);
             }
         }
+    }
+
+    public void CloseUpgradeUI()
+    {
+        SetSelectedTower(null);
     }
 
     void OnDrawGizmos()

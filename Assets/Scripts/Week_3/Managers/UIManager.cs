@@ -17,6 +17,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject loseUI;
     [SerializeField] private GameObject pauseUI;
     [SerializeField] private GameObject upgradeUI;
+    [SerializeField] private GameObject towerPanel;
+    [SerializeField] private GameObject playerStatsPanel;
 
     [Header("Upgrade UI Elements")]
     [SerializeField] private TextMeshProUGUI upgradeNameText;
@@ -38,6 +40,7 @@ public class UIManager : MonoBehaviour
 
     [Header("Coin UI")]
     [SerializeField] private TextMeshProUGUI coinText;
+    [SerializeField] private TextMeshProUGUI waveText;
     private GameManager gameManager;
 
     void Start()
@@ -74,6 +77,17 @@ public class UIManager : MonoBehaviour
                 healthBarFill.value,
                 easeStep);
         }
+
+        var selectedTower = gameManager.GetSelectedTower();
+        if (selectedTower != null)
+        {
+            UpdateUpgradeUI(selectedTower.GetComponent<BaseTower>());
+        }
+        else
+        {
+            upgradeUI.SetActive(false);
+        }
+        waveText.text = $"Wave: {gameManager.GetCurrentWave()}";
     }
 
     private void OnDestroy()
@@ -225,5 +239,8 @@ public class UIManager : MonoBehaviour
     private void EnemyManager_OnWaveEnded(object sender, EventArgs e)
     {
         winUI.SetActive(true);
+        upgradeUI.SetActive(false);
+        towerPanel.SetActive(false);
+        playerStatsPanel.SetActive(false);
     }
 }

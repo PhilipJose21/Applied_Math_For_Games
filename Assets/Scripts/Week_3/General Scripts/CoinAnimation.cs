@@ -7,6 +7,7 @@ public class RotateCoin : MonoBehaviour
     [SerializeField] private RectTransform targetUI;
     [SerializeField] private float speed = 1.75f;
     [SerializeField] private float distanceThreshold = 1.5f;
+    private int coinValue = 1;
     private Camera mainCamera;
     private float cooldown;
     void Start()
@@ -37,8 +38,13 @@ public class RotateCoin : MonoBehaviour
         transform.position = Vector3.Lerp(transform.position, worldPos, speed * Time.deltaTime);
         if (Vector3.Distance(transform.position, worldPos) <= distanceThreshold)
         {
-            GameManager._instance.AddCoin(1);
+            GameManager._instance.AddCoin(coinValue);
             Destroy(gameObject);
         }
+    }
+
+    public void SetCoinValue(int value)
+    {
+        coinValue = value;
     }
 }
