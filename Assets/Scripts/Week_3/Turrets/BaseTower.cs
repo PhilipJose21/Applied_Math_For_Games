@@ -1,11 +1,14 @@
 using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using System.Collections;
 
 public abstract class BaseTower : MonoBehaviour
 {
     [SerializeField] protected GameObject bulletPrefab;
     [SerializeField] protected Transform firePoint;
+    [SerializeField] protected GameObject muzzleFlash;
+    private float muzzleFlashDuration = 0.05f;
 
     [Header("Tower Stats: ")]
     [SerializeField] protected int towerLevel = 0;
@@ -42,6 +45,7 @@ public abstract class BaseTower : MonoBehaviour
     protected TargetDetection targetDetection;
     private Camera mainCamera;
     private GameManager gameManager;
+    protected SoundManager soundManager;
 
     public virtual void Start()
     {
@@ -49,6 +53,8 @@ public abstract class BaseTower : MonoBehaviour
         cooldown = fireRate;
         mainCamera = Camera.main;
         gameManager = GameManager._instance;
+        soundManager = SoundManager._instance;
+        muzzleFlash.SetActive(false);
 
         GameManager.OnSelectedTowerChanged += OnSelectedTowerChanged;
         UpdateSellValue();
@@ -126,7 +132,12 @@ public abstract class BaseTower : MonoBehaviour
         {
             Quaternion bulletRotation = firePoint.rotation * Quaternion.Euler(90f, 0f, 0f);
             GameObject bullet = Instantiate(bulletPrefab, firePoint.position, bulletRotation);
-
+            
+            if (muzzleFlashRoutine != null) StopCoroutine(muzzleFlashRoutine);
+                muzzleFlashRoutine = StartCoroutine(ShowMuzzleFlash());
+            
+            soundManager.PlaySFX(soundManager.towerGunfireClip);
+            
             var b = bullet.GetComponent<Projectile>();
             b.SetSpeed(bulletSpeed);
             b.SetLifetime(bulletLifetime);
@@ -179,5 +190,15 @@ public abstract class BaseTower : MonoBehaviour
             return upgrades[towerLevel];
         else
             return null;
+    }
+
+    protected Coroutine muzzleFlashRoutine;
+
+    protected IEnumerator ShowMuzzleFlash()
+    {
+        muzzleFlash.SetActive(true);
+        yield return new WaitForSeconds(muzzleFlashDuration);
+        muzzleFlash.SetActive(false);
+        muzzleFlashRoutine = null;
     }
 }

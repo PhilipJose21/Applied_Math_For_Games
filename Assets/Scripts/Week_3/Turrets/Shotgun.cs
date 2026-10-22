@@ -36,6 +36,12 @@ public class Shotgun : BaseTower
     {
         Quaternion bulletRotation = firePoint.rotation * Quaternion.Euler(90f, offsetRotation.y, 0f);
         GameObject bullet = Instantiate(bulletPrefab, firePoint.position, bulletRotation);
+
+        if (muzzleFlashRoutine != null) StopCoroutine(muzzleFlashRoutine);
+                muzzleFlashRoutine = StartCoroutine(ShowMuzzleFlash());
+        
+        soundManager.PlaySFX(soundManager.towerGunfireClip);
+
         bullet.GetComponent<Projectile>().SetSpeed(bulletSpeed);
         bullet.GetComponent<Projectile>().SetLifetime(bulletLifetime);
         bullet.GetComponent<Projectile>().SetDamage(damage);

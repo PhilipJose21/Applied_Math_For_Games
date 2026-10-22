@@ -58,8 +58,11 @@ public class Burster : BaseTower
     private void SpawnBullet(Transform target)
     {
         Quaternion bulletRotation = firePoint.rotation * Quaternion.Euler(90f, 0f, 0f);
+        muzzleFlash.SetActive(true);
         GameObject bullet = Instantiate(bulletPrefab, firePoint.position, bulletRotation);
-
+        soundManager.PlaySFX(soundManager.towerGunfireClip);
+        
+        muzzleFlash.SetActive(false);
         var b = bullet.GetComponent<Projectile>();
         b.SetSpeed(bulletSpeed);
         b.SetLifetime(bulletLifetime);

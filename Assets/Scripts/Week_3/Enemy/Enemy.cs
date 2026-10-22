@@ -58,6 +58,7 @@ public class Enemy : MonoBehaviour
         int finalDamage = Mathf.Max(1, Mathf.RoundToInt(damage - reduction));
 
         currentHealth -= finalDamage;
+        Debug.Log("Damage took: " + finalDamage);
         if (enemyHealth != null)
             enemyHealth.updateHealthValues(currentHealth, maxHealth);
 
