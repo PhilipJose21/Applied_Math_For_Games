@@ -4982,6 +4982,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Flamethrower
   bulletPrefab: {fileID: 0}
   firePoint: {fileID: 0}
+  muzzleFlash: {fileID: 0}
   towerLevel: 0
   cost: 100
   sellValue: 0

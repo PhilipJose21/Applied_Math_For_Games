@@ -2635,6 +2635,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Rocket
   bulletPrefab: {fileID: 8583912311114976482, guid: 6b6729409b1f6704d86bf5051dad05a4, type: 3}
   firePoint: {fileID: 9002587660591269027}
+  muzzleFlash: {fileID: 0}
   towerLevel: 0
   cost: 100
   sellValue: 0
