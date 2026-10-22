@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     public bool enableDebug = true;
     private HealthSystem healthSystem;
     private TargetDetection finishAreaDetection;
+    private bool gamePaused = false;
 
     [SerializeField] private GameObject gameOverUI;
     [SerializeField] private GameObject finishArea;
@@ -74,11 +75,18 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
+    public void Quit()
+    {
+        Application.Quit();
+    }
+
     public List<Transform> GetPathPoints() => pathPoints;
 
     public EnemyManager GetEnemyManager() => EnemyManager._instance;
 
     public int GetCoinCount() => coins;
+
+    public bool IsGamePaused() => gamePaused;
 
     public int GetCurrentWave() => EnemyManager._instance != null ? Mathf.Max(1, EnemyManager._instance.GetCurrentWaveNumber()) : 1;
 
@@ -140,6 +148,18 @@ public class GameManager : MonoBehaviour
     public void CloseUpgradeUI()
     {
         SetSelectedTower(null);
+    }
+
+    public void PauseGame()
+    {
+        gamePaused = true;
+        Time.timeScale = 0f;
+    }
+
+    public void ResumeGame()
+    {
+        gamePaused = false;
+        Time.timeScale = 1f;
     }
 
     void OnDrawGizmos()

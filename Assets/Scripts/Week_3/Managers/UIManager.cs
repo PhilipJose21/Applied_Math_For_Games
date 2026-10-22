@@ -60,7 +60,7 @@ public class UIManager : MonoBehaviour
 
         winUI.SetActive(false);
         loseUI.SetActive(false);
-        //pauseUI.SetActive(false);
+        pauseUI.SetActive(false);
         upgradeUI.SetActive(false);
 
         UpdateCoinUI();
@@ -88,6 +88,16 @@ public class UIManager : MonoBehaviour
             upgradeUI.SetActive(false);
         }
         waveText.text = $"Wave: {gameManager.GetCurrentWave()}";
+
+        if (gameManager.IsGamePaused())
+        {
+            pauseUI.SetActive(true);
+        }
+        else
+        {
+            pauseUI.SetActive(false);
+        }
+        
     }
 
     private void OnDestroy()
@@ -242,5 +252,6 @@ public class UIManager : MonoBehaviour
         upgradeUI.SetActive(false);
         towerPanel.SetActive(false);
         playerStatsPanel.SetActive(false);
+        pauseUI.SetActive(false);
     }
 }
