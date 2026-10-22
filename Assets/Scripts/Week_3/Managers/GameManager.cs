@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int coins;
 
     [SerializeField] private List<Transform> pathPoints = new List<Transform>();
+    SoundManager soundManager;
 
     void Awake()
     {
@@ -35,6 +36,11 @@ public class GameManager : MonoBehaviour
         
         healthSystem = GetComponent<HealthSystem>();
         finishAreaDetection = finishArea.GetComponent<TargetDetection>();
+    }
+
+    void Start()
+    {
+        soundManager = SoundManager._instance;
     }
 
     void Update()
@@ -81,6 +87,7 @@ public class GameManager : MonoBehaviour
     public void AddCoin(int amount)
     {
         coins += amount;
+        soundManager.PlaySFX(soundManager.coinPickupClip);
         OnCoinChanged?.Invoke(this, EventArgs.Empty);
     }
 

@@ -39,48 +39,6 @@ public class SoundManager : MonoBehaviour
         musicSource.clip = backgroundMusicClip;
         musicSource.Play();
 
-        // HealthSystem.OnHealthChanged += HealthSystem_OnHealthChanged;
-        // HealthSystem.OnDead += HealthSystem_OnDead;
-        // GameManager.OnCoinChanged += GameManager_OnCoinChanged;
-        // GameManager.OnSelectedTowerChanged += GameManager_OnSelectedTowerChanged;
-        // GameManager.OnTowerUpgraded += GameManager_OnTowerUpgraded;
-        // EnemyManager.OnWaveEnded += EnemyManager_OnWaveEnded;
-    }
-
-    // private void EnemyManager_OnWaveEnded(object sender, EventArgs e)
-    // {
-    //     throw new NotImplementedException();
-    // }
-
-    // private void GameManager_OnTowerUpgraded(object sender, EventArgs e)
-    // {
-    //     throw new NotImplementedException();
-    // }
-
-    // private void GameManager_OnSelectedTowerChanged(object sender, EventArgs e)
-    // {
-    //     throw new NotImplementedException();
-    // }
-
-    // private void GameManager_OnCoinChanged(object sender, EventArgs e)
-    // {
-    //     throw new NotImplementedException();
-    // }
-
-    // private void HealthSystem_OnDead(object sender, EventArgs e)
-    // {
-    //     throw new NotImplementedException();
-    // }
-
-    // private void HealthSystem_OnHealthChanged(object sender, EventArgs e)
-    // {
-    //     throw new NotImplementedException();
-    // }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public void PlaySFX(AudioClip clip)

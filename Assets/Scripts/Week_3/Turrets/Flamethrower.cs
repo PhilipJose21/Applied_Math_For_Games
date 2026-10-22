@@ -22,10 +22,18 @@ public class Flamethrower : BaseTower
     private readonly Dictionary<Enemy, float> debuffTimers = new Dictionary<Enemy, float>();
     private readonly List<Enemy> expired = new List<Enemy>();
 
+    private AudioSource flameAudioSource;
+
+    private bool wasFiring;
+
     void Awake()
     {
         flameDamage = flameParticles.GetComponent<AreaDamage>();
         flameDetection = flameParticles.GetComponent<TargetDetection>();
+
+        if (flameAudioSource == null)
+            flameAudioSource = gameObject.AddComponent<AudioSource>();
+        flameAudioSource.playOnAwake = false;
     }
 
     public override void Start()
@@ -35,14 +43,40 @@ public class Flamethrower : BaseTower
         flameParticles.SetActive(false);
     }
 
+    
+
     public override void Update()
     {
         HandleSelectionInput();
 
-        flameParticles.SetActive(targetDetection.IsTargetDetected());
+        bool isFiring = targetDetection.IsTargetDetected();
+        flameParticles.SetActive(isFiring);
+        UpdateFlameAudio(isFiring);
 
         if (towerLevel >= debuffLevel)
             HandleDefenseDebuff();
+    }
+
+    private void UpdateFlameAudio(bool isFiring)
+    {
+        if (isFiring && !wasFiring)
+        {
+            flameAudioSource.loop = false;
+            flameAudioSource.clip = soundManager.flameThrowerStartClip;
+            flameAudioSource.Play();
+        }
+        else if (isFiring && !flameAudioSource.isPlaying)
+        {
+            flameAudioSource.loop = true;
+            flameAudioSource.clip = soundManager.flameThrowerLoopClip;
+            flameAudioSource.Play();
+        }
+        else if (!isFiring && wasFiring)
+        {
+            flameAudioSource.Stop();
+        }
+
+        wasFiring = isFiring;
     }
 
     private void ApplyFlameStats()
@@ -95,6 +129,8 @@ public class Flamethrower : BaseTower
 
     void OnDisable()
     {
+        if (flameAudioSource != null) flameAudioSource.Stop();
+        wasFiring = false;
         foreach (var pair in originalDefense)
         {
             if (pair.Key != null)

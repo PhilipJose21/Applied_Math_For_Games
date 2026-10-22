@@ -34,6 +34,7 @@ public class PlacementManager : MonoBehaviour
     private Vector3 mousePosition;
     private bool hasGroundPoint;
     private bool canPlace;
+    SoundManager soundManager;
 
     void Awake() => _instance = this;
 
@@ -48,6 +49,7 @@ public class PlacementManager : MonoBehaviour
             placedTowers.Add(tower.transform);
 
         if (selectedTower != null) CreateTowerPreview();
+        soundManager = SoundManager._instance;
     }
 
     void Update()
@@ -167,7 +169,7 @@ public class PlacementManager : MonoBehaviour
         Destroy(preview);
         preview = null;
         selectedTower = null;
-
+        soundManager.PlaySFX(soundManager.towerPlaceClip);
         OnTowerPlaced?.Invoke(this, EventArgs.Empty);
     }
 
