@@ -147,7 +147,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Sniper
   bulletPrefab: {fileID: 7140781431105419998, guid: 4392408018ce68347bcf726358e11d4e, type: 3}
   firePoint: {fileID: 6815573375005586986}
-  muzzleFlash: {fileID: 0}
+  muzzleFlash: {fileID: 4355881655266432488}
   towerLevel: 0
   cost: 100
   sellValue: 0
@@ -361,7 +361,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6509131387210833130
 Transform:
   m_ObjectHideFlags: 0

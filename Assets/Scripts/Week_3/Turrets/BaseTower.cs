@@ -54,7 +54,10 @@ public abstract class BaseTower : MonoBehaviour
         mainCamera = Camera.main;
         gameManager = GameManager._instance;
         soundManager = SoundManager._instance;
-        muzzleFlash.SetActive(false);
+        if (muzzleFlash != null)
+        {
+            muzzleFlash.SetActive(false);
+        }
 
         GameManager.OnSelectedTowerChanged += OnSelectedTowerChanged;
         UpdateSellValue();

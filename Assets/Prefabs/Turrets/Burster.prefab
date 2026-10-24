@@ -141,7 +141,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3217238268648203552
 Transform:
   m_ObjectHideFlags: 0
@@ -6222,7 +6222,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Burster
   bulletPrefab: {fileID: 7140781431105419998, guid: 4392408018ce68347bcf726358e11d4e, type: 3}
   firePoint: {fileID: 63369363466486066}
-  muzzleFlash: {fileID: 0}
+  muzzleFlash: {fileID: 5647942981025716572}
   towerLevel: 0
   cost: 400
   sellValue: 0

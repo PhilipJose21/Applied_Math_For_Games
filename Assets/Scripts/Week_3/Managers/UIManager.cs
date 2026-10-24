@@ -35,7 +35,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Button sellButton;
 
     [Header("Buttons")]
-    [SerializeField] private Button pauseButton;
+    [SerializeField] private GameObject pauseButton;
     [SerializeField] private Button cancelPlacementButton;
 
     [Header("Coin UI")]
@@ -92,10 +92,17 @@ public class UIManager : MonoBehaviour
         if (gameManager.IsGamePaused())
         {
             pauseUI.SetActive(true);
+            towerPanel.SetActive(false);
+            upgradeUI.SetActive(false);
+            playerStatsPanel.SetActive(false);
+            pauseButton.SetActive(false);
         }
         else
         {
             pauseUI.SetActive(false);
+            towerPanel.SetActive(true);
+            playerStatsPanel.SetActive(true);
+            pauseButton.SetActive(true);
         }
         
     }
