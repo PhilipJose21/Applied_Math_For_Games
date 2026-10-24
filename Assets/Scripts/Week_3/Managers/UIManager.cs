@@ -132,6 +132,7 @@ public class UIManager : MonoBehaviour
             return;
         }
 
+        upgradeButton.interactable = true;
         upgradeUI.SetActive(true);
         upgradeNameText.text = u.upgradeName;
         upgradeCostText.text = u.upgradeCost.ToString();

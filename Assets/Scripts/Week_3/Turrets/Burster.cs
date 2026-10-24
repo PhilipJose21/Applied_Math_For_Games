@@ -25,6 +25,7 @@ public class Burster : BaseTower
 
         switch(towerLevel)
         {
+            case 0:
             case 1:
                 bulletCount = 3;
                 break;
@@ -34,8 +35,11 @@ public class Burster : BaseTower
             case 3:
                 bulletCount = 8;
                 break;
-            default:
+            case 4:
                 bulletCount = 12;
+                break;
+            default:
+                bulletCount = 3;
                 break;
         }
 
