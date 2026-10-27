@@ -24,6 +24,12 @@ public class AABBCollider : MonoBehaviour
         }
     }
 
+    void Start()
+    {
+        _length = this.transform.localScale.y;
+        _width = this.transform.localScale.x;
+    }
+
     void Update()
     {
         UpdateBounds();

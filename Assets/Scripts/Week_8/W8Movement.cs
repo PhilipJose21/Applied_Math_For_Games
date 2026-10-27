@@ -45,6 +45,7 @@ public class W8Movement : MonoBehaviour
             }
         }
 
+        
         IsGrounded = false;
         pos.y += delta.y;
         var hitY = manager.GetOverlap(_collider, pos);
