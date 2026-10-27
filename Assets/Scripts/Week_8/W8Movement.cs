@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class W8Movement : MonoBehaviour
 {
@@ -10,9 +11,11 @@ public class W8Movement : MonoBehaviour
     private Vector2 _velocity;
 
     public bool IsGrounded { get; private set; }
+    Camera camera;
 
     private void Awake()
     {
+        camera = Camera.main;
         _collider = GetComponent<AABBCollider>();
     }
 
@@ -26,6 +29,11 @@ public class W8Movement : MonoBehaviour
         _velocity.y += _gravity * Time.deltaTime;
 
         Move(_velocity * Time.deltaTime);
+
+        if (!IsPlayerInCamera())
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
     }
 
     private void Move(Vector2 delta)
@@ -45,7 +53,7 @@ public class W8Movement : MonoBehaviour
             }
         }
 
-        
+
         IsGrounded = false;
         pos.y += delta.y;
         var hitY = manager.GetOverlap(_collider, pos);
@@ -64,6 +72,12 @@ public class W8Movement : MonoBehaviour
         }
 
         transform.position = new Vector3(pos.x, pos.y, transform.position.z);
+    }
+
+    private bool IsPlayerInCamera()
+    {
+        Vector3 viewportPos = camera.WorldToViewportPoint(transform.position);
+        return viewportPos.x >= 0 && viewportPos.x <= 1 && viewportPos.y >= 0 && viewportPos.y <= 1;
     }
 
 }
