@@ -8532,7 +8532,7 @@ MonoBehaviour:
   startWidth: 0.1
   endWidth: 0.1
   lineColor: {r: 1, g: 1, b: 1, a: 1}
-  showDetectionShape: 0
+  showDetectionShape: 1
 --- !u!114 &7323714628712593049
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8596,7 +8596,7 @@ LineRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8846803697431702613}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1

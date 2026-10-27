@@ -119,11 +119,20 @@ public class UIManager : MonoBehaviour
 
     private void UpdateUpgradeUI(BaseTower tower)
     {
+        if (tower == null)
+        {
+            upgradeUI.SetActive(false);
+            return;
+        }
+
         var u = tower?.GetUpgrade();
         if (u == null)
         {
+            upgradeUI.SetActive(true);
             upgradeButton.interactable = false;
             upgradeNameText.text = "Max Level";
+            upgradeCostText.text = "MAX";
+            sellCostText.text = tower.GetSellValue().ToString();
             SetUpgradeText(damageText, false, string.Empty);
             SetUpgradeText(fireRateText, false, string.Empty);
             SetUpgradeText(rangeText, false, string.Empty);

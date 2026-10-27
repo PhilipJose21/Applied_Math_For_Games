@@ -117,7 +117,7 @@ MonoBehaviour:
   startWidth: 0.1
   endWidth: 0.1
   lineColor: {r: 1, g: 1, b: 1, a: 1}
-  showDetectionShape: 0
+  showDetectionShape: 1
 --- !u!114 &3229972188302909519
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -163,7 +163,7 @@ MonoBehaviour:
   firePoint: {fileID: 5232435086478544602}
   muzzleFlash: {fileID: 3550806781405521707}
   towerLevel: 0
-  cost: 100
+  cost: 125
   sellValue: 0
   fireRate: 0.5
   bulletSpeed: 100
@@ -209,7 +209,7 @@ LineRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2323579684154349411}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
