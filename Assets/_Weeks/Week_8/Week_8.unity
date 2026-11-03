@@ -207,8 +207,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 624db70383e840744b729e0559e5395a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AABBCollider
-  _length: 1
-  _width: 5
+  _size: {x: 1, y: 1}
+  _offset: {x: 0, y: 0}
 --- !u!4 &39901004
 Transform:
   m_ObjectHideFlags: 0
@@ -449,8 +449,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 624db70383e840744b729e0559e5395a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AABBCollider
-  _length: 1
-  _width: 5
+  _size: {x: 1, y: 1}
+  _offset: {x: 0, y: 0}
 --- !u!4 &961699668
 Transform:
   m_ObjectHideFlags: 0
@@ -593,111 +593,6 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_RenderingLayers: 1
   m_ShadowRenderingLayers: 1
---- !u!1 &1128946991
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1128946995}
-  - component: {fileID: 1128946994}
-  - component: {fileID: 1128946993}
-  - component: {fileID: 1128946992}
-  m_Layer: 0
-  m_Name: Cube (5)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!23 &1128946992
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1128946991}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_ForceMeshLod: -1
-  m_MeshLodSelectionBias: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_MaskInteraction: 0
-  m_AdditionalVertexStreams: {fileID: 0}
---- !u!33 &1128946993
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1128946991}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &1128946994
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1128946991}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 624db70383e840744b729e0559e5395a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::AABBCollider
-  _length: 1
-  _width: 5
---- !u!4 &1128946995
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1128946991}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0.0635988, y: -0.01003752, z: -0.3358872, w: 0.939699}
-  m_LocalPosition: {x: 1.5, y: 6.52, z: 0.06}
-  m_LocalScale: {x: 5.0882487, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 6.476, y: -3.554, z: -39.539}
 --- !u!1 &1358104371
 GameObject:
   m_ObjectHideFlags: 0
@@ -786,8 +681,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 624db70383e840744b729e0559e5395a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AABBCollider
-  _length: 1
-  _width: 5
+  _size: {x: 1, y: 1}
+  _offset: {x: 0, y: 0}
 --- !u!4 &1358104375
 Transform:
   m_ObjectHideFlags: 0
@@ -892,8 +787,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 624db70383e840744b729e0559e5395a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AABBCollider
-  _length: 1
-  _width: 1
+  _size: {x: 1, y: 1}
+  _offset: {x: 0, y: 0}
 --- !u!4 &1378772615
 Transform:
   m_ObjectHideFlags: 0
@@ -924,6 +819,111 @@ MonoBehaviour:
   _moveSpeed: 5
   _gravity: -20
   _jumpSpeed: 8
+--- !u!1 &1380032646
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1380032650}
+  - component: {fileID: 1380032649}
+  - component: {fileID: 1380032648}
+  - component: {fileID: 1380032647}
+  m_Layer: 0
+  m_Name: Cube (6)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!23 &1380032647
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1380032646}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_MaskInteraction: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &1380032648
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1380032646}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1380032649
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1380032646}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 624db70383e840744b729e0559e5395a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AABBCollider
+  _size: {x: 1, y: 1}
+  _offset: {x: 0, y: 0}
+--- !u!4 &1380032650
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1380032646}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0.70710677, w: 0.7071068}
+  m_LocalPosition: {x: -6.33, y: 2.5, z: 0}
+  m_LocalScale: {x: 5.0882487, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
 --- !u!1 &1638474735
 GameObject:
   m_ObjectHideFlags: 0
@@ -1071,8 +1071,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 624db70383e840744b729e0559e5395a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AABBCollider
-  _length: 1
-  _width: 5
+  _size: {x: 1, y: 1}
+  _offset: {x: 0, y: 0}
 --- !u!1 &2036505374
 GameObject:
   m_ObjectHideFlags: 0
@@ -1161,8 +1161,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 624db70383e840744b729e0559e5395a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AABBCollider
-  _length: 1
-  _width: 5
+  _size: {x: 1, y: 1}
+  _offset: {x: 0, y: 0}
 --- !u!4 &2036505378
 Transform:
   m_ObjectHideFlags: 0
@@ -1185,10 +1185,10 @@ SceneRoots:
   - {fileID: 349652302}
   - {fileID: 1088142497}
   - {fileID: 2034269138}
+  - {fileID: 1380032650}
   - {fileID: 1358104375}
   - {fileID: 39901004}
   - {fileID: 2036505378}
   - {fileID: 961699668}
-  - {fileID: 1128946995}
   - {fileID: 1378772615}
   - {fileID: 1638474737}

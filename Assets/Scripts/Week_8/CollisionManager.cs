@@ -41,8 +41,8 @@ public class CollisionManager : MonoBehaviour
                 var colliderB = ColliderList[j];
                 if (Overlaps(colliderA, colliderB))
                 {
-                    colliderA.OnCollision(colliderB);
-                    colliderB.OnCollision(colliderA);
+                    // colliderA.OnCollision(colliderB);
+                    // colliderB.OnCollision(colliderA);
                 }
             }
        }

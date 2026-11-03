@@ -2,16 +2,35 @@ using UnityEngine;
 
 public class AABBCollider : MonoBehaviour
 {
-    [SerializeField] private float _length;
-    [SerializeField] private float _width;
+    [Tooltip("Size at scale 1. A default Unity cube is 1x1.")]
+    [SerializeField] private Vector2 _size = Vector2.one;
+    [Tooltip("Center offset in local space (for off-center pivots).")]
+    [SerializeField] private Vector2 _offset = Vector2.zero;
 
-    public Vector2 max {get; private set;}
-    public Vector2 min {get; private set;}
-    public Vector2 HalfSize => new Vector2(_width, _length) * 0.5f;
+    public Vector2 Center => transform.TransformPoint(_offset);
+
+    public Vector2 HalfSize
+    {
+        get
+        {
+            Vector3 s = transform.lossyScale;
+            Vector2 half = new Vector2(_size.x * Mathf.Abs(s.x),
+                                       _size.y * Mathf.Abs(s.y)) * 0.5f;
+
+            // Enclosing AABB of a rectangle rotated around Z
+            float rad = transform.eulerAngles.z * Mathf.Deg2Rad;
+            float c = Mathf.Abs(Mathf.Cos(rad));
+            float sn = Mathf.Abs(Mathf.Sin(rad));
+            return new Vector2(c * half.x + sn * half.y,
+                               sn * half.x + c * half.y);
+        }
+    }
+
+    public Vector2 min => Center - HalfSize;
+    public Vector2 max => Center + HalfSize;
 
     private void OnEnable()
     {
-        UpdateBounds();
         if (CollisionManager.Instance != null)
             CollisionManager.Instance.Register(this);
     }
@@ -19,44 +38,24 @@ public class AABBCollider : MonoBehaviour
     private void OnDisable()
     {
         if (CollisionManager.Instance != null)
-        {
             CollisionManager.Instance.Unregister(this);
-        }
     }
 
-    void Start()
+    private void Update()
     {
-        _length = this.transform.localScale.y;
-        _width = this.transform.localScale.x;
-    }
-
-    void Update()
-    {
-        UpdateBounds();
-        var x = this.transform.position.x + _width * .5f;
-        var y = this.transform.position.y + _length * .5f;
-
-        var negx = this.transform.position.x - _width * .5f;
-        var negy = this.transform.position.y - _length * .5f;
-
-        max = new Vector2(x, y);
-        min = new Vector2(negx, negy);
-
-        Debug.DrawLine(new Vector3(min.x, min.y, 0), new Vector3(max.x, min.y, 0), Color.red);
-        Debug.DrawLine(new Vector3(max.x, min.y, 0), new Vector3(max.x, max.y, 0), Color.red);
-        Debug.DrawLine(new Vector3(max.x, max.y, 0), new Vector3(min.x, max.y, 0), Color.red);
-        Debug.DrawLine(new Vector3(min.x, max.y, 0), new Vector3(min.x, min.y, 0), Color.red);
-    }
-
-    private void UpdateBounds()
-    {
-        Vector2 p = transform.position;
-        max = p + HalfSize;
-        min = p - HalfSize;
+        float z = transform.position.z;
+        Vector3 a = new Vector3(min.x, min.y, z);
+        Vector3 b = new Vector3(max.x, min.y, z);
+        Vector3 c = new Vector3(max.x, max.y, z);
+        Vector3 d = new Vector3(min.x, max.y, z);
+        Debug.DrawLine(a, b, Color.red);
+        Debug.DrawLine(b, c, Color.red);
+        Debug.DrawLine(c, d, Color.red);
+        Debug.DrawLine(d, a, Color.red);
     }
 
     public void OnCollision(AABBCollider other)
     {
-        Debug.Log($"{this.name} collided with {other.name}");
+        Debug.Log($"{name} collided with {other.name}");
     }
 }
