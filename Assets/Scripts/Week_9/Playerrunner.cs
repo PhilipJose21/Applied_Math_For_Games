@@ -16,7 +16,12 @@ public class PlayerRunner : MonoBehaviour
 
     [Header("Look")]
     public float scaleMultiplier = 2.4f;
-    public Vector2 visualOffset;
+
+    [Header("Rotation")]
+    public float maxLeanAngle = 20f;
+    public float leanPerUnit = 6f;
+    public float maxJumpTilt = -25f;
+    public float rotationSmoothing = 10f;
 
     private float hitDepth = 40f;
     private bool autoHitbox = true;
@@ -31,16 +36,7 @@ public class PlayerRunner : MonoBehaviour
 
     [Header("UI")]
     public Slider hpSlider;
-    public TMP_Text hpText;
-    public TMP_Text gameOverText;
-
-    [Header("Art (optional)")]
-    public Sprite idleSprite;
-    public Sprite jumpSprite;
-    public Sprite hitSprite;
-    public Sprite leftSprite;
-    public Sprite rightSprite;
-    public float hitFlashTime = 0.3f;
+    public GameObject gameOverScene;
 
     int lane = 1;
     float currentX;
@@ -50,6 +46,10 @@ public class PlayerRunner : MonoBehaviour
     float hp;
     float hitTimer;
     bool gameOver;
+    float laneAngle;
+    float jumpAngle;
+    float currentLean;
+    float currentPitch;
     SpriteRenderer sr;
 
     Vector3 WorldPos
@@ -83,7 +83,7 @@ public class PlayerRunner : MonoBehaviour
         hp = maxHP;
         groundY = spawner.groundY;
         currentX = LaneX(lane);
-        if (gameOverText != null) gameOverText.gameObject.SetActive(false);
+        if (gameOverScene != null) gameOverScene.SetActive(false);
         if (hpSlider != null) { hpSlider.minValue = 0f; hpSlider.maxValue = maxHP; }
     }
 
@@ -103,10 +103,11 @@ public class PlayerRunner : MonoBehaviour
         jump();
         collisionSystem();
         hpRegen();
+        ApplyRotation();
 
-        Vector2 screenPos = CameraComponent.Project(WorldPos) + visualOffset;
+        Vector2 screenPos = CameraComponent.Project(WorldPos);
         transform.position = new Vector3(screenPos.x, screenPos.y, 0f);
-        if (sr != null) sr.sortingOrder = 0;
+        if (sr != null) sr.sortingOrder = CameraComponent.sortingBase + 1000;
         
         UpdateUI();
     }
@@ -121,6 +122,7 @@ public class PlayerRunner : MonoBehaviour
         {
             lane = Mathf.Min(2, lane + 1);
         }
+        rotateObjectToLane(lane);
     }
 
     void hpRegen()
@@ -134,10 +136,8 @@ public class PlayerRunner : MonoBehaviour
             hp = 0f;
             gameOver = true;
             Time.timeScale = 0f;
-            if (gameOverText != null)
-            {
-                gameOverText.gameObject.SetActive(true);
-                gameOverText.text = "GAME OVER\nPress R to restart";
+            if (gameOverScene != null) {
+                gameOverScene.SetActive(true);
             }
         }
     }
@@ -161,36 +161,7 @@ public class PlayerRunner : MonoBehaviour
             jumpHeight = 0f; 
             verticalVel = 0f; 
         }
-        UpdateSprite(targetX);
-    }
-
-    void UpdateSprite(float targetX)
-    {
-        if (sr == null) return;
-        Sprite s = idleSprite;
-        float dx = targetX - currentX;
-
-        if (hitTimer > 0f)        
-        {
-            s = hitSprite;
-        }
-        else if (jumpHeight > 0f) 
-        {
-            s = jumpSprite;
-        }
-        else if (dx < -0.1f)      
-        {
-            s = leftSprite;
-        }
-        else if (dx > 0.1f)       
-        {
-            s = rightSprite;
-        }
-
-        if (s != null) 
-        {
-            sr.sprite = s;
-        }
+        rotateObjectToJump();
     }
 
     void collisionSystem()
@@ -213,8 +184,8 @@ public class PlayerRunner : MonoBehaviour
             if (sameDepth && sameLane && tooLow)
             {
                 item.hasHit = true;
+                Destroy(item.gameObject);
                 hp -= hitDamage;
-                hitTimer = hitFlashTime;
             }
         }
     }
@@ -225,9 +196,26 @@ public class PlayerRunner : MonoBehaviour
         {
             hpSlider.value = hp;
         }
-        if (hpText != null) 
-        {
-            hpText.text = "HP: " + Mathf.CeilToInt(hp);
-        }
+    }
+
+    void rotateObjectToLane(int lane)
+    {
+        float dx = LaneX(lane) - currentX;
+        laneAngle = Mathf.Clamp(-dx * leanPerUnit, -maxLeanAngle, maxLeanAngle);
+    }
+
+    void rotateObjectToJump()
+    {
+        float peakHeight = (jumpSpeed * jumpSpeed) / (2f * gravity);
+        float height01 = peakHeight > 0f ? Mathf.Clamp01(jumpHeight / peakHeight) : 0f;
+        jumpAngle = height01 * maxJumpTilt;
+    }
+
+    void ApplyRotation()
+    {
+        float t = 1f - Mathf.Exp(-rotationSmoothing * Time.deltaTime);
+        currentLean = Mathf.LerpAngle(currentLean, laneAngle, t);
+        currentPitch = Mathf.LerpAngle(currentPitch, jumpAngle, t);
+        transform.rotation = Quaternion.Euler(currentPitch, 0f, currentLean);
     }
 }

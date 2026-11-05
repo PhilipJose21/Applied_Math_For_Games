@@ -15,10 +15,6 @@ public class Item : MonoBehaviour
     {
         baseScale = transform.localScale * sizeMultiplier;
         spriteRenderer = GetComponent<SpriteRenderer>();
-        if(spriteRenderer != null)
-        {
-            spriteRenderer.color = GetRandomColor();
-        }
     }
 
     public float HalfWidth
@@ -44,15 +40,9 @@ public class Item : MonoBehaviour
 
         if (spriteRenderer != null)
         {
-            spriteRenderer.sortingOrder = Mathf.RoundToInt(-itemPosition.z);
+            int maxItemSortingOrder = CameraComponent.sortingBase - 100;
+            int depthOffset = Mathf.RoundToInt((1000f - itemPosition.z) * 0.1f);
+            spriteRenderer.sortingOrder = maxItemSortingOrder + depthOffset;
         }
-    }
-
-    private Color GetRandomColor()
-    {
-        var rRand = Random.Range(0f, 1f);
-        var gRand = Random.Range(0f, 1f);
-        var bRand = Random.Range(0f, 1f);
-        return new Color(rRand, gRand, bRand);
     }
 }
